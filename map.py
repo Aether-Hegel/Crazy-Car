@@ -1,10 +1,16 @@
 import sensor, image, time
 
 # ====== 阈值 ======
+# 假设我们把 type 定义为不同阈值对应的颜色类别
 wall_threshold  = (14, 92, -3, 24, -17, 13)
 box_threshold = (20, 92, 12, -5, 39, 111)
 bomb_threshold = (20, 92, 20, 94, 28, 111)
 target_threshold = (17, 89, 88, 104, -86, 82)
+true_threshold = (21, 100, -128, 127, -128, 127)
+
+# 用于示例，这里只分析 box_threshold
+current_threshold = wall_threshold
+current_type = 1  # 给每个阈值指定一个 type
 
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
@@ -18,32 +24,32 @@ sensor.set_auto_exposure(False, exposure_us=1000)
 
 clock = time.clock()
 
+PIXEL_THRESHOLD = 5
+AREA_THRESHOLD = 5
+
 while True:
     clock.tick()
     img = sensor.snapshot()
 
-    # 生成二值掩码，仅显示指定阈值部分
-    binary_img = img.binary([box_threshold])
-
-    # 形态学处理
-    # 1. 腐蚀: 去掉小亮点
-    binary_img.erode(1)  # 参数是腐蚀迭代次数，可调大一点
-    # 2. 膨胀: 扩大剩余区域
-    binary_img.dilate(1)  # 参数是膨胀迭代次数
-    # 3. 去除小噪点
-    binary_img.remove_small_objects(min_size=30, connectivity=8)  # min_size 可调
-
-    # 显示二值图像
+    # 二值化 + 形态学处理
+    binary_img = img.binary([current_threshold])
+    binary_img.open(1)
+    binary_img.close(1)
     img.replace(binary_img)
 
-    # 寻找指定阈值的目标（可以换成 box_threshold / wall_threshold 等）
-    blobs = img.find_blobs([wall_threshold], pixels_threshold=50, area_threshold=50, merge=True)
+    # 连通域分析
+    blobs = img.find_blobs([true_threshold],
+                           pixels_threshold=PIXEL_THRESHOLD,
+                           area_threshold=AREA_THRESHOLD,
+                           merge=True)
 
-    for blob in blobs:
-        # 画出目标矩形和中心点
-        img.draw_rectangle(blob.rect(), color=(255,0,0))
-        img.draw_cross(blob.cx(), blob.cy(), color=(0,255,0))
-        print("目标中心: ({}, {}), 宽高: ({}, {})".format(blob.cx(), blob.cy(), blob.w(), blob.h()))
+    # 打印 object_count
+    print("object_count: {}".format(len(blobs)))
 
-    # 显示FPS
-    print("FPS:", clock.fps())
+    # 遍历每个 blob，打印格式化信息
+    for i, blob in enumerate(blobs):
+        x, y, w, h = blob.rect()
+        print("Object[{}] type:{} x:{} y:{} w:{} h:{}".format(i, current_type, x, y, w, h))
+
+    # print("FPS:", clock.fps())
+
