@@ -7,8 +7,8 @@ SEARCH_FRAMES   = 30       # 第一阶段采集帧数
 RECT_THRESHOLD  = 5000     # find_rects 边缘强度阈值，越大越严格
 BLOB_MIN_AREA   = 2000     # blob 备用方案最小面积
 
-cols = 16 - 1
-rows = 12 - 1
+cols = 16 - 2
+rows = 12 - 2
 
 SAMPLE_R    = 2            # 格子中心区域采样半径，采样区域为 (2r+1)² = 25 px
 ROAD_RATIO  = 0.4          # 区域内蓝色像素占比 >= 此值 → 路，否则 → 墙
