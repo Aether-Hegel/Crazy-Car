@@ -1,0 +1,126 @@
+D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\Encoder.pbi: \
+  D:\Smart_Car\crazy_car_RTOS\code\Encoder.c \
+  D:\Smart_Car\crazy_car_RTOS\code\Encoder.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_headfile.h \
+  D:\IAR\arm\inc\c\stdio.h D:\IAR\arm\inc\c\ycheck.h \
+  D:\IAR\arm\inc\c\yvals.h D:\IAR\arm\inc\c\DLib_Defaults.h \
+  D:\IAR\arm\inc\c\DLib_Config_Full.h D:\IAR\arm\inc\c\DLib_Product.h \
+  D:\IAR\arm\inc\c\ysizet.h D:\IAR\arm\inc\c\stdint.h \
+  D:\IAR\arm\inc\c\string.h D:\IAR\arm\inc\c\DLib_Product_string.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common.h \
+  D:\IAR\arm\inc\c\assert.h D:\IAR\arm\inc\c\stdbool.h \
+  D:\IAR\arm\inc\c\stdlib.h D:\IAR\arm\inc\c\DLib_Product_stdlib.h \
+  D:\IAR\arm\inc\c\stddef.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\fsl_device_registers.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\core_cm7.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_version.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_compiler.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_iccarm.h \
+  D:\IAR\arm\inc\c\aarch32\iccarm_builtin.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\mpu_armv7.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\system_MIMXRT1064.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064_features.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common_arm.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_clock.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\utilities\debug_console\fsl_debug_console.h \
+  D:\IAR\arm\inc\c\stdarg.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_iomuxc.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_cache.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_csi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_typedef.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common_arm.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_clock.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_debug.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_fifo.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_font.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_function.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_interrupt.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_vector.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_adc.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_typedef.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_delay.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_encoder.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_exti.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_gpio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_gpio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_flash.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_gpio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_iic.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_pit.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_pit.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_pwm.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_sdio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_soft_iic.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_soft_spi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_spi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_timer.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_uart.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_lpuart.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_csi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_romapi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_clock.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\xip\EVKMIMXRT1064_FLEXSPI_NOR_CONFIG.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_rtwdog.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_wdog.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_flexio_csi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_edma.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_usb_cdc.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_absolute_encoder.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_bluetooth_ch9141.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_camera.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_fifo.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_gnss.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_icm20602.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_imu963ra.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_ips114.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_ips200.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_ips200pro.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_key.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_debug.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_mpu6050.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_oled.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_mt9v03x.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_mt9v03x_flexio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_ov7725.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_scc8660.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_scc8660_flexio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_tft180.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_tsl1401.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_type.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_virtual_oscilloscope.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_wifi_uart.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_wireless_uart.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_imu660ra.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_imu660rb.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_dl1a.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_dl1b.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_wifi_spi.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_device\zf_device_ble6a20.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_components\seekfree_assistant.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_components\seekfree_assistant_interface.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\fatfs\source\ff.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\fatfs\source\ffconf.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\fatfs\source\diskio.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\fatfs\source\fsl_sd_disk\fsl_sd_disk.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\sdmmc\sd\fsl_sd.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\sdmmc\common\fsl_sdmmc_common.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\sdmmc\host\usdhc\fsl_sdmmc_host.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\sdmmc\osa\fsl_sdmmc_osa.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\components\osa\fsl_os_abstraction.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\components\osa\fsl_os_abstraction_config.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\components\lists\fsl_component_generic_list.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\components\osa\fsl_os_abstraction_bm.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_usdhc.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\sdmmc\common\fsl_sdmmc_spec.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\components\sdmmc\sdmmc_config.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\board\clock_config.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\Encoder.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\Motor.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\PWM.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\Timer.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\UART.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\Speed_PID.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\UART.h
