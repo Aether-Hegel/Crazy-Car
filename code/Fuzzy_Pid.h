@@ -76,7 +76,6 @@
 /*=============================== PID输出限幅 ================================*/
 #define POSITION_PID_MAX_OUT   500.0f  /**< 位置环输出限幅(目标速度上限) */
 #define SPEED_PID_MAX_OUT      8000.0f /**< 速度环输出限幅(PWM上限) */
-#define INTEGRAL_LIMIT         400.0f /**< 积分限幅(防止积分饱和) */
 
 /*=============================== 数据结构定义 ================================*/
 
@@ -96,8 +95,6 @@ typedef struct
     float error_current;   /**< 当前误差 e(k) */
     float output;          /**< PID输出值(作为速度环目标) */
     float Pwm_Max_Out;     /**< 输出限幅值 */
-    float integral_sum;    /**< 积分累积值 */
-    float integral_limit;  /**< 积分限幅阈值 */
 } Fuzzy_Position_PID;
 
 /**
@@ -116,8 +113,6 @@ typedef struct
     float error_current;   /**< 当前误差 e(k) */
     float output;          /**< PID输出值(电机PWM) */
     float Pwm_Max_Out;     /**< PWM输出限幅值 */
-    float integral_sum;    /**< 积分累积值 */
-    float integral_limit;  /**< 积分限幅阈值 */
 } Fuzzy_Speed_PID;
 
 /**

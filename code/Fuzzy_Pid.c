@@ -215,8 +215,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_L1.position_pid.Ki = FUZZY_KI_BASE;          /* 积分系数基础值 */
     Fuzzy_Cascade_PID_L1.position_pid.Kd = FUZZY_KD_BASE;          /* 微分系数基础值 */
     Fuzzy_Cascade_PID_L1.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;  /* 位置环输出限幅 */
-    Fuzzy_Cascade_PID_L1.position_pid.integral_limit = INTEGRAL_LIMIT;     /* 积分限幅 */
-    Fuzzy_Cascade_PID_L1.position_pid.integral_sum = 0.0f;        /* 积分累积清零 */
     Fuzzy_Cascade_PID_L1.position_pid.error_last = 0.0f;           /* 误差历史清零 */
     Fuzzy_Cascade_PID_L1.position_pid.error_prev2 = 0.0f;          /* 误差历史清零 */
     Fuzzy_Cascade_PID_L1.position_pid.output = 0.0f;               /* 输出清零 */
@@ -229,8 +227,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_L1.speed_pid.Ki = 1.0f;                     /* 速度环积分系数 */
     Fuzzy_Cascade_PID_L1.speed_pid.Kd = 5.0f;                      /* 速度环微分系数 */
     Fuzzy_Cascade_PID_L1.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;        /* PWM输出限幅 */
-    Fuzzy_Cascade_PID_L1.speed_pid.integral_limit = 300.0f;       /* 速度环积分限幅 */
-    Fuzzy_Cascade_PID_L1.speed_pid.integral_sum = 0.0f;           /* 积分累积清零 */
     Fuzzy_Cascade_PID_L1.speed_pid.error_last = 0.0f;             /* 误差历史清零 */
     Fuzzy_Cascade_PID_L1.speed_pid.error_prev2 = 0.0f;             /* 误差历史清零 */
     Fuzzy_Cascade_PID_L1.speed_pid.output = 0.0f;                 /* 输出清零 */
@@ -249,8 +245,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_L2.position_pid.Ki = FUZZY_KI_BASE;
     Fuzzy_Cascade_PID_L2.position_pid.Kd = FUZZY_KD_BASE;
     Fuzzy_Cascade_PID_L2.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_L2.position_pid.integral_limit = INTEGRAL_LIMIT;
-    Fuzzy_Cascade_PID_L2.position_pid.integral_sum = 0.0f;
     Fuzzy_Cascade_PID_L2.position_pid.error_last = 0.0f;
     Fuzzy_Cascade_PID_L2.position_pid.error_prev2 = 0.0f;
     Fuzzy_Cascade_PID_L2.position_pid.output = 0.0f;
@@ -262,8 +256,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_L2.speed_pid.Ki = 1.0f;
     Fuzzy_Cascade_PID_L2.speed_pid.Kd = 5.0f;
     Fuzzy_Cascade_PID_L2.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_L2.speed_pid.integral_limit = 300.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.integral_sum = 0.0f;
     Fuzzy_Cascade_PID_L2.speed_pid.error_last = 0.0f;
     Fuzzy_Cascade_PID_L2.speed_pid.error_prev2 = 0.0f;
     Fuzzy_Cascade_PID_L2.speed_pid.output = 0.0f;
@@ -281,8 +273,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_R1.position_pid.Ki = FUZZY_KI_BASE;
     Fuzzy_Cascade_PID_R1.position_pid.Kd = FUZZY_KD_BASE;
     Fuzzy_Cascade_PID_R1.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R1.position_pid.integral_limit = INTEGRAL_LIMIT;
-    Fuzzy_Cascade_PID_R1.position_pid.integral_sum = 0.0f;
     Fuzzy_Cascade_PID_R1.position_pid.error_last = 0.0f;
     Fuzzy_Cascade_PID_R1.position_pid.error_prev2 = 0.0f;
     Fuzzy_Cascade_PID_R1.position_pid.output = 0.0f;
@@ -294,8 +284,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_R1.speed_pid.Ki = 1.0f;
     Fuzzy_Cascade_PID_R1.speed_pid.Kd = 5.0f;
     Fuzzy_Cascade_PID_R1.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R1.speed_pid.integral_limit = 300.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.integral_sum = 0.0f;
     Fuzzy_Cascade_PID_R1.speed_pid.error_last = 0.0f;
     Fuzzy_Cascade_PID_R1.speed_pid.error_prev2 = 0.0f;
     Fuzzy_Cascade_PID_R1.speed_pid.output = 0.0f;
@@ -313,8 +301,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_R2.position_pid.Ki = FUZZY_KI_BASE;
     Fuzzy_Cascade_PID_R2.position_pid.Kd = FUZZY_KD_BASE;
     Fuzzy_Cascade_PID_R2.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R2.position_pid.integral_limit = INTEGRAL_LIMIT;
-    Fuzzy_Cascade_PID_R2.position_pid.integral_sum = 0.0f;
     Fuzzy_Cascade_PID_R2.position_pid.error_last = 0.0f;
     Fuzzy_Cascade_PID_R2.position_pid.error_prev2 = 0.0f;
     Fuzzy_Cascade_PID_R2.position_pid.output = 0.0f;
@@ -326,8 +312,6 @@ void Fuzzy_PID_Init(void)
     Fuzzy_Cascade_PID_R2.speed_pid.Ki = 1.0f;
     Fuzzy_Cascade_PID_R2.speed_pid.Kd = 5.0f;
     Fuzzy_Cascade_PID_R2.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R2.speed_pid.integral_limit = 300.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.integral_sum = 0.0f;
     Fuzzy_Cascade_PID_R2.speed_pid.error_last = 0.0f;
     Fuzzy_Cascade_PID_R2.speed_pid.error_prev2 = 0.0f;
     Fuzzy_Cascade_PID_R2.speed_pid.output = 0.0f;
@@ -689,17 +673,10 @@ static void Cascade_PID_Calculate(Fuzzy_Cascade_PID *pid)
                      &pid->position_pid.Ki, 
                      &pid->position_pid.Kd);
 
-    /* 积分累积与限幅 */
-    pid->position_pid.integral_sum += pos_error;
-    if (pid->position_pid.integral_sum > pid->position_pid.integral_limit)
-        pid->position_pid.integral_sum = pid->position_pid.integral_limit;
-    else if (pid->position_pid.integral_sum < -pid->position_pid.integral_limit)
-        pid->position_pid.integral_sum = -pid->position_pid.integral_limit;
-
     /* 增量式PID计算 */
-    /* Δu = Kp×[e(k)-e(k-1)] + Ki×Σe(k) + Kd×[e(k)-2e(k-1)+e(k-2)] */
+    /* Δu = Kp×[e(k)-e(k-1)] + Ki×e(k) + Kd×[e(k)-2e(k-1)+e(k-2)] */
     pos_increment = pid->position_pid.Kp * (pos_error - pid->position_pid.error_last) +
-                    pid->position_pid.Ki * pid->position_pid.integral_sum +
+                    pid->position_pid.Ki * pos_error +
                     pid->position_pid.Kd * (pos_error - 2.0f * pid->position_pid.error_last + pid->position_pid.error_prev2);
 
     /* 累积输出 */
@@ -724,16 +701,9 @@ static void Cascade_PID_Calculate(Fuzzy_Cascade_PID *pid)
     speed_error = pid->speed_pid.target - pid->speed_pid.actual;
     pid->speed_pid.error_current = speed_error;
 
-    /* 积分累积与限幅 */
-    pid->speed_pid.integral_sum += speed_error;
-    if (pid->speed_pid.integral_sum > pid->speed_pid.integral_limit)
-        pid->speed_pid.integral_sum = pid->speed_pid.integral_limit;
-    else if (pid->speed_pid.integral_sum < -pid->speed_pid.integral_limit)
-        pid->speed_pid.integral_sum = -pid->speed_pid.integral_limit;
-
     /* 增量式PID计算 */
     speed_increment = pid->speed_pid.Kp * (speed_error - pid->speed_pid.error_last) +
-                      pid->speed_pid.Ki * pid->speed_pid.integral_sum +
+                      pid->speed_pid.Ki * speed_error +
                       pid->speed_pid.Kd * (speed_error - 2.0f * pid->speed_pid.error_last + pid->speed_pid.error_prev2);
 
     /* 累积输出 */
