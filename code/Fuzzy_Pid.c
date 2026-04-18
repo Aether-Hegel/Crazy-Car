@@ -76,6 +76,9 @@
  * ============================================================================
  */
 
+//编码器转一圈数值是1024，编码器倍频是1倍频，所以编码器转一圈数值是1024*1=1024
+//限制速度则需要添加速度环的目标值限幅
+
 #include "Fuzzy_Pid.h"
 #include "Encoder.h"
 #include "Motor.h"
@@ -154,15 +157,25 @@ static const Fuzzy_Rule_Output Rule_Kd[FUZZY_SET_SIZE] = {
 
 /*=============================== 编码器计数变量 ================================*/
 
-static int32 encoder_total_L1 = 0;
-static int32 encoder_total_L2 = 0;
-static int32 encoder_total_R1 = 0;
-static int32 encoder_total_R2 = 0;
+extern int32 encoder_total_L1;
+extern int32 encoder_total_L2;
+extern int32 encoder_total_R1;
+extern int32 encoder_total_R2;
 
 static int16 encoder_last_L1 = 0;
 static int16 encoder_last_L2 = 0;
 static int16 encoder_last_R1 = 0;
 static int16 encoder_last_R2 = 0;
+
+extern int32 Ecoder_Total_L1;
+extern int32 Ecoder_Total_L2;
+extern int32 Ecoder_Total_R1;
+extern int32 Ecoder_Total_R2;
+
+extern int16 Encoder_Current_L1;
+extern int16 Encoder_Current_L2;
+extern int16 Encoder_Current_R1;
+extern int16 Encoder_Current_R2;
 
 /*=============================== 模糊PID控制器实例 ================================*/
 
@@ -760,62 +773,62 @@ static void Cascade_PID_Calculate(Fuzzy_Cascade_PID *pid)
  */
 void Fuzzy_PID_Calculate(uint8 id)
 {
-    int16 current_count_L1, current_count_L2, current_count_R1, current_count_R2;
-    int16 delta_L1, delta_L2, delta_R1, delta_R2;
+    // int16 current_count_L1, current_count_L2, current_count_R1, current_count_R2;
+    // int16 delta_L1, delta_L2, delta_R1, delta_R2;
 
-    /*==================== 读取并更新编码器数据 ====================*/
+    // /*==================== 读取并更新编码器数据 ====================*/
 
-    current_count_L1 = encoder_get_count(QTIMER1_ENCODER1);
-    delta_L1 = current_count_L1 - encoder_last_L1;
-    encoder_total_L1 += delta_L1;
-    encoder_last_L1 = current_count_L1;
-    encoder_clear_count(QTIMER1_ENCODER1);
+    // current_count_L1 = encoder_get_count(QTIMER1_ENCODER1);
+    // delta_L1 = current_count_L1 - encoder_last_L1;
+    // encoder_total_L1 += delta_L1;
+    // encoder_last_L1 = current_count_L1;
+    // encoder_clear_count(QTIMER1_ENCODER1);
 
-    current_count_L2 = encoder_get_count(QTIMER1_ENCODER2);
-    delta_L2 = current_count_L2 - encoder_last_L2;
-    encoder_total_L2 += delta_L2;
-    encoder_last_L2 = current_count_L2;
-    encoder_clear_count(QTIMER1_ENCODER2);
+    // current_count_L2 = encoder_get_count(QTIMER1_ENCODER2);
+    // delta_L2 = current_count_L2 - encoder_last_L2;
+    // encoder_total_L2 += delta_L2;
+    // encoder_last_L2 = current_count_L2;
+    // encoder_clear_count(QTIMER1_ENCODER2);
 
-    current_count_R1 = encoder_get_count(QTIMER2_ENCODER1);
-    delta_R1 = current_count_R1 - encoder_last_R1;
-    encoder_total_R1 += delta_R1;
-    encoder_last_R1 = current_count_R1;
-    encoder_clear_count(QTIMER2_ENCODER1);
+    // current_count_R1 = encoder_get_count(QTIMER2_ENCODER1);
+    // delta_R1 = current_count_R1 - encoder_last_R1;
+    // encoder_total_R1 += delta_R1;
+    // encoder_last_R1 = current_count_R1;
+    // encoder_clear_count(QTIMER2_ENCODER1);
 
-    current_count_R2 = encoder_get_count(QTIMER2_ENCODER2);
-    delta_R2 = current_count_R2 - encoder_last_R2;
-    encoder_total_R2 += delta_R2;
-    encoder_last_R2 = current_count_R2;
-    encoder_clear_count(QTIMER2_ENCODER2);
+    // current_count_R2 = encoder_get_count(QTIMER2_ENCODER2);
+    // delta_R2 = current_count_R2 - encoder_last_R2;
+    // encoder_total_R2 += delta_R2;
+    // encoder_last_R2 = current_count_R2;
+    // encoder_clear_count(QTIMER2_ENCODER2);
 
     /*==================== PID计算 ====================*/
 
     if (id == FUZZY_POS_PID_L1 || id == 0xFF)
     {
-        Fuzzy_Cascade_PID_L1.speed_pid.actual = (float)delta_L1;
-        Fuzzy_Cascade_PID_L1.actual_position = encoder_total_L1;
+        Fuzzy_Cascade_PID_L1.speed_pid.actual = (float)Encoder_Current_L1;
+        Fuzzy_Cascade_PID_L1.actual_position = Ecoder_Total_L1;
         Cascade_PID_Calculate(&Fuzzy_Cascade_PID_L1);
     }
 
     if (id == FUZZY_POS_PID_L2 || id == 0xFF)
     {
-        Fuzzy_Cascade_PID_L2.speed_pid.actual = (float)delta_L2;
-        Fuzzy_Cascade_PID_L2.actual_position = encoder_total_L2;
+        Fuzzy_Cascade_PID_L2.speed_pid.actual = (float)Encoder_Current_L2;
+        Fuzzy_Cascade_PID_L2.actual_position = Ecoder_Total_L2;
         Cascade_PID_Calculate(&Fuzzy_Cascade_PID_L2);
     }
 
     if (id == FUZZY_POS_PID_R1 || id == 0xFF)
     {
-        Fuzzy_Cascade_PID_R1.speed_pid.actual = (float)delta_R1;
-        Fuzzy_Cascade_PID_R1.actual_position = encoder_total_R1;
+        Fuzzy_Cascade_PID_R1.speed_pid.actual = (float)Encoder_Current_R1;
+        Fuzzy_Cascade_PID_R1.actual_position = Ecoder_Total_R1;
         Cascade_PID_Calculate(&Fuzzy_Cascade_PID_R1);
     }
 
     if (id == FUZZY_POS_PID_R2 || id == 0xFF)
     {
-        Fuzzy_Cascade_PID_R2.speed_pid.actual = (float)delta_R2;
-        Fuzzy_Cascade_PID_R2.actual_position = encoder_total_R2;
+        Fuzzy_Cascade_PID_R2.speed_pid.actual = (float)Encoder_Current_R2;
+        Fuzzy_Cascade_PID_R2.actual_position = Ecoder_Total_R2;
         Cascade_PID_Calculate(&Fuzzy_Cascade_PID_R2);
     }
 }
