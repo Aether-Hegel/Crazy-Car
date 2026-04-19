@@ -162,11 +162,6 @@ extern int32 encoder_total_L2;
 extern int32 encoder_total_R1;
 extern int32 encoder_total_R2;
 
-static int16 encoder_last_L1 = 0;
-static int16 encoder_last_L2 = 0;
-static int16 encoder_last_R1 = 0;
-static int16 encoder_last_R2 = 0;
-
 extern int32 Ecoder_Total_L1;
 extern int32 Ecoder_Total_L2;
 extern int32 Ecoder_Total_R1;
@@ -553,24 +548,21 @@ float Fuzzy_Inference(float error, float error_change)
  */
 void Fuzzy_PID_Adjust(float error, float error_change, float *Kp, float *Ki, float *Kd)
 {
-    int8 rule_idx, error_idx, ec_idx;  /* 规则索引和模糊化索引 */
-    float rule_value;                   /* 模糊推理输出 */
-    float Kp_rule, Ki_rule, Kd_rule;   /* 查表得到的修正量 */
-    float error_fuzzy, ec_fuzzy;       /* 模糊化后的值 */
+    int8 rule_idx, error_idx, ec_idx;
+    float rule_value;
+    float Kp_rule, Ki_rule, Kd_rule;
+    float error_fuzzy, ec_fuzzy;
 
     /*-------------------- 输入限幅 --------------------*/
-    /* 位置环的误差和误差变化率范围更大 */
     if (error > 5000.0f) error = 5000.0f;
     else if (error < -5000.0f) error = -5000.0f;
     if (error_change > 2000.0f) error_change = 2000.0f;
     else if (error_change < -2000.0f) error_change = -2000.0f;
 
     /*-------------------- 模糊化 --------------------*/
-    /* 误差: 5000 / 6 ≈ 833.33, 误差变化率: 2000 / 6 ≈ 333.33 */
     error_fuzzy = error / 833.33f;
     ec_fuzzy = error_change / 333.33f;
 
-    /* 限幅到[-3, +3]范围 */
     error_fuzzy = (error_fuzzy < -3.0f) ? -3.0f : (error_fuzzy > 3.0f ? 3.0f : error_fuzzy);
     ec_fuzzy = (ec_fuzzy < -3.0f) ? -3.0f : (ec_fuzzy > 3.0f ? 3.0f : ec_fuzzy);
 
@@ -580,34 +572,31 @@ void Fuzzy_PID_Adjust(float error, float error_change, float *Kp, float *Ki, flo
     error_idx = (error_idx < 0) ? 0 : (error_idx > 6 ? 6 : error_idx);
     ec_idx = (ec_idx < 0) ? 0 : (ec_idx > 6 ? 6 : ec_idx);
 
-    /*-------------------- 模糊推理 --------------------*/
-    rule_value = Fuzzy_Inference(error, error_change);
-    rule_idx = (int8)rule_value;
+    /*-------------------- 查模糊规则表 --------------------*/
+    rule_value = (float)Fuzzy_Table[error_idx][ec_idx];
+    rule_idx = (int8)(rule_value + 3.0f);
+    rule_idx = (rule_idx < 0) ? 0 : (rule_idx > 6 ? 6 : rule_idx);
 
-    /*-------------------- 查表获取修正量 --------------------*/
-    /* 根据规则输出值的正负选择不同的修正量 */
-    if (rule_idx >= 0)
+    /*-------------------- 获取修正量 --------------------*/
+    if (rule_value >= 0)
     {
-        Kp_rule = Rule_Kp[error_idx].Kp_p;
-        Ki_rule = Rule_Ki[error_idx].Ki_p;
-        Kd_rule = Rule_Kd[error_idx].Kd_p;
+        Kp_rule = Rule_Kp[rule_idx].Kp_p;
+        Ki_rule = Rule_Ki[rule_idx].Ki_p;
+        Kd_rule = Rule_Kd[rule_idx].Kd_p;
     }
     else
     {
-        rule_idx = -rule_idx;  /* 取绝对值 */
-        Kp_rule = Rule_Kp[error_idx].Kp_n;
-        Ki_rule = Rule_Ki[error_idx].Ki_n;
-        Kd_rule = Rule_Kd[error_idx].Kd_n;
+        Kp_rule = Rule_Kp[rule_idx].Kp_n;
+        Ki_rule = Rule_Ki[rule_idx].Ki_n;
+        Kd_rule = Rule_Kd[rule_idx].Kd_n;
     }
 
     /*-------------------- 计算最终PID参数 --------------------*/
-    /* K_final = K_base + K_correction × rule_level */
-    *Kp = FUZZY_KP_BASE + Kp_rule * rule_idx;
-    *Ki = FUZZY_KI_BASE + Ki_rule * rule_idx;
-    *Kd = FUZZY_KD_BASE + Kd_rule * rule_idx;
+    *Kp = FUZZY_KP_BASE + Kp_rule * (rule_idx + 1);
+    *Ki = FUZZY_KI_BASE + Ki_rule * (rule_idx + 1);
+    *Kd = FUZZY_KD_BASE + Kd_rule * (rule_idx + 1);
 
     /*-------------------- 参数下限保护 --------------------*/
-    /* 防止参数过小导致响应迟钝 */
     if (*Kp < 0.1f) *Kp = 0.1f;
     if (*Ki < 0.01f) *Ki = 0.01f;
     if (*Kd < 0.1f) *Kd = 0.1f;
@@ -656,7 +645,7 @@ void Fuzzy_PID_Adjust(float error, float error_change, float *Kp, float *Ki, flo
  * 注意:
  * ----------
  * - 这是内部函数，由Fuzzy_PID_Calculate调用
- * - 位置环输出限幅: ±500 (作为速度环的目标速度上限)
+ * - 位置环输出限幅: ±1000 (作为速度环的目标速度上限)
  * - 速度环输出限幅: ±8000 (作为PWM的限幅)
  * 
  * ============================================================================
@@ -701,7 +690,7 @@ static void Cascade_PID_Calculate(Fuzzy_Cascade_PID *pid)
     else if (pid->position_pid.output < -pid->position_pid.Pwm_Max_Out)
         pid->position_pid.output = -pid->position_pid.Pwm_Max_Out;
 
-    /* 位置环输出作为速度环目标 */
+    /* 位置环输出作为速度环目标  */
     pid->speed_pid.target = pid->position_pid.output;
 
     /*==================== 速度环计算 ====================*/
@@ -820,7 +809,7 @@ void Fuzzy_PID_Calculate(uint8 id)
 
     if (id == FUZZY_POS_PID_R1 || id == 0xFF)
     {
-        Fuzzy_Cascade_PID_R1.speed_pid.actual = (float)Encoder_Current_R1;
+        Fuzzy_Cascade_PID_R1.speed_pid.actual = (float)Encoder_Current_R1 ;
         Fuzzy_Cascade_PID_R1.actual_position = Ecoder_Total_R1;
         Cascade_PID_Calculate(&Fuzzy_Cascade_PID_R1);
     }
@@ -995,21 +984,17 @@ void Clear_Motor_Position(uint8 id)
     if (id == FUZZY_POS_PID_L1 || id == 0xFF)
     {
         encoder_total_L1 = 0;
-        encoder_last_L1 = 0;
     }
     if (id == FUZZY_POS_PID_L2 || id == 0xFF)
     {
         encoder_total_L2 = 0;
-        encoder_last_L2 = 0;
     }
     if (id == FUZZY_POS_PID_R1 || id == 0xFF)
     {
         encoder_total_R1 = 0;
-        encoder_last_R1 = 0;
     }
     if (id == FUZZY_POS_PID_R2 || id == 0xFF)
     {
         encoder_total_R2 = 0;
-        encoder_last_R2 = 0;
     }
 }

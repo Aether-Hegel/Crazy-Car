@@ -74,14 +74,14 @@
 #define FUZZY_KD_BASE          8.0f    /**< 模糊PID微分系数基础值 */
 
 /*=============================== PID输出限幅 ================================*/
-#define POSITION_PID_MAX_OUT   500.0f  /**< 位置环输出限幅(目标速度上限) */
+#define POSITION_PID_MAX_OUT   1000.0f  /**< 位置环输出限幅*/
 #define SPEED_PID_MAX_OUT      8000.0f /**< 速度环输出限幅(PWM上限) */
 
 /*=============================== 数据结构定义 ================================*/
 
 /**
  * @brief 位置环PID结构体
- * @details 用于外环位置控制，输出作为速度环的目标值
+ * @details 用于外环位置控制，输出作为速度环的目标值，单位:RPM
  */
 typedef struct
 {
@@ -93,21 +93,21 @@ typedef struct
     float error_prev2;     /**< 前前次误差 e(k-2) */
     float error_last;      /**< 上一次误差 e(k-1) */
     float error_current;   /**< 当前误差 e(k) */
-    float output;          /**< PID输出值(作为速度环目标) */
+    float output;          /**< PID输出值*/
     float Pwm_Max_Out;     /**< 输出限幅值 */
 } Fuzzy_Position_PID;
 
 /**
  * @brief 速度环PID结构体
- * @details 用于内环速度控制，输出直接驱动电机PWM
+ * @details 用于内环速度控制，输出直接驱动电机PWM，单位:RPM
  */
 typedef struct
 {
     float Kp;              /**< 比例系数 */
     float Ki;              /**< 积分系数 */
     float Kd;              /**< 微分系数 */
-    float target;          /**< 目标速度(脉冲/采样周期) */
-    float actual;          /**< 实际速度(脉冲/采样周期) */
+    float target;          /**< 目标速度(RPM) */
+    float actual;          /**< 实际速度(RPM) */
     float error_prev2;     /**< 前前次误差 e(k-2) */
     float error_last;      /**< 上一次误差 e(k-1) */
     float error_current;   /**< 当前误差 e(k) */

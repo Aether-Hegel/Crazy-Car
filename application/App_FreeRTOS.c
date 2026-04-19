@@ -55,7 +55,6 @@ void Motor_Task(void *param)
     while (1)
     {   
         Speed_PID_Init();                // 只在任务开始时初始化一次
-        Encoder_Speed_PID_Update();                          // 更新编码器计数值,用于Speed_PID计算
         // Speed_PID_Calculate(&Speed_PID_L1, Ecoder_count_L1); // PID计算
         // PWM_CH1_Set_Duty(PWM_CH1_L1,(uint32)Speed_PID_L1.output); // 设置左前电机占空比
         PWM_CH1_Set_Duty(PWM_CH1_L1,8000); // 设置左前电机占空比

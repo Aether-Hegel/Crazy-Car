@@ -21,6 +21,5 @@ void Timer2_IRQHandler(void)
 {
 
     Encoder_Speed_PID_Update(); // 更新编码器计数值
-
-    // Speed_PID_Calculate(&Speed_PID_R1, Ecoder_count_R1); // PID计算
+    
 }

@@ -5,10 +5,10 @@
 
 // Motor Pin 控制电机正反转引脚
 
-#define MOTOR_L1_DIR  B10
-#define MOTOR_L2_DIR  B12
-#define MOTOR_R1_DIR  B14
-#define MOTOR_R2_DIR  B16
+#define MOTOR_L1_DIR  C9
+#define MOTOR_L2_DIR  C10
+#define MOTOR_R1_DIR  C7
+#define MOTOR_R2_DIR  D2
 
 void Motor_Init(void);
 void Car_Left_Move(void);
