@@ -1,0 +1,18 @@
+{
+  "workspace": {
+    "path": "${workspaceFolder}\\iar\\rt1064.eww"
+  },
+  "workspaces": {
+    "${workspaceFolder}\\iar\\rt1064.eww": {
+      "configs": {
+        "${workspaceFolder}\\iar\\program\\rt1064.ewp": "nor_sdram_zf_dtcm"
+      },
+      "selected": {
+        "path": "${workspaceFolder}\\iar\\program\\rt1064.ewp"
+      }
+    }
+  },
+  "workbench": {
+    "path": "D:\\IAR"
+  }
+}
