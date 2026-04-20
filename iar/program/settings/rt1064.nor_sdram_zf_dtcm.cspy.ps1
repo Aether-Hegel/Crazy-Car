@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "D:\IAR\common\bin\cspybat" -f "D:\RT1604project\crazy_car_RTOS - 副本\iar\program\settings\rt1064.nor_sdram_zf_dtcm.general.xcl" --backend -f "D:\RT1604project\crazy_car_RTOS - 副本\iar\program\settings\rt1064.nor_sdram_zf_dtcm.driver.xcl" 
+& "D:\IAR\common\bin\cspybat" -f "D:\RT1604project\Crazy-Car-hardware\iar\program\settings\rt1064.nor_sdram_zf_dtcm.general.xcl" --backend -f "D:\RT1604project\Crazy-Car-hardware\iar\program\settings\rt1064.nor_sdram_zf_dtcm.driver.xcl" 
 }
 else
 {
-& "D:\IAR\common\bin\cspybat" -f "D:\RT1604project\crazy_car_RTOS - 副本\iar\program\settings\rt1064.nor_sdram_zf_dtcm.general.xcl" --debug_file=$debugfile --backend -f "D:\RT1604project\crazy_car_RTOS - 副本\iar\program\settings\rt1064.nor_sdram_zf_dtcm.driver.xcl" 
+& "D:\IAR\common\bin\cspybat" -f "D:\RT1604project\Crazy-Car-hardware\iar\program\settings\rt1064.nor_sdram_zf_dtcm.general.xcl" --debug_file=$debugfile --backend -f "D:\RT1604project\Crazy-Car-hardware\iar\program\settings\rt1064.nor_sdram_zf_dtcm.driver.xcl" 
 }

@@ -12,22 +12,3 @@ void MyPWM_Init(void)
     pwm_init(PWM_CH4_R2, 17000, 0);                                                // 初始化 PWM 通道 频率 17KHz 初始占空比 0%
 }
 
-void PWM_CH1_Set_Duty(pwm_channel_enum pin, const uint32 duty)
-{
-    pwm_set_duty(pin, duty);
-}
-
-void PWM_CH2_Set_Duty(pwm_channel_enum pin, const uint32 duty)
-{
-    pwm_set_duty(pin, duty);
-}
-
-void PWM_CH3_Set_Duty(pwm_channel_enum pin, const uint32 duty)
-{
-    pwm_set_duty(pin, duty);
-}
-
-void PWM_CH4_Set_Duty(pwm_channel_enum pin, const uint32 duty)
-{
-    pwm_set_duty(pin, duty);
-}

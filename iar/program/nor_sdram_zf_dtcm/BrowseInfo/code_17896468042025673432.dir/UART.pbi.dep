@@ -1,7 +1,7 @@
-D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\UART.pbi: \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\UART.c \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\code\UART.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_typedef.h \
+D:\RT1604project\Crazy-Car-hardware\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\UART.pbi: \
+  D:\RT1604project\Crazy-Car-hardware\code\UART.c \
+  D:\RT1604project\Crazy-Car-hardware\code\UART.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_common\zf_common_typedef.h \
   D:\IAR\arm\inc\c\stdio.h D:\IAR\arm\inc\c\ycheck.h \
   D:\IAR\arm\inc\c\yvals.h D:\IAR\arm\inc\c\DLib_Defaults.h \
   D:\IAR\arm\inc\c\DLib_Config_Full.h D:\IAR\arm\inc\c\DLib_Product.h \
@@ -9,25 +9,25 @@ D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\nor_sdram_zf_dtcm\BrowseI
   D:\IAR\arm\inc\c\stdbool.h D:\IAR\arm\inc\c\stdarg.h \
   D:\IAR\arm\inc\c\string.h D:\IAR\arm\inc\c\DLib_Product_string.h \
   D:\IAR\arm\inc\c\stdlib.h D:\IAR\arm\inc\c\DLib_Product_stdlib.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives\fsl_common.h \
   D:\IAR\arm\inc\c\assert.h D:\IAR\arm\inc\c\stddef.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\fsl_device_registers.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\core_cm7.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_version.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_compiler.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_iccarm.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\deceive\fsl_device_registers.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Include\core_cm7.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_version.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_compiler.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Include\cmsis_iccarm.h \
   D:\IAR\arm\inc\c\aarch32\iccarm_builtin.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\mpu_armv7.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\system_MIMXRT1064.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064_features.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common_arm.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_clock.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_common_arm.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_driver\zf_driver_uart.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\drives\fsl_lpuart.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_fifo.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_typedef.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\zf_common\zf_common_interrupt.h \
-  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064.h
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Include\mpu_armv7.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\deceive\system_MIMXRT1064.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064_features.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives\fsl_common_arm.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives\fsl_clock.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives\fsl_common.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives\fsl_common_arm.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_driver\zf_driver_uart.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives\fsl_lpuart.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_common\zf_common_fifo.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_common\zf_common_typedef.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_common\zf_common_interrupt.h \
+  D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\deceive\MIMXRT1064.h

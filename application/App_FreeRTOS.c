@@ -50,16 +50,19 @@ void Start_Task(void *param)
 
 void Motor_Task(void *param)
 {
-    gpio_set_level(MOTOR_L1_DIR, 1); // L1_DIR = 1
-    
+
+    Motor_Init();
+    gpio_set_level(MOTOR_L1_DIR,1);
     while (1)
-    {   
-        Speed_PID_Init();                // 只在任务开始时初始化一次
+    {
+        // Speed_PID_Init();                // 只在任务开始时初始化一次
         // Speed_PID_Calculate(&Speed_PID_L1, Ecoder_count_L1); // PID计算
         // PWM_CH1_Set_Duty(PWM_CH1_L1,(uint32)Speed_PID_L1.output); // 设置左前电机占空比
-        PWM_CH1_Set_Duty(PWM_CH1_L1,8000); // 设置左前电机占空比
+         Car_Forward(1000);
+        // pwm_set_duty(PWM_CH1_L1, 1000); // 设置左前电机占空比
         gpio_toggle_level(B9);
-        printf("%f,%f,%f\n", Speed_PID_L1.target_speed, Speed_PID_L1.output, Speed_PID_L1.Actual_speed);
+        // printf("%f,%f,%f\n", Speed_PID_L1.target_speed, Speed_PID_L1.output, Speed_PID_L1.Actual_speed);
+        // printf("%f,%f,%f\n", Speed_PID_L1.target_speed, Speed_PID_L1.output, Speed_PID_L1.Actual_speed);
         // printf("%d,\n",Ecoder_count_L1);
         // 电机控制代码
         vTaskDelay(pdMS_TO_TICKS(100)); // 延时100ms
