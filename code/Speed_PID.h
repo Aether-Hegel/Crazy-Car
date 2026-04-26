@@ -15,9 +15,10 @@ typedef struct
     float error_last;    // 上一次误差 (e(k-1))
     float error_current; // 当前误差 (e(k))
     float output;        // 当前输出值 (u(k))
-    float Pwm_Max_Out;   // 限幅输出值
-    float integral_sum;  // 积分累积值
-    float integral_limit;// 积分限幅值
+    float Pwm_Max_Out;      // 限幅输出值
+    float integral_sum;     // 积分累积值
+    float integral_limit;   // 积分限幅值
+    float output_dead_zone; // 输出死区阈值，|output| < 此值时强制输出为0
 
 } Speed_PID;
 

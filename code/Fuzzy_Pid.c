@@ -1,1000 +1,818 @@
 /**
- * ============================================================================
- *                      模糊PID定位置控制 - 源文件
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 本模块实现了基于模糊控制的串级PID定位置控制系统，专为逐飞科技RC380有刷电机
- * 和1024线正交解码编码器设计。
- * 
- * 控制框图:
- * ----------
- * 
- *     ┌──────────────────────────────────────────────────────────────────┐
- *     │                       模糊串级PID控制器                            │
- *     │                                                                  │
- *     │   目标位置                                                    │
- *     │       │                                                        │
- *     │       ▼                                                        │
- *     │   ┌─────────────────────────────────────────────────────────┐   │
- *     │   │              外环: 位置环(模糊PID)                       │   │
- *     │   │                                                         │   │
- *     │   │   e_pos = target_pos - actual_pos                      │   │
- *     │   │   fuzzy_adjust(e_pos, ec_pos) → ΔKp, ΔKi, ΔKd          │   │
- *     │   │   output = fuzzy_pid(e_pos, Kp+ΔKp, Ki+ΔKi, Kd+ΔKd)    │   │
- *     │   │                                                         │   │
- *     │   └─────────────────────────────────────────────────────────┘   │
- *     │       │                                                        │
- *     │       ▼ (位置环输出作为速度环目标)                               │
- *     │   ┌─────────────────────────────────────────────────────────┐   │
- *     │   │              内环: 速度环(普通PID)                       │   │
- *     │   │                                                         │   │
- *     │   │   e_speed = target_speed - actual_speed                │   │
- *     │   │   output = pid(e_speed, Kp, Ki, Kd)                    │   │
- *     │   │                                                         │   │
- *     │   └─────────────────────────────────────────────────────────┘   │
- *     │       │                                                        │
- *     │       ▼                                                        │
- *     │   ┌────────┐                                                   │
- *     │   │  PWM   │ ──→ 电机驱动                                      │
- *     │   └────────┘                                                   │
- *     │                                                                  │
- *     │   编码器反馈:                                                    │
- *     │   - 位置反馈: encoder_total (累计脉冲数)                        │
- *     │   - 速度反馈: delta_encoder (每周期脉冲差)                      │
- *     │                                                                  │
- *     └──────────────────────────────────────────────────────────────────┘
- * 
- * 模糊控制规则表:
- * ----------------
- *    误差e \ 误差变化率ec   NB    NM    NS    ZO    PS    PM    PB
- *    ─────────────────────────────────────────────────────────────────
- *         NB                  PB    PB    PM    PM    PS    ZO    ZO
- *         NM                  PB    PB    PM    PS    PS    ZO    NS
- *         NS                  PM    PM    PM    PS    ZO    NS    NS
- *         ZO                  PM    PS    PS    ZO    NS    NS    NM
- *         PS                  PS    PS    ZO    NS    NS    NM    NM
- *         PM                  ZO    ZO    NS    NM    NM    NB    NB
- *         PB                  ZO    ZO    NS    NM    NM    NB    NB
- * 
- *    NB=负大, NM=负中, NS=负小, ZO=零, PS=正小, PM=正中, PB=正大
- * 
- * 使用说明:
- * ----------
- * 1. 系统初始化阶段调用 Fuzzy_PID_Init()
- * 2. 设置目标位置调用 Fuzzy_PID_Set_Target()
- * 3. 定时中断中调用 Fuzzy_PID_Calculate()
- * 4. 从输出结构体获取PWM值驱动电机
- * 
- * 调参建议:
- * ----------
- * - 位置环: Kp影响响应速度, Ki消除稳态误差, Kd抑制超调
- * - 速度环: 建议先调位置环再调速度环
- * - 模糊规则可根据实际响应调整Rule_Kp/Rule_Ki/Rule_Kd表
- * 
- * ============================================================================
+ * @file  Fuzzy_Pid.c
+ * @brief 模糊PD位置环控制器实现 — 逐飞RC380 + 1024线正交编码器
+ *
+ * ─────────────────────────────────────────────────────────────────
+ *  控制算法: 位置式PD，无积分项
+ *
+ *    u(k) = Kp(e,ec) × e(k)  +  Kd(e,ec) × ec(k)
+ *    ec(k) = e(k) - e(k-1)
+ *
+ *  其中 Kp、Kd 由模糊推理根据当前误差实时整定，不固定。
+ * ─────────────────────────────────────────────────────────────────
+ *  模糊推理完整流程:
+ *
+ *    ① 量化 (Fuzzification)
+ *         e  / FUZZY_E_SCALE  ∈ [-3.0, +3.0]  → 索引 e_idx  ∈ [0,6]
+ *         ec / FUZZY_EC_SCALE ∈ [-3.0, +3.0]  → 索引 ec_idx ∈ [0,6]
+ *       7个模糊等级: NB=0 NM=1 NS=2 ZO=3 PS=4 PM=5 PB=6
+ *
+ *    ② 规则推理 (Rule Inference)
+ *         level_Kp = Kp_Rule[e_idx][ec_idx]   ∈ [0, 6]
+ *         level_Kd = Kd_Rule[e_idx][ec_idx]   ∈ [0, 6]
+ *
+ *    ③ 反模糊化 (Defuzzification) — 线性映射
+ *         Kp = Kp_MIN + (Kp_MAX - Kp_MIN) × level_Kp / 6
+ *         Kd = Kd_MIN + (Kd_MAX - Kd_MIN) × level_Kd / 6
+ *
+ *    ④ PD输出
+ *         output = Kp × e + Kd × ec
+ *         output = clamp(output, -PWM_MAX, +PWM_MAX)
+ * ─────────────────────────────────────────────────────────────────
+ *  编码器数据来源:
+ *    Ecoder_Total_L1/L2/R1/R2 定义于 Encoder.c，每个控制周期由
+ *    Encoder_Speed_PID_Update() 累加，本模块直接读取。
+ * ─────────────────────────────────────────────────────────────────
+ *  标准调用顺序 (在定时中断中):
+ *    Encoder_Speed_PID_Update();    // 1. 先更新编码器
+ *    Fuzzy_PID_Calculate(0xFF);     // 2. 再计算PD
+ *    Fuzzy_PID_Drive_All_Motor();   // 3. 最后驱动电机
  */
-
-//编码器转一圈数值是1024，编码器倍频是1倍频，所以编码器转一圈数值是1024*1=1024
-//限制速度则需要添加速度环的目标值限幅
 
 #include "Fuzzy_Pid.h"
 #include "Encoder.h"
 #include "Motor.h"
+#include "PWM.h"
+#include <math.h>     /* [v2] floorf, fabsf */
 
-/*=============================== 模糊规则表定义 ================================*/
+/* =====================================================================
+ *  模糊规则表
+ *
+ *  行索引 = e  量化等级: 0=NB  1=NM  2=NS  3=ZO  4=PS  5=PM  6=PB
+ *  列索引 = ec 量化等级: 0=NB  1=NM  2=NS  3=ZO  4=PS  5=PM  6=PB
+ *  表值范围 [0, 6]，经线性反模糊化映射到对应参数区间
+ * ===================================================================== */
 
-/**
- * @brief 模糊推理规则表
- * @details 7x7矩阵，行索引为误差e的模糊化结果，列索引为误差变化率ec的模糊化结果
- *         返回值为模糊语言变量对应的量化值(-3 ~ +3)
- * 
- * 语言变量对应关系:
- *   -3: NB (Negative Big)     负大
- *   -2: NM (Negative Medium)  负中
- *   -1: NS (Negative Small)   负小
- *    0: ZO (Zero)             零
- *   +1: PS (Positive Small)   正小
- *   +2: PM (Positive Medium) 正中
- *   +3: PB (Positive Big)     正大
+/*
+ * Kp 规则表
+ *
+ * 设计原则:
+ *   1. e 与 ec 同号 (系统正在远离目标):
+ *      → 取最大 Kp (值=6)，以最大驱动力拉回
+ *      → 例: e=NB(大负误差) 且 ec=NB(误差继续变负) → Kp_Rule[0][0] = 6
+ *
+ *   2. e 与 ec 反号 (系统正在趋近目标):
+ *      → 降低 Kp (值=2~3)，减小超调风险
+ *      → 例: e=PB(大正误差) 且 ec=NB(快速逼近) → Kp_Rule[6][0] = 2
+ *
+ *   3. e ≈ ZO (已在目标附近):
+ *      → 最小 Kp (值=0~1)，配合 KP_MIN=0.05 让接近目标时 P 项基本归零
+ *      → [v2修正] 旧版 ZO 行边沿仍取 2,导致 Kp≈2.0 在小误差段持续饱和
+ *      → 新版 e=ZO 且 ec=ZO → Kp_Rule[3][3] = 0,真正的"到位即松油门"
+ *
+ * 参数映射: level=0 → Kp=0.05, level=6 → Kp=5.0  [v2: KP_MIN由0.5降至0.05]
+ *
+ *        ec:  NB  NM  NS  ZO  PS  PM  PB
  */
-static const int8 Fuzzy_Table[FUZZY_SET_SIZE][FUZZY_SET_SIZE] = {
-    /*         ec: NB    NM    NS    ZO    PS    PM    PB    */
-    /* e=NB */ {  3,   3,   2,   1,   0,  -1,  -2},
-    /* e=NM */ {  3,   3,   2,   1,   0,  -1,  -2},
-    /* e=NS */ {  2,   2,   2,   1,   0,  -1,  -1},
-    /* e=ZO */ {  2,   2,   1,   0,  -1,  -2,  -2},
-    /* e=PS */ {  1,   1,   0,  -1,  -1,  -2,  -2},
-    /* e=PM */ {  1,   1,   0,  -1,  -2,  -2,  -3},
-    /* e=PB */ {  2,   1,   0,  -1,  -2,  -3,  -3}
+static const uint8 Kp_Rule[FUZZY_SET_SIZE][FUZZY_SET_SIZE] = {
+    /* e=NB */ { 6,  6,  5,  5,  4,  3,  2 },
+    /* e=NM */ { 5,  5,  5,  4,  3,  3,  2 },
+    /* e=NS */ { 4,  4,  3,  3,  2,  2,  1 },
+    /* e=ZO */ { 1,  1,  0,  0,  0,  1,  1 },   /* [v2修正] 原 {2,2,2,1,2,2,2} */
+    /* e=PS */ { 1,  2,  2,  3,  3,  4,  4 },
+    /* e=PM */ { 2,  3,  3,  4,  5,  5,  5 },
+    /* e=PB */ { 2,  3,  4,  5,  5,  6,  6 },
 };
 
-/**
- * @brief Kp参数模糊规则表
- * @details 存储不同误差等级下Kp的修正量
- *         _n结尾表示负向修正，_p结尾表示正向修正
+/*
+ * Kd 规则表
+ *
+ * 设计原则:
+ *   1. |ec| 大 (系统运动速度快):
+ *      → 取大 Kd (值=5~6)，提供足够阻尼防止超调
+ *      → 例: 任意 e 且 ec=NB → Kd 列值 = 5~6
+ *
+ *   2. e≈ZO 且 |ec| 大 (在目标附近快速抖动):
+ *      → 取最大 Kd (值=6)，快速平息振荡
+ *      → 例: e=ZO 且 ec=NB → Kd_Rule[3][0] = 6
+ *
+ *   3. ec≈ZO (系统几乎静止):
+ *      → 取最小 Kd (值=1)，此时 Kd×ec≈0，避免放大噪声
+ *      → 例: 任意 e 且 ec=ZO → Kd 列值 = 1~2
+ *
+ * 参数映射: level=0 → Kd=0.05, level=6 → Kd=1.5
+ *
+ *        ec:  NB  NM  NS  ZO  PS  PM  PB
  */
-static const Fuzzy_Rule_Output Rule_Kp[FUZZY_SET_SIZE] = {
-    /* NB */ {.Kp_n = -2.0f, .Ki_n = -1.5f, .Kd_n = -1.0f, .Kp_p = 0.5f,  .Ki_p = 0.3f,  .Kd_p = 0.2f},
-    /* NM */ {.Kp_n = -1.5f, .Ki_n = -1.0f, .Kd_n = -0.5f, .Kp_p = 0.4f,  .Ki_p = 0.2f,  .Kd_p = 0.15f},
-    /* NS */ {.Kp_n = -1.0f, .Ki_n = -0.5f, .Kd_n = -0.3f, .Kp_p = 0.3f,  .Ki_p = 0.15f, .Kd_p = 0.1f},
-    /* ZO */ {.Kp_n = -0.5f, .Ki_n = -0.2f, .Kd_n = -0.1f, .Kp_p = 0.2f,  .Ki_p = 0.1f,  .Kd_p = 0.05f},
-    /* PS */ {.Kp_n = -0.3f, .Ki_n = -0.1f, .Kd_n = -0.05f,.Kp_p = 0.15f, .Ki_p = 0.08f, .Kd_p = 0.03f},
-    /* PM */ {.Kp_n = -0.15f,.Ki_n = -0.05f,.Kd_n = -0.02f,.Kp_p = 0.08f, .Ki_p = 0.05f, .Kd_p = 0.02f},
-    /* PB */ {.Kp_n = -0.08f,.Ki_n = -0.03f,.Kd_n = -0.01f,.Kp_p = 0.05f, .Ki_p = 0.03f, .Kd_p = 0.01f}
+static const uint8 Kd_Rule[FUZZY_SET_SIZE][FUZZY_SET_SIZE] = {
+    /* e=NB */ { 5,  4,  3,  1,  3,  4,  5 },
+    /* e=NM */ { 5,  4,  3,  1,  3,  4,  5 },
+    /* e=NS */ { 5,  5,  4,  2,  4,  5,  5 },
+    /* e=ZO */ { 6,  5,  4,  1,  4,  5,  6 },
+    /* e=PS */ { 5,  5,  4,  2,  4,  5,  5 },
+    /* e=PM */ { 5,  4,  3,  1,  3,  4,  5 },
+    /* e=PB */ { 5,  4,  3,  1,  3,  4,  5 },
 };
 
-/**
- * @brief Ki参数模糊规则表
- * @details 存储不同误差等级下Ki的修正量
- *         Ki用于消除稳态误差，修正量较小
- */
-static const Fuzzy_Rule_Output Rule_Ki[FUZZY_SET_SIZE] = {
-    /* NB */ {.Kp_n = -0.1f,  .Ki_n = -0.08f, .Kd_n = -0.05f,.Kp_p = 0.02f, .Ki_p = 0.01f, .Kd_p = 0.005f},
-    /* NM */ {.Kp_n = -0.08f, .Ki_n = -0.06f, .Kd_n = -0.03f,.Kp_p = 0.015f,.Ki_p = 0.008f,.Kd_p = 0.004f},
-    /* NS */ {.Kp_n = -0.06f, .Ki_n = -0.04f, .Kd_n = -0.02f,.Kp_p = 0.01f, .Ki_p = 0.005f,.Kd_p = 0.002f},
-    /* ZO */ {.Kp_n = -0.04f, .Ki_n = -0.03f, .Kd_n = -0.01f,.Kp_p = 0.008f,.Ki_p = 0.004f,.Kd_p = 0.001f},
-    /* PS */ {.Kp_n = -0.02f, .Ki_n = -0.02f, .Kd_n = -0.008f,.Kp_p = 0.005f,.Ki_p = 0.002f,.Kd_p = 0.001f},
-    /* PM */ {.Kp_n = -0.01f, .Ki_n = -0.01f, .Kd_n = -0.005f,.Kp_p = 0.003f,.Ki_p = 0.001f,.Kd_p = 0.0005f},
-    /* PB */ {.Kp_n = -0.005f,.Ki_n = -0.005f,.Kd_n = -0.003f,.Kp_p = 0.002f,.Ki_p = 0.0008f,.Kd_p = 0.0003f}
-};
-
-/**
- * @brief Kd参数模糊规则表
- * @details 存储不同误差等级下Kd的修正量
- *         Kd用于抑制超调，修正量适中
- */
-static const Fuzzy_Rule_Output Rule_Kd[FUZZY_SET_SIZE] = {
-    /* NB */ {.Kp_n = -1.5f, .Ki_n = -1.0f, .Kd_n = -0.8f, .Kp_p = 0.4f,  .Ki_p = 0.2f,  .Kd_p = 0.15f},
-    /* NM */ {.Kp_n = -1.0f, .Ki_n = -0.8f, .Kd_n = -0.5f, .Kp_p = 0.3f,  .Ki_p = 0.15f, .Kd_p = 0.1f},
-    /* NS */ {.Kp_n = -0.8f, .Ki_n = -0.5f, .Kd_n = -0.3f, .Kp_p = 0.2f,  .Ki_p = 0.1f,  .Kd_p = 0.08f},
-    /* ZO */ {.Kp_n = -0.5f, .Ki_n = -0.3f, .Kd_n = -0.2f, .Kp_p = 0.15f, .Ki_p = 0.08f, .Kd_p = 0.05f},
-    /* PS */ {.Kp_n = -0.3f, .Ki_n = -0.2f, .Kd_n = -0.1f, .Kp_p = 0.1f,  .Ki_p = 0.05f, .Kd_p = 0.03f},
-    /* PM */ {.Kp_n = -0.2f, .Ki_n = -0.1f, .Kd_n = -0.08f,.Kp_p = 0.08f, .Ki_p = 0.03f, .Kd_p = 0.02f},
-    /* PB */ {.Kp_n = -0.1f, .Ki_n = -0.08f,.Kd_n = -0.05f,.Kp_p = 0.05f, .Ki_p = 0.02f, .Kd_p = 0.01f}
-};
-
-/*=============================== 编码器计数变量 ================================*/
-
-extern int32 encoder_total_L1;
-extern int32 encoder_total_L2;
-extern int32 encoder_total_R1;
-extern int32 encoder_total_R2;
-
+/* =====================================================================
+ *  编码器外部变量 (定义于 Encoder.c，由 Encoder_Speed_PID_Update 更新)
+ * ===================================================================== */
 extern int32 Ecoder_Total_L1;
 extern int32 Ecoder_Total_L2;
 extern int32 Ecoder_Total_R1;
 extern int32 Ecoder_Total_R2;
 
-extern int16 Encoder_Current_L1;
-extern int16 Encoder_Current_L2;
-extern int16 Encoder_Current_R1;
-extern int16 Encoder_Current_R2;
+/* =====================================================================
+ *  4路控制器实例 
+ * ===================================================================== */
+Fuzzy_PD_Controller pd_L1, pd_L2, pd_R1, pd_R2;
 
-/*=============================== 模糊PID控制器实例 ================================*/
-
-static Fuzzy_Cascade_PID Fuzzy_Cascade_PID_L1;
-static Fuzzy_Cascade_PID Fuzzy_Cascade_PID_L2;
-static Fuzzy_Cascade_PID Fuzzy_Cascade_PID_R1;
-static Fuzzy_Cascade_PID Fuzzy_Cascade_PID_R2;
-
-/*=============================== 函数实现 ================================*/
+/* =====================================================================
+ *  内部函数实现
+ * ===================================================================== */
 
 /**
- * ============================================================================
- * 函数: Fuzzy_PID_Init
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 模糊PID初始化函数，初始化所有PID参数为默认值
- * 应在系统启动时调用一次，通常在main函数的初始化阶段调用
- * 
- * 初始化的参数包括:
- *   - 位置环PID参数: Kp=15.0, Ki=0.5, Kd=8.0
- *   - 速度环PID参数: Kp=12.0, Ki=1.0, Kd=5.0
- *   - 输出限幅值
- *   - 积分限幅值
- *   - 位置计数清零
- * 
- * 调用示例:
- * ----------
- * @code
- * void System_Init(void)
- * {
- *     Motor_Init();        // 电机驱动初始化
- *     Encoder_Init();      // 编码器初始化
- *     Fuzzy_PID_Init();    // 模糊PID初始化(放在最后)
- * }
- * @endcode
- * 
+ * @brief  将精确浮点值量化为 7 级模糊索引 [0, 6]
+ *
+ * 量化公式:
+ *   fv  = clamp(value / scale, -3.0, +3.0)
+ *   idx = (int)(fv + 3.0)
+ *
+ * 映射关系 (以 FUZZY_E_SCALE=833.3 为例，e范围±2500):
+ *   value ≤ -2500  → idx=0 (NB)
+ *   value ≈ -1667  → idx=1 (NM)
+ *   value ≈  -833  → idx=2 (NS)
+ *   value ≈     0  → idx=3 (ZO)
+ *   value ≈  +833  → idx=4 (PS)
+ *   value ≈ +1667  → idx=5 (PM)
+ *   value ≥ +2500  → idx=6 (PB)
+ *
+ * @param value  待量化的精确值 (误差脉冲数 或 误差变化率)
+ * @param scale  量化比例系数 (FUZZY_E_SCALE 或 FUZZY_EC_SCALE)
+ * @return int8  模糊等级索引，范围 [0, 6]
+ *
+ * [v2修正] 取整方式由截断改为四舍五入:
+ *   旧实现 (int8)(fv+3.0) 对负数有偏置,例如:
+ *     fv = -0.4 → idx = (int)(2.6) = 2 (NS)   ← 期望应为 ZO
+ *     fv = +0.4 → idx = (int)(3.4) = 3 (ZO)   ← 正确
+ *   导致小误差段规则选择左右不对称,加剧极限环。
+ *   新实现使用 floorf(fv + 3.5f) 实现真正的四舍五入对齐。
+ */
+static int8 fuzzify(float value, float scale)
+{
+    float fv = value / scale;
+    int8  idx;
+
+    /* 将模糊值限幅到 [-3.0, +3.0]，防止越界 */
+    if (fv >  3.0f) fv =  3.0f;
+    if (fv < -3.0f) fv = -3.0f;
+
+    /* [v2] 四舍五入: floor(fv + 3.5) 等价于 round(fv) + 3 */
+    idx = (int8)floorf(fv + 3.5f);
+    if (idx < 0) idx = 0;
+    if (idx > 6) idx = 6;
+    return idx;
+}
+
+/**
+ * @brief  模糊推理核心: 根据位置误差 e 和误差变化率 ec 实时整定 Kp、Kd
+ *
+ * 完整步骤:
+ *   ① 调用 fuzzify() 将 e 和 ec 各量化为 [0,6] 的整数索引
+ *   ② 以 (e_idx, ec_idx) 为坐标分别查 Kp_Rule、Kd_Rule，得到模糊等级 [0,6]
+ *   ③ 对模糊等级做线性反模糊化，映射到物理参数范围:
+ *        Kp = Kp_MIN + (Kp_MAX - Kp_MIN) × level / 6
+ *           = 0.5   + 4.5 × level / 6     ∈ [0.5,  5.0]
+ *        Kd = Kd_MIN + (Kd_MAX - Kd_MIN) × level / 6
+ *           = 0.05  + 1.45 × level / 6    ∈ [0.05, 1.5]
+ *
+ * 示例 (以10ms中断、误差e=500脉冲、上周期误差600脉冲为例):
+ *   e  = 500,  e_idx  = fuzzify(500,  833.3) = (int)(0.6+3) = 3 → ZO
+ *   ec = 500-600 = -100, ec_idx = fuzzify(-100, 333.3) = (int)(-0.3+3) = 2 → NS
+ *   level_Kp = Kp_Rule[3][2] = 2  → Kp = 0.5 + 4.5×2/6 = 2.0
+ *   level_Kd = Kd_Rule[3][2] = 4  → Kd = 0.05 + 1.45×4/6 ≈ 1.02
+ *
+ * @param e       位置误差 (脉冲数)，= target_position - actual_position
+ * @param ec      误差变化率 (脉冲/周期)，= e(k) - e(k-1)
+ * @param kp_out  [输出] 整定后的比例增益 Kp ∈ [FUZZY_KP_MIN, FUZZY_KP_MAX]
+ * @param kd_out  [输出] 整定后的微分增益 Kd ∈ [FUZZY_KD_MIN, FUZZY_KD_MAX]
+ */
+static void fuzzy_adjust_gains(float e, float ec, float *kp_out, float *kd_out)
+{
+    int8  e_idx  = fuzzify(e,  FUZZY_E_SCALE);
+    int8  ec_idx = fuzzify(ec, FUZZY_EC_SCALE);
+    float kp_lv  = (float)Kp_Rule[e_idx][ec_idx];   /* 规则表输出 0~6 */
+    float kd_lv  = (float)Kd_Rule[e_idx][ec_idx];   /* 规则表输出 0~6 */
+
+    /* 线性反模糊化: level=0 → 参数最小值, level=6 → 参数最大值 */
+    *kp_out = FUZZY_KP_MIN + (FUZZY_KP_MAX - FUZZY_KP_MIN) * kp_lv / 6.0f;
+    *kd_out = FUZZY_KD_MIN + (FUZZY_KD_MAX - FUZZY_KD_MIN) * kd_lv / 6.0f;
+}
+
+/**
+ * @brief  单步位置式PD计算 (无积分)
+ *
+ * 公式:
+ *   e(k)   = target_position - actual_position  (当前位置误差)
+ *   ec(k)  = e(k) - e(k-1)                      (误差变化量，近似微分)
+ *   u(k)   = Kp × e(k) + Kd × ec(k)             (PD输出)
+ *   u(k)   = clamp(u(k), -pwm_max, +pwm_max)     (输出限幅)
+ *
+ * 关于"位置式PD"与"增量式PD"的区别:
+ *   位置式: 输出 u 直接代表所需 PWM 绝对值
+ *     → 当 e=0 时 u 自然归零，无需额外清零逻辑
+ *     → 更适合位置控制场景
+ *   增量式: 每步输出 Δu，需要 u(k)=u(k-1)+Δu 累积
+ *     → 适合速度控制，但位置控制易产生积累漂移
+ *
+ * @param c  指向目标控制器实例的指针
+ *
+ * @note 函数末尾将 error_last 更新为本步 e，供下次调用计算 ec 使用。
+ */
+static void pd_step(Fuzzy_PD_Controller *c)
+{
+    /* ① 计算当前误差 */
+    float e  = (float)(c->target_position - c->actual_position);
+    float abs_e = fabsf(e);
+
+    /*
+     * [v6] 死区状态锁存机制
+     *
+     *   状态1: db_active=1 (锁定态)
+     *     输出强制 0,直到 |e| > DB_EXIT 才解锁
+     *
+     *   状态2: db_active=0 (正常态)
+     *     连续 DB_HOLD_CYCLES 周期 |e| < DB_ENTER 后转为锁定
+     *
+     *   关键改进对比 v5:
+     *     - 滞回机制: ENTER=8, EXIT=30,  8~30脉冲扰动被忽略
+     *     - 持续判定: 5周期(50ms)真到位才锁,避免瞬时穿越误锁
+     *     - 不再重置 ec_filt: 出区时模糊推理感知系统状态正确,
+     *                         避免 v5 那种"冷启动满前馈"形成极限环
+     */
+    if (c->db_active) {
+        if (abs_e > (float)FUZZY_DB_EXIT) {
+            /* 偏差超过出区阈值,解锁 */
+            c->db_active = 0;
+            c->db_steady_count = 0;
+            /* [v7] 解锁瞬间不重置 I — 累积的 I 反映了静态偏置的方向,
+             *      可作为出区瞬间的"前馈预估",有助于快速重新跟踪。
+             *      若长时间锁定后扰动方向反转,I 会被新误差自然修正。 */
+        } else {
+            /* 锁定状态:强制零输出,平滑过渡(slew limit 仍生效) */
+            float target_out = 0.0f;
+            float delta = target_out - c->output;
+            if (delta >  FUZZY_PWM_SLEW_MAX) delta =  FUZZY_PWM_SLEW_MAX;
+            if (delta < -FUZZY_PWM_SLEW_MAX) delta = -FUZZY_PWM_SLEW_MAX;
+            c->output += delta;
+            c->error_last = e;
+            /* [v7] 锁定状态下积分缓慢衰减,防止扰动期间累积过大,
+             *      解锁瞬间 I 主导输出造成冲击。每周期衰减 5%,
+             *      持续锁定 60 周期后 I 衰减到原值 5% 以下。 */
+            c->integral *= 0.95f;
+            return;
+        }
+    } else {
+        /* 正常态:检查是否进入锁定 */
+        if (abs_e < (float)FUZZY_DB_ENTER) {
+            c->db_steady_count++;
+            if (c->db_steady_count >= FUZZY_DB_HOLD_CYCLES) {
+                c->db_active = 1;
+                /* 不立即清零,通过下一周期 slew limit 平滑降到 0 */
+            }
+        } else {
+            c->db_steady_count = 0;
+        }
+    }
+
+    /* ② 计算误差变化率 (离散微分) */
+    float ec_raw = e - c->error_last;
+
+    /*
+     * [v2新增, v5提为宏, v6保留] ec 一阶低通滤波:
+     *   死区内不再重置滤波器(对比v5),保证出区时滤波器状态连续,
+     *   避免冷启动效应。
+     */
+    c->ec_filt = FUZZY_EC_FILTER_ALPHA * c->ec_filt
+               + (1.0f - FUZZY_EC_FILTER_ALPHA) * ec_raw;
+    float ec   = c->ec_filt;
+
+    /* ③ 模糊推理更新 Kp、Kd */
+    fuzzy_adjust_gains(e, ec, &c->Kp, &c->Kd);
+
+    /*
+     * [v7新增] 积分项 — 条件累加 + Anti-windup
+     *
+     *   ① 仅 |e| < I_RANGE 时累加,大误差段交给 P 项主导
+     *   ② 输出限幅期间不累加(后置在 slew_limit 之前判断)
+     *   ③ 积分输出值本身限幅,防止单一方向极长时间持续误差时 I 失控
+     */
+    int integral_active = (abs_e < FUZZY_I_RANGE);
+    if (integral_active) {
+        c->integral += e;
+        /* 积分项 PWM 贡献 = Ki × integral, 限幅在 ±I_OUT_MAX */
+        float i_max_accum = FUZZY_I_OUT_MAX / FUZZY_KI;  /* 反推累加器上限 */
+        if (c->integral >  i_max_accum) c->integral =  i_max_accum;
+        if (c->integral < -i_max_accum) c->integral = -i_max_accum;
+    }
+    float u_i = FUZZY_KI * c->integral;
+
+    /* ④ 完整 PID 计算(位置式) — 注意此处计算的是"目标输出 u_target",
+     *    实际写入 c->output 的值还要经过 slew rate 限幅 */
+    float u_target = c->Kp * e + c->Kd * ec + u_i;
+
+    /*
+     * [v3新增, v4改为渐进式] 摩擦前馈:
+     *   远端 (|e| ≥ E_FF_FULL): 前馈满量程,顶开静摩擦
+     *   近端 (|e| < E_FF_FULL): 前馈按 |e|/E_FF_FULL 线性衰减
+     */
+    {
+        float ff_ratio = abs_e / FUZZY_E_FF_FULL;
+        if (ff_ratio > 1.0f) ff_ratio = 1.0f;
+        float ff = (float)FUZZY_FRICTION_FF * ff_ratio;
+        if (e > 0.0f) u_target += ff;
+        else          u_target -= ff;
+    }
+
+    /* ⑤ 输出限幅,防止超出电机驱动器允许范围 */
+    int saturated = 0;
+    if (u_target >  c->pwm_max) { u_target =  c->pwm_max; saturated = 1; }
+    if (u_target < -c->pwm_max) { u_target = -c->pwm_max; saturated = 1; }
+
+    /*
+     * [v7新增] Anti-windup:
+     *   若本周期输出已饱和限幅,且积分项与误差同号(继续累加会让饱和
+     *   更严重),则撤回本周期的积分累加。
+     *   这是反积分饱和的标准做法之一(back-calculation 的简化版)。
+     */
+    if (saturated && integral_active) {
+        if ((c->integral > 0 && e > 0) || (c->integral < 0 && e < 0)) {
+            c->integral -= e;   /* 撤回本周期累加 */
+        }
+    }
+
+    /*
+     * [v6新增] PWM 变化率限制 (Slew Rate Limit):
+     *   |u(k) - u(k-1)| ≤ FUZZY_PWM_SLEW_MAX
+     *   消除 PWM 突变,保护驱动器和机械传动。
+     *   注意: 限幅作用在最终输出层,不影响内部 PD 与前馈的逻辑。
+     */
+    {
+        float delta = u_target - c->output;
+        if (delta >  FUZZY_PWM_SLEW_MAX) delta =  FUZZY_PWM_SLEW_MAX;
+        if (delta < -FUZZY_PWM_SLEW_MAX) delta = -FUZZY_PWM_SLEW_MAX;
+        c->output += delta;
+    }
+
+    /* ⑥ 保存本步误差供下周期计算 ec */
+    c->error_last = e;
+}
+
+/**
+ * @brief  初始化单个 Fuzzy_PD_Controller 实例
+ *
+ * 写入内容:
+ *   - Kp = FUZZY_KP_BASE (2.0),  Kd = FUZZY_KD_BASE (0.3)
+ *   - error_last = 0,  output = 0
+ *   - pwm_max = FUZZY_PWM_MAX_OUT (8000)
+ *   - target_position = 0,  actual_position = 0
+ *   - motor_id 和 dir_pin 绑定到对应硬件通道
+ *
+ * @param c         控制器实例指针
+ * @param motor_id  电机通道 ID (FUZZY_POS_PID_L1/L2/R1/R2)
+ * @param dir_pin   方向控制 GPIO 引脚 (MOTOR_L1_DIR 等)
+ */
+static void pd_ctrl_init(Fuzzy_PD_Controller *c, uint8 motor_id, uint8 dir_pin)
+{
+    c->Kp              = FUZZY_KP_BASE;
+    c->Kd              = FUZZY_KD_BASE;
+    c->error_last      = 0.0f;
+    c->ec_filt         = 0.0f;          /* [v2] 滤波器状态清零 */
+    c->integral        = 0.0f;          /* [v7] 积分累加器清零 */
+    c->output          = 0.0f;
+    c->pwm_max         = FUZZY_PWM_MAX_OUT;
+    c->target_position = 0;
+    c->actual_position = 0;
+    c->motor_id        = motor_id;
+    c->dir_pin         = dir_pin;
+    c->db_active       = 0;             /* [v6] 死区状态机初始为非锁定 */
+    c->db_steady_count = 0;             /* [v6] */
+}
+
+/* =====================================================================
+ *  公开接口实现
+ * ===================================================================== */
+
+/**
+ * @brief  初始化全部 4 路模糊PD控制器
+ *
+ * 功能:
+ *   对 pd_L1/pd_L2/pd_R1/pd_R2 四个实例调用 pd_ctrl_init()，
+ *   将所有增益、误差历史、输出值归零，并绑定电机硬件引脚。
+ *
+ * 调用时机:
+ *   系统上电初始化阶段，在 Motor_Init() 和 Encoder_Init() 之后
+ *   调用一次，程序运行期间不需要重复调用。
+ *
+ * 示例:
+ *   void System_Init(void)
+ *   {
+ *       Motor_Init();       // 先初始化电机方向引脚
+ *       Encoder_Init();     // 再初始化编码器硬件
+ *       MyPWM_Init();       // PWM 模块初始化
+ *       Fuzzy_PID_Init();   // 最后初始化控制器
+ *   }
+ *
  * 注意:
- * ----------
- * - 此函数必须在编码器和电机初始化之后调用
- * - 只在系统启动时调用一次，不需要重复调用
- * 
- * ============================================================================
+ *   若在运动过程中误调此函数，所有目标位置清零，电机将立刻
+ *   以 output=0 停止，但编码器硬件计数不受影响。
  */
 void Fuzzy_PID_Init(void)
 {
-    /*-------------------- 左电机位置环初始化 --------------------*/
-    Fuzzy_Cascade_PID_L1.position_pid.Kp = FUZZY_KP_BASE;          /* 比例系数基础值 */
-    Fuzzy_Cascade_PID_L1.position_pid.Ki = FUZZY_KI_BASE;          /* 积分系数基础值 */
-    Fuzzy_Cascade_PID_L1.position_pid.Kd = FUZZY_KD_BASE;          /* 微分系数基础值 */
-    Fuzzy_Cascade_PID_L1.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;  /* 位置环输出限幅 */
-    Fuzzy_Cascade_PID_L1.position_pid.error_last = 0.0f;           /* 误差历史清零 */
-    Fuzzy_Cascade_PID_L1.position_pid.error_prev2 = 0.0f;          /* 误差历史清零 */
-    Fuzzy_Cascade_PID_L1.position_pid.output = 0.0f;               /* 输出清零 */
-    Fuzzy_Cascade_PID_L1.position_pid.target = 0.0f;               /* 目标清零 */
-    Fuzzy_Cascade_PID_L1.position_pid.actual = 0.0f;               /* 实际值清零 */
-    Fuzzy_Cascade_PID_L1.position_pid.error_current = 0.0f;       /* 当前误差清零 */
-
-    /*-------------------- 左电机速度环初始化 --------------------*/
-    Fuzzy_Cascade_PID_L1.speed_pid.Kp = 12.0f;                     /* 速度环比例系数 */
-    Fuzzy_Cascade_PID_L1.speed_pid.Ki = 1.0f;                     /* 速度环积分系数 */
-    Fuzzy_Cascade_PID_L1.speed_pid.Kd = 5.0f;                      /* 速度环微分系数 */
-    Fuzzy_Cascade_PID_L1.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;        /* PWM输出限幅 */
-    Fuzzy_Cascade_PID_L1.speed_pid.error_last = 0.0f;             /* 误差历史清零 */
-    Fuzzy_Cascade_PID_L1.speed_pid.error_prev2 = 0.0f;             /* 误差历史清零 */
-    Fuzzy_Cascade_PID_L1.speed_pid.output = 0.0f;                 /* 输出清零 */
-    Fuzzy_Cascade_PID_L1.speed_pid.target = 0.0f;                 /* 目标清零 */
-    Fuzzy_Cascade_PID_L1.speed_pid.actual = 0.0f;                 /* 实际值清零 */
-    Fuzzy_Cascade_PID_L1.speed_pid.error_current = 0.0f;          /* 当前误差清零 */
-
-    /*-------------------- 左前电机辅助信息 --------------------*/
-    Fuzzy_Cascade_PID_L1.target_position = 0;
-    Fuzzy_Cascade_PID_L1.actual_position = 0;
-    Fuzzy_Cascade_PID_L1.motor_id = FUZZY_POS_PID_L1;
-    Fuzzy_Cascade_PID_L1.dir_pin = MOTOR_L1_DIR;
-
-    /*-------------------- 左后电机位置环初始化 --------------------*/
-    Fuzzy_Cascade_PID_L2.position_pid.Kp = FUZZY_KP_BASE;
-    Fuzzy_Cascade_PID_L2.position_pid.Ki = FUZZY_KI_BASE;
-    Fuzzy_Cascade_PID_L2.position_pid.Kd = FUZZY_KD_BASE;
-    Fuzzy_Cascade_PID_L2.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_L2.position_pid.error_last = 0.0f;
-    Fuzzy_Cascade_PID_L2.position_pid.error_prev2 = 0.0f;
-    Fuzzy_Cascade_PID_L2.position_pid.output = 0.0f;
-    Fuzzy_Cascade_PID_L2.position_pid.target = 0.0f;
-    Fuzzy_Cascade_PID_L2.position_pid.actual = 0.0f;
-    Fuzzy_Cascade_PID_L2.position_pid.error_current = 0.0f;
-
-    Fuzzy_Cascade_PID_L2.speed_pid.Kp = 12.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.Ki = 1.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.Kd = 5.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_L2.speed_pid.error_last = 0.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.error_prev2 = 0.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.output = 0.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.target = 0.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.actual = 0.0f;
-    Fuzzy_Cascade_PID_L2.speed_pid.error_current = 0.0f;
-
-    Fuzzy_Cascade_PID_L2.target_position = 0;
-    Fuzzy_Cascade_PID_L2.actual_position = 0;
-    Fuzzy_Cascade_PID_L2.motor_id = FUZZY_POS_PID_L2;
-    Fuzzy_Cascade_PID_L2.dir_pin = MOTOR_L2_DIR;
-
-    /*-------------------- 右前电机位置环初始化 --------------------*/
-    Fuzzy_Cascade_PID_R1.position_pid.Kp = FUZZY_KP_BASE;
-    Fuzzy_Cascade_PID_R1.position_pid.Ki = FUZZY_KI_BASE;
-    Fuzzy_Cascade_PID_R1.position_pid.Kd = FUZZY_KD_BASE;
-    Fuzzy_Cascade_PID_R1.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R1.position_pid.error_last = 0.0f;
-    Fuzzy_Cascade_PID_R1.position_pid.error_prev2 = 0.0f;
-    Fuzzy_Cascade_PID_R1.position_pid.output = 0.0f;
-    Fuzzy_Cascade_PID_R1.position_pid.target = 0.0f;
-    Fuzzy_Cascade_PID_R1.position_pid.actual = 0.0f;
-    Fuzzy_Cascade_PID_R1.position_pid.error_current = 0.0f;
-
-    Fuzzy_Cascade_PID_R1.speed_pid.Kp = 12.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.Ki = 1.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.Kd = 5.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R1.speed_pid.error_last = 0.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.error_prev2 = 0.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.output = 0.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.target = 0.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.actual = 0.0f;
-    Fuzzy_Cascade_PID_R1.speed_pid.error_current = 0.0f;
-
-    Fuzzy_Cascade_PID_R1.target_position = 0;
-    Fuzzy_Cascade_PID_R1.actual_position = 0;
-    Fuzzy_Cascade_PID_R1.motor_id = FUZZY_POS_PID_R1;
-    Fuzzy_Cascade_PID_R1.dir_pin = MOTOR_R1_DIR;
-
-    /*-------------------- 右后电机位置环初始化 --------------------*/
-    Fuzzy_Cascade_PID_R2.position_pid.Kp = FUZZY_KP_BASE;
-    Fuzzy_Cascade_PID_R2.position_pid.Ki = FUZZY_KI_BASE;
-    Fuzzy_Cascade_PID_R2.position_pid.Kd = FUZZY_KD_BASE;
-    Fuzzy_Cascade_PID_R2.position_pid.Pwm_Max_Out = POSITION_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R2.position_pid.error_last = 0.0f;
-    Fuzzy_Cascade_PID_R2.position_pid.error_prev2 = 0.0f;
-    Fuzzy_Cascade_PID_R2.position_pid.output = 0.0f;
-    Fuzzy_Cascade_PID_R2.position_pid.target = 0.0f;
-    Fuzzy_Cascade_PID_R2.position_pid.actual = 0.0f;
-    Fuzzy_Cascade_PID_R2.position_pid.error_current = 0.0f;
-
-    Fuzzy_Cascade_PID_R2.speed_pid.Kp = 12.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.Ki = 1.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.Kd = 5.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.Pwm_Max_Out = SPEED_PID_MAX_OUT;
-    Fuzzy_Cascade_PID_R2.speed_pid.error_last = 0.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.error_prev2 = 0.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.output = 0.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.target = 0.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.actual = 0.0f;
-    Fuzzy_Cascade_PID_R2.speed_pid.error_current = 0.0f;
-
-    Fuzzy_Cascade_PID_R2.target_position = 0;
-    Fuzzy_Cascade_PID_R2.actual_position = 0;
-    Fuzzy_Cascade_PID_R2.motor_id = FUZZY_POS_PID_R2;
-    Fuzzy_Cascade_PID_R2.dir_pin = MOTOR_R2_DIR;
+    pd_ctrl_init(&pd_L1, FUZZY_POS_PID_L1, MOTOR_L1_DIR);
+    pd_ctrl_init(&pd_L2, FUZZY_POS_PID_L2, MOTOR_L2_DIR);
+    pd_ctrl_init(&pd_R1, FUZZY_POS_PID_R1, MOTOR_R1_DIR);
+    pd_ctrl_init(&pd_R2, FUZZY_POS_PID_R2, MOTOR_R2_DIR);
 }
 
 /**
- * ============================================================================
- * 函数: Fuzzy_PID_Set_Target
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 设置指定电机的目标位置
- * 
- * 参数说明:
- * ----------
- * @param id          电机通道ID
- *                     - FUZZY_POS_PID_L1 (0): 左电机
- *                     - FUZZY_POS_PID_R1 (1): 右电机
- * 
- * @param target_pos  目标位置(单位: 脉冲数)
- *                     - 正值: 电机正转
- *                     - 负值: 电机反转
- * 
- * 使用示例:
- * ----------
- * @code
- * // 让左电机转动1圈 (4096脉冲)
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 4096);
- * 
- * // 让右电机转动2圈 (8192脉冲)
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_R1, 8192);
- * 
- * // 让左电机反转半圈 (-2048脉冲)
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, -2048);
- * 
- * // 让两电机同时转动相同距离
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 4096);
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_R1, 4096);
- * @endcode
- * 
- * 注意事项:
- * ----------
- * - 目标位置是相对值，相对于上次清零后的位置
- * - 4096脉冲 = RC380电机转1圈 (1024线 × 4倍频)
- * - 可以同时设置多个电机的目标位置
- * 
- * ============================================================================
+ * @brief  设置指定电机的目标位置，并消除微分冲击
+ *
+ * 功能:
+ *   将控制器的 target_position 更新为指定脉冲数，同时将
+ *   error_last 预置为"当前误差"，使得第一个控制周期的
+ *   ec = e(k) - error_last = 0，避免目标突变引发 Kd×ec 的 PWM 尖峰。
+ *
+ * 参数:
+ *   @param id          电机通道
+ *                        FUZZY_POS_PID_L1 (0) — 左前
+ *                        FUZZY_POS_PID_L2 (1) — 左后
+ *                        FUZZY_POS_PID_R1 (2) — 右前
+ *                        FUZZY_POS_PID_R2 (3) — 右后
+ *   @param target_pos  目标脉冲数 (相对于上次 Clear_Motor_Position 的零点)
+ *                        正值 = 正转,  负值 = 反转
+ *                        换算: 1圈 = PULSE_PER_REV = 4096 脉冲
+ *
+ * 无返回值。传入无效 id 时静默忽略。
+ *
+ * 示例:
+ *   // 左前电机从当前零点正转 1 圈
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 4096);
+ *
+ *   // 右前电机反转半圈
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_R1, -2048);
+ *
+ *   // 四轮同步前进约 10 cm (假设每圈对应 200 mm，4096/200×10 ≈ 205 脉冲)
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1,  205);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_L2,  205);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_R1,  205);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_R2,  205);
+ *
+ * 注意:
+ *   ① 目标是绝对值（相对零点），不是增量；如需增量运动请先
+ *      读取 Get_Motor_Position() 再加上偏移量。
+ *   ② 调用后不立刻输出，需等待下一个 Fuzzy_PID_Calculate() 周期。
  */
 void Fuzzy_PID_Set_Target(uint8 id, int32 target_pos)
 {
-    if (id == FUZZY_POS_PID_L1)
-    {
-        Fuzzy_Cascade_PID_L1.target_position = target_pos;
-    }
-    else if (id == FUZZY_POS_PID_L2)
-    {
-        Fuzzy_Cascade_PID_L2.target_position = target_pos;
-    }
-    else if (id == FUZZY_POS_PID_R1)
-    {
-        Fuzzy_Cascade_PID_R1.target_position = target_pos;
-    }
-    else if (id == FUZZY_POS_PID_R2)
-    {
-        Fuzzy_Cascade_PID_R2.target_position = target_pos;
-    }
+    Fuzzy_PD_Controller *c = NULL;
+
+    if      (id == FUZZY_POS_PID_L1) c = &pd_L1;
+    else if (id == FUZZY_POS_PID_L2) c = &pd_L2;
+    else if (id == FUZZY_POS_PID_R1) c = &pd_R1;
+    else if (id == FUZZY_POS_PID_R2) c = &pd_R2;
+
+    if (c == NULL) return;
+
+    c->target_position = target_pos;
+
+    /*
+     * 微分冲击抑制 (Derivative Kick Prevention):
+     *   若不做此预置，第一步 ec = e(k) - 0 = e(k)（可能高达数千脉冲），
+     *   Kd × ec 会产生巨大的 PWM 突跳，损伤电机或造成失控。
+     *   预置后第一步 ec = e(k) - e(k) = 0，等第二步才有正常的微分响应。
+     */
+    c->error_last = (float)(target_pos - c->actual_position);
+
+    /*
+     * [v7] 积分清零:
+     *   设置新目标时,旧目标累积的 I 项已经无意义,清零防止
+     *   "上一段任务残留的 I 把电机往错误方向推"。
+     */
+    c->integral = 0.0f;
 }
 
 /**
- * ============================================================================
- * 函数: Fuzzy_PID_Update_Position
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 更新指定电机的当前位置
- * 当使用外部位置传感器时可以调用此函数更新位置
- * 
- * 参数说明:
- * ----------
- * @param id           电机通道ID
- * @param current_pos  当前实际位置(脉冲数)
- * 
+ * @brief  从外部更新指定电机的当前位置（可选接口）
+ *
+ * 功能:
+ *   直接写入控制器的 actual_position，用于接入外部位置传感器
+ *   （如绝对值编码器、光电开关等）替代内置编码器。
+ *   通常情况下，Fuzzy_PID_Calculate() 会自动从 Ecoder_Total_Lx/Rx
+ *   读取位置，无需调用此函数。
+ *
+ * 参数:
+ *   @param id           电机通道 (FUZZY_POS_PID_L1/L2/R1/R2)
+ *   @param current_pos  外部测量的当前位置 (脉冲数或等效单位)
+ *
  * 注意:
- * ----------
- * - 如果使用内置编码器读取，此函数可选使用
- * - 此函数仅更新位置信息，不触发PID计算
- * 
- * ============================================================================
+ *   若与内置编码器混用（部分通道调用此函数，部分通道不调用），
+ *   Fuzzy_PID_Calculate() 仍会覆盖 actual_position 为编码器值，
+ *   本函数写入的值将被覆盖。需要完全替代编码器时，应在
+ *   Fuzzy_PID_Calculate() 之前调用本函数，并注释掉Calculate内的
+ *   encoder读取行。
  */
 void Fuzzy_PID_Update_Position(uint8 id, int32 current_pos)
 {
-    if (id == FUZZY_POS_PID_L1)
-    {
-        Fuzzy_Cascade_PID_L1.actual_position = current_pos;
-    }
-    else if (id == FUZZY_POS_PID_L2)
-    {
-        Fuzzy_Cascade_PID_L2.actual_position = current_pos;
-    }
-    else if (id == FUZZY_POS_PID_R1)
-    {
-        Fuzzy_Cascade_PID_R1.actual_position = current_pos;
-    }
-    else if (id == FUZZY_POS_PID_R2)
-    {
-        Fuzzy_Cascade_PID_R2.actual_position = current_pos;
-    }
+    if      (id == FUZZY_POS_PID_L1) pd_L1.actual_position = current_pos;
+    else if (id == FUZZY_POS_PID_L2) pd_L2.actual_position = current_pos;
+    else if (id == FUZZY_POS_PID_R1) pd_R1.actual_position = current_pos;
+    else if (id == FUZZY_POS_PID_R2) pd_R2.actual_position = current_pos;
 }
 
 /**
- * ============================================================================
- * 函数: Fuzzy_Inference
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 模糊推理函数，将精确误差值模糊化后查表返回模糊输出
- * 
- * 算法流程:
- * ----------
- *   1. 输入限幅: 将误差和误差变化率限制在合理范围内
- *   2. 模糊化: 将精确值转换为模糊语言变量(量化)
- *              - 误差e: 范围[-1000, +1000] → 量化到[-3, +3]
- *              - 误差变化率ec: 范围[-500, +500] → 量化到[-3, +3]
- *   3. 查表: 根据e和ec的量化索引查模糊规则表
- *   4. 返回: 模糊语言变量值(-3 ~ +3)
- * 
- * 参数说明:
- * ----------
- * @param error          当前误差 (目标位置 - 实际位置)
- * @param error_change   误差变化率 (ec = e(k) - e(k-1))
- * 
- * @return float 模糊推理输出值 (-3 ~ +3)
- * 
+ * @brief  模糊PD主计算函数，必须在定时中断中周期调用
+ *
+ * 功能:
+ *   ① 从 Ecoder_Total_Lx/Rx 读取最新编码器累计值写入 actual_position
+ *   ② 对选中通道调用 pd_step()，完成一次完整的模糊推理 + PD计算
+ *   ③ 计算结果存入各控制器的 output 字段，供后续 Drive_Motor 使用
+ *
+ * 参数:
+ *   @param id  指定计算通道
+ *              FUZZY_POS_PID_L1 (0) — 仅计算左前
+ *              FUZZY_POS_PID_L2 (1) — 仅计算左后
+ *              FUZZY_POS_PID_R1 (2) — 仅计算右前
+ *              FUZZY_POS_PID_R2 (3) — 仅计算右后
+ *              0xFF               — 计算全部4路（推荐）
+ *
+ * 无返回值。计算结果通过 output 字段输出，用 Fuzzy_PID_Get_Output()
+ * 或 Fuzzy_PID_Drive_Motor() 获取/使用。
+ *
+ * 内部 pd_step 执行流程 (每路相同):
+ *   e  = target_position - actual_position  (脉冲数，可正可负)
+ *   ec = e - error_last                     (本周期误差变化量)
+ *   → fuzzy_adjust_gains(e, ec) → Kp, Kd   (查表整定)
+ *   output = Kp×e + Kd×ec                  (位置式PD)
+ *   output = clamp(output, -8000, +8000)    (限幅)
+ *   error_last = e                          (保存供下周期使用)
+ *
+ * 示例 (10 ms 定时中断):
+ *   void pit0_isr(void)
+ *   {
+ *       Encoder_Speed_PID_Update();   // 必须先更新编码器！
+ *       Fuzzy_PID_Calculate(0xFF);    // 再计算PD
+ *       Fuzzy_PID_Drive_All_Motor();  // 最后驱动电机
+ *   }
+ *
  * 注意:
- * ----------
- * - 这是内部函数，通常不需要外部调用
- * - 模糊化公式: fuzzy_value = precise_value / (range / 6)
- * - 误差范围 ±1000, ec范围 ±500 是典型值，可根据实际系统调整
- * 
- * ============================================================================
- */
-float Fuzzy_Inference(float error, float error_change)
-{
-    float error_fuzzy, ec_fuzzy;  /* 模糊化后的误差和误差变化率 */
-    int8 error_idx, ec_idx;        /* 查表的索引 */
-
-    /*-------------------- 输入限幅 --------------------*/
-    /* 将输入值限制在合理范围内，防止量化时越界 */
-    if (error > 1000.0f) error = 1000.0f;
-    else if (error < -1000.0f) error = -1000.0f;
-    if (error_change > 500.0f) error_change = 500.0f;
-    else if (error_change < -500.0f) error_change = -500.0f;
-
-    /*-------------------- 模糊化 --------------------*/
-    /* 将精确值量化到模糊语言变量范围 [-3, +3] */
-    /* 误差e: 1000 / 6 ≈ 166.67, ec: 500 / 6 ≈ 83.33 */
-    error_fuzzy = error / 166.67f;
-    ec_fuzzy = error_change / 83.33f;
-
-    /* 限幅到[-3, +3]范围 */
-    error_fuzzy = (error_fuzzy < -3.0f) ? -3.0f : (error_fuzzy > 3.0f ? 3.0f : error_fuzzy);
-    ec_fuzzy = (ec_fuzzy < -3.0f) ? -3.0f : (ec_fuzzy > 3.0f ? 3.0f : ec_fuzzy);
-
-    /*-------------------- 计算查表索引 --------------------*/
-    /* 模糊语言变量到数组索引的转换: [-3,+3] → [0,6] */
-    error_idx = (int8)(error_fuzzy + 3.0f);
-    ec_idx = (int8)(ec_fuzzy + 3.0f);
-
-    /* 索引边界检查 */
-    error_idx = (error_idx < 0) ? 0 : (error_idx > 6 ? 6 : error_idx);
-    ec_idx = (ec_idx < 0) ? 0 : (ec_idx > 6 ? 6 : ec_idx);
-
-    /*-------------------- 查表返回 --------------------*/
-    return (float)Fuzzy_Table[error_idx][ec_idx];
-}
-
-/**
- * ============================================================================
- * 函数: Fuzzy_PID_Adjust
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 模糊PID参数调整函数，根据误差和误差变化率自动调整PID参数
- * 
- * 算法流程:
- * ----------
- *   1. 误差和误差变化率限幅
- *   2. 模糊化误差和误差变化率
- *   3. 调用Fuzzy_Inference获取模糊规则输出
- *   4. 根据规则索引查Rule_Kp/Rule_Ki/Rule_Kd表获取修正量
- *   5. 计算最终PID参数: K = K_base + correction × rule_level
- *   6. 参数下限保护
- * 
- * 参数说明:
- * ----------
- * @param error          当前误差
- * @param error_change   误差变化率
- * @param Kp            输出: 调整后的比例系数
- * @param Ki            输出: 调整后的积分系数
- * @param Kd            输出: 调整后的微分系数
- * 
- * 调参原理:
- * ----------
- * - 当误差大且误差变化率大时: 增大Kp加速响应，减小Ki防止超调
- * - 当误差小且误差变化率小时: 增大Ki消除稳态误差
- * - 当误差趋于目标时: 适当增大Kd抑制可能出现的超调
- * 
- * 注意:
- * ----------
- * - 这是内部函数，由Cascade_PID_Calculate自动调用
- * - PID参数下限保护，防止参数过小导致响应迟钝
- * 
- * ============================================================================
- */
-void Fuzzy_PID_Adjust(float error, float error_change, float *Kp, float *Ki, float *Kd)
-{
-    int8 rule_idx, error_idx, ec_idx;
-    float rule_value;
-    float Kp_rule, Ki_rule, Kd_rule;
-    float error_fuzzy, ec_fuzzy;
-
-    /*-------------------- 输入限幅 --------------------*/
-    if (error > 5000.0f) error = 5000.0f;
-    else if (error < -5000.0f) error = -5000.0f;
-    if (error_change > 2000.0f) error_change = 2000.0f;
-    else if (error_change < -2000.0f) error_change = -2000.0f;
-
-    /*-------------------- 模糊化 --------------------*/
-    error_fuzzy = error / 833.33f;
-    ec_fuzzy = error_change / 333.33f;
-
-    error_fuzzy = (error_fuzzy < -3.0f) ? -3.0f : (error_fuzzy > 3.0f ? 3.0f : error_fuzzy);
-    ec_fuzzy = (ec_fuzzy < -3.0f) ? -3.0f : (ec_fuzzy > 3.0f ? 3.0f : ec_fuzzy);
-
-    /*-------------------- 计算索引 --------------------*/
-    error_idx = (int8)(error_fuzzy + 3.0f);
-    ec_idx = (int8)(ec_fuzzy + 3.0f);
-    error_idx = (error_idx < 0) ? 0 : (error_idx > 6 ? 6 : error_idx);
-    ec_idx = (ec_idx < 0) ? 0 : (ec_idx > 6 ? 6 : ec_idx);
-
-    /*-------------------- 查模糊规则表 --------------------*/
-    rule_value = (float)Fuzzy_Table[error_idx][ec_idx];
-    rule_idx = (int8)(rule_value + 3.0f);
-    rule_idx = (rule_idx < 0) ? 0 : (rule_idx > 6 ? 6 : rule_idx);
-
-    /*-------------------- 获取修正量 --------------------*/
-    if (rule_value >= 0)
-    {
-        Kp_rule = Rule_Kp[rule_idx].Kp_p;
-        Ki_rule = Rule_Ki[rule_idx].Ki_p;
-        Kd_rule = Rule_Kd[rule_idx].Kd_p;
-    }
-    else
-    {
-        Kp_rule = Rule_Kp[rule_idx].Kp_n;
-        Ki_rule = Rule_Ki[rule_idx].Ki_n;
-        Kd_rule = Rule_Kd[rule_idx].Kd_n;
-    }
-
-    /*-------------------- 计算最终PID参数 --------------------*/
-    *Kp = FUZZY_KP_BASE + Kp_rule * (rule_idx + 1);
-    *Ki = FUZZY_KI_BASE + Ki_rule * (rule_idx + 1);
-    *Kd = FUZZY_KD_BASE + Kd_rule * (rule_idx + 1);
-
-    /*-------------------- 参数下限保护 --------------------*/
-    if (*Kp < 0.1f) *Kp = 0.1f;
-    if (*Ki < 0.01f) *Ki = 0.01f;
-    if (*Kd < 0.1f) *Kd = 0.1f;
-}
-
-/**
- * ============================================================================
- * 函数: Cascade_PID_Calculate
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 串级PID计算函数，执行位置环和速度环的PID运算
- * 
- * 计算流程:
- * ----------
- *   ┌──────────────────────────────────────────────────────────────────┐
- *   │                      位置环计算                                   │
- *   │  1. 计算位置误差 e_pos = target - actual                         │
- *   │  2. 模糊调整PID参数                                               │
- *   │  3. 增量式PID计算得到目标速度                                     │
- *   │  4. 输出限幅                                                      │
- *   └──────────────────────────────────────────────────────────────────┘
- *                              │
- *                              ▼
- *   ┌──────────────────────────────────────────────────────────────────┐
- *   │                      速度环计算                                   │
- *   │  1. 速度环目标 = 位置环输出                                       │
- *   │  2. 计算速度误差 e_speed = target - actual                       │
- *   │  3. 增量式PID计算得到PWM输出                                      │
- *   │  4. 输出限幅                                                      │
- *   └──────────────────────────────────────────────────────────────────┘
- *                              │
- *                              ▼
- *                        PWM输出值
- * 
- * PID公式(增量式):
- * ----------
- *   Δu(k) = Kp×[e(k)-e(k-1)] + Ki×Σe(k) + Kd×[e(k)-2e(k-1)+e(k-2)]
- *   u(k) = u(k-1) + Δu(k)
- * 
- * 参数说明:
- * ----------
- * @param pid  指向Fuzzy_Cascade_PID结构体的指针
- * 
- * 注意:
- * ----------
- * - 这是内部函数，由Fuzzy_PID_Calculate调用
- * - 位置环输出限幅: ±1000 (作为速度环的目标速度上限)
- * - 速度环输出限幅: ±8000 (作为PWM的限幅)
- * 
- * ============================================================================
- */
-static void Cascade_PID_Calculate(Fuzzy_Cascade_PID *pid)
-{
-    float pos_error, pos_error_change;   /* 位置误差和误差变化率 */
-    float speed_error;                    /* 速度误差 */
-    float pos_increment, speed_increment; /* PID增量 */
-
-    /*==================== 位置环计算 ====================*/
-
-    /* 更新误差历史: e(k-2) <- e(k-1) <- e(k) */
-    pid->position_pid.error_prev2 = pid->position_pid.error_last;
-    pid->position_pid.error_last = pid->position_pid.error_current;
-
-    /* 计算位置误差 */
-    pos_error = (float)(pid->target_position - pid->actual_position);
-    pid->position_pid.error_current = pos_error;
-
-    /* 计算误差变化率 */
-    pos_error_change = pos_error - pid->position_pid.error_last;
-
-    /* 模糊调整PID参数 */
-    Fuzzy_PID_Adjust(pos_error, pos_error_change, 
-                     &pid->position_pid.Kp, 
-                     &pid->position_pid.Ki, 
-                     &pid->position_pid.Kd);
-
-    /* 增量式PID计算 */
-    /* Δu = Kp×[e(k)-e(k-1)] + Ki×e(k) + Kd×[e(k)-2e(k-1)+e(k-2)] */
-    pos_increment = pid->position_pid.Kp * (pos_error - pid->position_pid.error_last) +
-                    pid->position_pid.Ki * pos_error +
-                    pid->position_pid.Kd * (pos_error - 2.0f * pid->position_pid.error_last + pid->position_pid.error_prev2);
-
-    /* 累积输出 */
-    pid->position_pid.output += pos_increment;
-
-    /* 输出限幅(位置环输出作为速度环目标，限幅±500) */
-    if (pid->position_pid.output > pid->position_pid.Pwm_Max_Out)
-        pid->position_pid.output = pid->position_pid.Pwm_Max_Out;
-    else if (pid->position_pid.output < -pid->position_pid.Pwm_Max_Out)
-        pid->position_pid.output = -pid->position_pid.Pwm_Max_Out;
-
-    /* 位置环输出作为速度环目标  */
-    pid->speed_pid.target = pid->position_pid.output;
-
-    /*==================== 速度环计算 ====================*/
-
-    /* 更新误差历史 */
-    pid->speed_pid.error_prev2 = pid->speed_pid.error_last;
-    pid->speed_pid.error_last = pid->speed_pid.error_current;
-
-    /* 计算速度误差 */
-    speed_error = pid->speed_pid.target - pid->speed_pid.actual;
-    pid->speed_pid.error_current = speed_error;
-
-    /* 增量式PID计算 */
-    speed_increment = pid->speed_pid.Kp * (speed_error - pid->speed_pid.error_last) +
-                      pid->speed_pid.Ki * speed_error +
-                      pid->speed_pid.Kd * (speed_error - 2.0f * pid->speed_pid.error_last + pid->speed_pid.error_prev2);
-
-    /* 累积输出 */
-    pid->speed_pid.output += speed_increment;
-
-    /* 输出限幅(速度环输出是PWM值，限幅±8000) */
-    if (pid->speed_pid.output > pid->speed_pid.Pwm_Max_Out)
-        pid->speed_pid.output = pid->speed_pid.Pwm_Max_Out;
-    else if (pid->speed_pid.output < -pid->speed_pid.Pwm_Max_Out)
-        pid->speed_pid.output = -pid->speed_pid.Pwm_Max_Out;
-}
-
-/**
- * ============================================================================
- * 函数: Fuzzy_PID_Calculate
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 模糊PID主计算函数，在定时中断中周期调用
- * 读取编码器数据，执行串级PID计算
- * 
- * 参数说明:
- * ----------
- * @param id  电机通道选择
- *            - FUZZY_POS_PID_L1 (0): 只更新左电机
- *            - FUZZY_POS_PID_R1 (1): 只更新右电机
- *            - 0xFF: 更新所有电机
- * 
- * 使用示例:
- * ----------
- * @code
- * // 在定时器中断中调用(推荐周期10ms)
- * void TIM3_IRQHandler(void)
- * {
- *     if(timer_check_interrupt(TIM_3))
- *     {
- *         // 清除中断标志
- *         timer_clear_interrupt_flag(TIM_3);
- *         
- *         // 更新所有电机
- *         Fuzzy_PID_Calculate(0xFF);
- *     }
- * }
- * @endcode
- * 
- * 注意事项:
- * ----------
- * - 此函数必须在定时中断中周期调用
- * - 推荐调用周期: 5ms ~ 20ms
- * - 周期太短会增加CPU负担，周期太长会影响控制精度
- * 
- * ============================================================================
+ *   ① 必须在 Encoder_Speed_PID_Update() 之后调用，否则读到上周期旧值。
+ *   ② 调用周期建议 5~20 ms；过短增加CPU负担，过长控制精度下降。
+ *   ③ 不调用 Drive_Motor 时，output 仍正常更新，可用于调试读取。
  */
 void Fuzzy_PID_Calculate(uint8 id)
 {
-    // int16 current_count_L1, current_count_L2, current_count_R1, current_count_R2;
-    // int16 delta_L1, delta_L2, delta_R1, delta_R2;
-
-    // /*==================== 读取并更新编码器数据 ====================*/
-
-    // current_count_L1 = encoder_get_count(QTIMER1_ENCODER1);
-    // delta_L1 = current_count_L1 - encoder_last_L1;
-    // encoder_total_L1 += delta_L1;
-    // encoder_last_L1 = current_count_L1;
-    // encoder_clear_count(QTIMER1_ENCODER1);
-
-    // current_count_L2 = encoder_get_count(QTIMER1_ENCODER2);
-    // delta_L2 = current_count_L2 - encoder_last_L2;
-    // encoder_total_L2 += delta_L2;
-    // encoder_last_L2 = current_count_L2;
-    // encoder_clear_count(QTIMER1_ENCODER2);
-
-    // current_count_R1 = encoder_get_count(QTIMER2_ENCODER1);
-    // delta_R1 = current_count_R1 - encoder_last_R1;
-    // encoder_total_R1 += delta_R1;
-    // encoder_last_R1 = current_count_R1;
-    // encoder_clear_count(QTIMER2_ENCODER1);
-
-    // current_count_R2 = encoder_get_count(QTIMER2_ENCODER2);
-    // delta_R2 = current_count_R2 - encoder_last_R2;
-    // encoder_total_R2 += delta_R2;
-    // encoder_last_R2 = current_count_R2;
-    // encoder_clear_count(QTIMER2_ENCODER2);
-
-    /*==================== PID计算 ====================*/
-
-    if (id == FUZZY_POS_PID_L1 || id == 0xFF)
-    {
-        Fuzzy_Cascade_PID_L1.speed_pid.actual = (float)Encoder_Current_L1;
-        Fuzzy_Cascade_PID_L1.actual_position = Ecoder_Total_L1;
-        Cascade_PID_Calculate(&Fuzzy_Cascade_PID_L1);
+    if (id == FUZZY_POS_PID_L1 || id == 0xFF) {
+        pd_L1.actual_position = Ecoder_Total_L1;
+        pd_step(&pd_L1);
     }
-
-    if (id == FUZZY_POS_PID_L2 || id == 0xFF)
-    {
-        Fuzzy_Cascade_PID_L2.speed_pid.actual = (float)Encoder_Current_L2;
-        Fuzzy_Cascade_PID_L2.actual_position = Ecoder_Total_L2;
-        Cascade_PID_Calculate(&Fuzzy_Cascade_PID_L2);
+    if (id == FUZZY_POS_PID_L2 || id == 0xFF) {
+        pd_L2.actual_position = Ecoder_Total_L2;
+        pd_step(&pd_L2);
     }
-
-    if (id == FUZZY_POS_PID_R1 || id == 0xFF)
-    {
-        Fuzzy_Cascade_PID_R1.speed_pid.actual = (float)Encoder_Current_R1 ;
-        Fuzzy_Cascade_PID_R1.actual_position = Ecoder_Total_R1;
-        Cascade_PID_Calculate(&Fuzzy_Cascade_PID_R1);
+    if (id == FUZZY_POS_PID_R1 || id == 0xFF) {
+        pd_R1.actual_position = Ecoder_Total_R1;
+        pd_step(&pd_R1);
     }
-
-    if (id == FUZZY_POS_PID_R2 || id == 0xFF)
-    {
-        Fuzzy_Cascade_PID_R2.speed_pid.actual = (float)Encoder_Current_R2;
-        Fuzzy_Cascade_PID_R2.actual_position = Ecoder_Total_R2;
-        Cascade_PID_Calculate(&Fuzzy_Cascade_PID_R2);
+    if (id == FUZZY_POS_PID_R2 || id == 0xFF) {
+        pd_R2.actual_position = Ecoder_Total_R2;
+        pd_step(&pd_R2);
     }
 }
 
 /**
- * ============================================================================
- * 函数: Fuzzy_PID_Get_Output
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 获取指定电机的PID输出值
- * 
- * 返回值说明:
- * ----------
- * @return Cascade_PID_Output 结构体
- *         - position_out: 位置环输出(目标速度)
- *         - speed_out: 速度环输出(电机PWM值)
- * 
- * 使用示例:
- * ----------
- * @code
- * // 获取左电机输出
- * Cascade_PID_Output out_l = Fuzzy_PID_Get_Output(FUZZY_POS_PID_L1);
- * 
- * // 获取右电机输出
- * Cascade_PID_Output out_r = Fuzzy_PID_Get_Output(FUZZY_POS_PID_R1);
- * 
- * // 设置电机PWM
- * Motor_Set_PWM(MOTOR_L1, (int16)out_l.speed_out);
- * Motor_Set_PWM(MOTOR_R1, (int16)out_r.speed_out);
- * 
- * // 或者使用速度环输出的符号控制方向
- * int16 left_pwm = (int16)out_l.speed_out;
- * gpio_set_level(MOTOR_L1_DIR, left_pwm >= 0 ? 1 : 0);  // 设置方向
- * Motor_Set_PWM(MOTOR_L1, abs(left_pwm));                 // 设置速度
- * @endcode
- * 
+ * @brief  获取指定电机最新的 PD 输出值（不触发重新计算）
+ *
+ * 功能:
+ *   返回上一次 Fuzzy_PID_Calculate() 执行后存入 output 的结果，
+ *   封装为 Cascade_PID_Output 结构体。
+ *
+ * 参数:
+ *   @param id  电机通道 (FUZZY_POS_PID_L1/L2/R1/R2)
+ *
+ * 返回值:
+ *   Cascade_PID_Output 结构体:
+ *     .speed_out     最终 PWM 输出值，范围 [-8000, +8000]
+ *                    正值 → 正转，负值 → 反转，绝对值 = 占空比
+ *     .position_out  本版本始终为 0.0f（保留字段，兼容旧接口）
+ *
+ * 示例:
+ *   // 读取左前电机输出后手动驱动
+ *   Cascade_PID_Output out = Fuzzy_PID_Get_Output(FUZZY_POS_PID_L1);
+ *   int16 pwm = (int16)out.speed_out;
+ *   Motor_Set(MOTOR_L1_DIR, PWM_CH1_L1, pwm);
+ *
+ *   // 调试打印
+ *   printf("L1=%.0f  R1=%.0f\n",
+ *          Fuzzy_PID_Get_Output(FUZZY_POS_PID_L1).speed_out,
+ *          Fuzzy_PID_Get_Output(FUZZY_POS_PID_R1).speed_out);
+ *
  * 注意:
- * ----------
- * - speed_out是最终的PWM输出值
- * - 正值表示正转，负值表示反转
- * - 绝对值越大转速越快
- * 
- * ============================================================================
+ *   若在两次 Calculate() 之间多次调用，返回值不变（无副作用）。
  */
 Cascade_PID_Output Fuzzy_PID_Get_Output(uint8 id)
 {
-    Cascade_PID_Output output = {0.0f, 0.0f};
+    Cascade_PID_Output out = {0.0f, 0.0f};
 
-    if (id == FUZZY_POS_PID_L1)
-    {
-        output.position_out = Fuzzy_Cascade_PID_L1.position_pid.output;
-        output.speed_out = Fuzzy_Cascade_PID_L1.speed_pid.output;
-    }
-    else if (id == FUZZY_POS_PID_L2)
-    {
-        output.position_out = Fuzzy_Cascade_PID_L2.position_pid.output;
-        output.speed_out = Fuzzy_Cascade_PID_L2.speed_pid.output;
-    }
-    else if (id == FUZZY_POS_PID_R1)
-    {
-        output.position_out = Fuzzy_Cascade_PID_R1.position_pid.output;
-        output.speed_out = Fuzzy_Cascade_PID_R1.speed_pid.output;
-    }
-    else if (id == FUZZY_POS_PID_R2)
-    {
-        output.position_out = Fuzzy_Cascade_PID_R2.position_pid.output;
-        output.speed_out = Fuzzy_Cascade_PID_R2.speed_pid.output;
-    }
+    if      (id == FUZZY_POS_PID_L1) out.speed_out = pd_L1.output;
+    else if (id == FUZZY_POS_PID_L2) out.speed_out = pd_L2.output;
+    else if (id == FUZZY_POS_PID_R1) out.speed_out = pd_R1.output;
+    else if (id == FUZZY_POS_PID_R2) out.speed_out = pd_R2.output;
 
-    return output;
+    return out;
 }
 
 /**
- * ============================================================================
- * 函数: Get_Motor_Position
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 获取编码器累计的脉冲数(即电机当前位置)
- * 
- * 参数说明:
- * ----------
- * @param id  电机通道ID
- *            - FUZZY_POS_PID_L1 (0): 左电机
- *            - FUZZY_POS_PID_R1 (1): 右电机
- * 
- * @return int32 当前位置(脉冲数)
- * 
- * 使用示例:
- * ----------
- * @code
- * // 获取并显示电机位置
- * int32 pos_l = Get_Motor_Position(FUZZY_POS_PID_L1);
- * int32 pos_r = Get_Motor_Position(FUZZY_POS_PID_R1);
- * 
- * printf("左电机位置: %d 脉冲 (%.2f 圈)\n", pos_l, pos_l / 4096.0f);
- * printf("右电机位置: %d 脉冲 (%.2f 圈)\n", pos_r, pos_r / 4096.0f);
- * @endcode
- * 
+ * @brief  将 PD 输出写入单个电机的方向引脚和 PWM 通道
+ *
+ * 功能:
+ *   读取目标通道的 output 值，调用 Motor_Set() 完成:
+ *     output > 0 → 方向引脚置高(正转) + PWM = output
+ *     output < 0 → 方向引脚置低(反转) + PWM = |output|
+ *     output = 0 → PWM = 0，电机停止
+ *
+ * 通道与硬件映射:
+ *   L1: MOTOR_L1_DIR + PWM_CH1_L1 (C9 + C8)
+ *   L2: MOTOR_L2_DIR + PWM_CH3_L2 (D2 + D3)
+ *   R1: MOTOR_R1_DIR + PWM_CH2_R1 (C7 + C6)
+ *   R2: MOTOR_R2_DIR + PWM_CH4_R2 (C10 + C11)
+ *
+ * 参数:
+ *   @param id  电机通道 (FUZZY_POS_PID_L1/L2/R1/R2)
+ *
+ * 示例:
+ *   // 在中断中依次驱动左侧两轮
+ *   Fuzzy_PID_Calculate(FUZZY_POS_PID_L1);
+ *   Fuzzy_PID_Calculate(FUZZY_POS_PID_L2);
+ *   Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_L1);
+ *   Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_L2);
+ *
  * 注意:
- * ----------
- * - 4096脉冲 = RC380电机转1圈
- * - 位置是累计值，需要定期清零
- * 
- * ============================================================================
+ *   必须在本周期 Fuzzy_PID_Calculate() 之后调用，否则驱动的是
+ *   上一周期的 output。
+ */
+void Fuzzy_PID_Drive_Motor(uint8 id)
+{
+    int32 pwm = (int32)Fuzzy_PID_Get_Output(id).speed_out;
+
+    if      (id == FUZZY_POS_PID_L1) Motor_Set(MOTOR_L1_DIR, PWM_CH1_L1, pwm);
+    else if (id == FUZZY_POS_PID_L2) Motor_Set(MOTOR_L2_DIR, PWM_CH3_L2, pwm);
+    else if (id == FUZZY_POS_PID_R1) Motor_Set(MOTOR_R1_DIR, PWM_CH2_R1, pwm);
+    else if (id == FUZZY_POS_PID_R2) Motor_Set(MOTOR_R2_DIR, PWM_CH4_R2, pwm);
+}
+
+/**
+ * @brief  驱动全部 4 路电机（Fuzzy_PID_Drive_Motor 的批量版本）
+ *
+ * 功能:
+ *   依次调用 4 次 Fuzzy_PID_Drive_Motor()，一次驱动所有电机。
+ *   等效于:
+ *     Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_L1);
+ *     Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_L2);
+ *     Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_R1);
+ *     Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_R2);
+ *
+ * 示例 (标准中断结构):
+ *   void pit0_isr(void)
+ *   {
+ *       Encoder_Speed_PID_Update();
+ *       Fuzzy_PID_Calculate(0xFF);
+ *       Fuzzy_PID_Drive_All_Motor();   // 一行替代4次Drive_Motor调用
+ *   }
+ */
+void Fuzzy_PID_Drive_All_Motor(void)
+{
+    Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_L1);
+    Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_L2);
+    Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_R1);
+    Fuzzy_PID_Drive_Motor(FUZZY_POS_PID_R2);
+}
+
+/**
+ * @brief  获取指定电机编码器累计脉冲数（即当前绝对位置）
+ *
+ * 功能:
+ *   直接返回 Ecoder_Total_Lx/Rx 变量的当前值，该值由
+ *   Encoder_Speed_PID_Update() 每周期累加，反映自上次
+ *   Clear_Motor_Position() 后的净位移。
+ *
+ * 参数:
+ *   @param id  电机通道 (FUZZY_POS_PID_L1/L2/R1/R2)
+ *
+ * 返回值:
+ *   int32 累计脉冲数
+ *     正值 = 正转方向累计位移
+ *     负值 = 反转方向累计位移
+ *     4096 = 转动 1 整圈
+ *   传入无效 id 返回 0。
+ *
+ * 示例:
+ *   // 读取并换算为圈数
+ *   int32 pulses = Get_Motor_Position(FUZZY_POS_PID_L1);
+ *   float revs   = pulses / 4096.0f;
+ *   printf("L1 已转 %d 脉冲 (%.3f 圈)\n", pulses, revs);
+ *
+ *   // 到位检测 (±15脉冲死区，约±1.3°)
+ *   if (abs(Get_Motor_Position(FUZZY_POS_PID_R1) - target) <= 15)
+ *       printf("右前电机到位!\n");
  */
 int32 Get_Motor_Position(uint8 id)
 {
-    if (id == FUZZY_POS_PID_L1)
-        return encoder_total_L1;
-    else if (id == FUZZY_POS_PID_L2)
-        return encoder_total_L2;
-    else if (id == FUZZY_POS_PID_R1)
-        return encoder_total_R1;
-    else if (id == FUZZY_POS_PID_R2)
-        return encoder_total_R2;
+    if      (id == FUZZY_POS_PID_L1) return Ecoder_Total_L1;
+    else if (id == FUZZY_POS_PID_L2) return Ecoder_Total_L2;
+    else if (id == FUZZY_POS_PID_R1) return Ecoder_Total_R1;
+    else if (id == FUZZY_POS_PID_R2) return Ecoder_Total_R2;
     return 0;
 }
 
 /**
- * ============================================================================
- * 函数: Clear_Motor_Position
- * ============================================================================
- * 
- * 功能说明:
- * ----------
- * 清零指定电机的位置计数器
- * 
- * 参数说明:
- * ----------
- * @param id  电机通道ID
- *            - FUZZY_POS_PID_L1 (0): 只清零左电机
- *            - FUZZY_POS_PID_R1 (1): 只清零右电机
- *            - 0xFF: 清零所有电机
- * 
- * 使用示例:
- * ----------
- * @code
- * // 方法1: 清零单个电机
- * Clear_Motor_Position(FUZZY_POS_PID_L1);
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 4096);  // 从0开始转1圈
- * 
- * // 方法2: 清零所有电机(用于初始化或回零)
- * Clear_Motor_Position(0xFF);
- * 
- * // 方法3: 在某个位置清零，建立新的参考零点
- * Motor_Move_To(5000);  // 移动到某位置
- * Clear_Motor_Position(FUZZY_POS_PID_L1);  // 当前位置变为0
- * Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 0);  // 停在当前位置
- * @endcode
- * 
- * 注意事项:
- * ----------
- * - 清零后之前的位置信息会丢失
- * - 可以在电机到达原点时调用清零
- * 
- * ============================================================================
+ * @brief  清零指定电机的位置计数器及 PD 内部状态
+ *
+ * 功能:
+ *   将 Ecoder_Total_Lx/Rx 清零（建立新参考零点），同时清除
+ *   控制器的 error_last 和 output，防止残留状态在下次运动中
+ *   产生误差或 PWM 突跳。
+ *
+ * 参数:
+ *   @param id  电机通道
+ *              FUZZY_POS_PID_L1/L2/R1/R2 — 清零单路
+ *              0xFF                       — 清零全部4路
+ *
+ * 清零内容对比:
+ *   ┌────────────────────────────┬──────┬───────────────────────────┐
+ *   │ 变量                       │ 清零 │ 说明                       │
+ *   ├────────────────────────────┼──────┼───────────────────────────┤
+ *   │ Ecoder_Total_Lx            │  ✓  │ 编码器累计脉冲，建立新零点 │
+ *   │ pd_Lx.error_last           │  ✓  │ 消除历史误差，防止首步冲击 │
+ *   │ pd_Lx.output               │  ✓  │ 清零上次输出，电机安全停止 │
+ *   │ pd_Lx.target_position      │  ✗  │ 目标不变，需手动重新设置   │
+ *   │ 编码器硬件计数寄存器        │  ✗  │ 由 Encoder.c 管理          │
+ *   └────────────────────────────┴──────┴───────────────────────────┘
+ *
+ * 示例:
+ *   // 场景1: 在当前位置建立新零点，再运动1圈
+ *   Motor_Stop();
+ *   Clear_Motor_Position(FUZZY_POS_PID_L1);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 4096);
+ *
+ *   // 场景2: 全部电机归零后同步运动
+ *   Clear_Motor_Position(0xFF);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_L1, 2048);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_L2, 2048);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_R1, 2048);
+ *   Fuzzy_PID_Set_Target(FUZZY_POS_PID_R2, 2048);
+ *
+ * 注意:
+ *   清零后 target_position 不变，若不重新 Set_Target，控制器将
+ *   以旧目标值（相对新零点）驱动电机，可能造成意外运动。
+ *   建议清零后立即调用 Set_Target() 设置新目标。
  */
 void Clear_Motor_Position(uint8 id)
 {
-    if (id == FUZZY_POS_PID_L1 || id == 0xFF)
-    {
-        encoder_total_L1 = 0;
+    if (id == FUZZY_POS_PID_L1 || id == 0xFF) {
+        Ecoder_Total_L1      = 0;
+        pd_L1.error_last     = 0.0f;
+        pd_L1.ec_filt        = 0.0f;    /* [v2] */
+        pd_L1.integral       = 0.0f;    /* [v7] */
+        pd_L1.output         = 0.0f;
+        pd_L1.db_active      = 0;       /* [v6] */
+        pd_L1.db_steady_count = 0;      /* [v6] */
     }
-    if (id == FUZZY_POS_PID_L2 || id == 0xFF)
-    {
-        encoder_total_L2 = 0;
+    if (id == FUZZY_POS_PID_L2 || id == 0xFF) {
+        Ecoder_Total_L2      = 0;
+        pd_L2.error_last     = 0.0f;
+        pd_L2.ec_filt        = 0.0f;    /* [v2] */
+        pd_L2.integral       = 0.0f;    /* [v7] */
+        pd_L2.output         = 0.0f;
+        pd_L2.db_active      = 0;       /* [v6] */
+        pd_L2.db_steady_count = 0;      /* [v6] */
     }
-    if (id == FUZZY_POS_PID_R1 || id == 0xFF)
-    {
-        encoder_total_R1 = 0;
+    if (id == FUZZY_POS_PID_R1 || id == 0xFF) {
+        Ecoder_Total_R1      = 0;
+        pd_R1.error_last     = 0.0f;
+        pd_R1.ec_filt        = 0.0f;    /* [v2] */
+        pd_R1.integral       = 0.0f;    /* [v7] */
+        pd_R1.output         = 0.0f;
+        pd_R1.db_active      = 0;       /* [v6] */
+        pd_R1.db_steady_count = 0;      /* [v6] */
     }
-    if (id == FUZZY_POS_PID_R2 || id == 0xFF)
-    {
-        encoder_total_R2 = 0;
+    if (id == FUZZY_POS_PID_R2 || id == 0xFF) {
+        Ecoder_Total_R2      = 0;
+        pd_R2.error_last     = 0.0f;
+        pd_R2.ec_filt        = 0.0f;    /* [v2] */
+        pd_R2.integral       = 0.0f;    /* [v7] */
+        pd_R2.output         = 0.0f;
+        pd_R2.db_active      = 0;       /* [v6] */
+        pd_R2.db_steady_count = 0;      /* [v6] */
     }
 }

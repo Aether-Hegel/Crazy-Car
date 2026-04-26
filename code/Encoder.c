@@ -36,17 +36,17 @@ void Encoder_Init(void)
  */
 void Encoder_Speed_PID_Update(void)
 {
-    Encoder_Current_L1 = encoder_get_count(QTIMER1_ENCODER1);
+    Encoder_Current_L1 = encoder_get_count(QTIMER1_ENCODER2);
     Ecoder_Total_L1 += Encoder_Current_L1;
-    encoder_clear_count(QTIMER1_ENCODER1);
-
-    Encoder_Current_L2 = encoder_get_count(QTIMER1_ENCODER2);
-    Ecoder_Total_L2 += Encoder_Current_L2;
     encoder_clear_count(QTIMER1_ENCODER2);
 
-    Encoder_Current_R1 = encoder_get_count(QTIMER2_ENCODER1);
-    Ecoder_Total_R1 += Encoder_Current_R1;
+    Encoder_Current_L2 = encoder_get_count(QTIMER2_ENCODER1);
+    Ecoder_Total_L2 += Encoder_Current_L2;
     encoder_clear_count(QTIMER2_ENCODER1);
+
+    Encoder_Current_R1 = encoder_get_count(QTIMER1_ENCODER1);
+    Ecoder_Total_R1 += Encoder_Current_R1;
+    encoder_clear_count(QTIMER1_ENCODER1);
     
     Encoder_Current_R2 = encoder_get_count(QTIMER2_ENCODER2);
     Ecoder_Total_R2 += Encoder_Current_R2;

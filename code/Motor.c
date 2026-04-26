@@ -223,15 +223,21 @@ void Motor_Set(gpio_pin_enum dir_pin, pwm_channel_enum pwm_pin, int32 speed)
 {
     speed = Motor_Clamp(speed, -MOTOR_PWM_MAX, MOTOR_PWM_MAX);
 
-    if (speed >= 0)
+    if (speed > 0)
     {
         gpio_set_level(dir_pin, 1);
         pwm_set_duty(pwm_pin, (uint32)speed);
     }
-    else
+    else if (speed < 0)
     {
         gpio_set_level(dir_pin, 0);
         pwm_set_duty(pwm_pin, (uint32)(-speed));
+    }
+    else
+    {
+        /* speed == 0: 仅关闭 PWM，不改变方向引脚状态
+         * 避免在零速时翻转 DIR 引脚导致驱动器瞬间产生反向电流脉冲 */
+        pwm_set_duty(pwm_pin, 0);
     }
 }
 

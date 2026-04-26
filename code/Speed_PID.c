@@ -1,29 +1,29 @@
 #include "Speed_PID.h"
 #include "UART.h"
 
-extern uint8 fifo2_rx_buffer[UART2_RX_BUF_SIZE]; // FIFO输出读出缓冲区
-extern uint32 fifo2_rx_index;
+extern uint8 fifo4_rx_buffer[UART4_RX_BUF_SIZE]; // FIFO输出读出缓冲区
+extern uint32 fifo4_rx_index;
 
 /**
  * @brief 速度PID参数
  * @details 用于PID调式时使用的临时变量
  */
-float Kp_temp = 10.0f;
-float Ki_temp = 10.0f;
-float Kd_temp = 10.0f;
-float target_temp = 100.0f;
+float Kp_temp = 0.0f;
+float Ki_temp = 0.0f;
+float Kd_temp = 0.0f;
+float target_temp = 0.0f;
 
-Speed_PID Speed_PID_L1 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 100.0f, .Pwm_Max_Out = 10000, .integral_sum = 0.0f, .integral_limit = 100000.0f};
-Speed_PID Speed_PID_R1 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 100.0f, .Pwm_Max_Out = 10000, .integral_sum = 0.0f, .integral_limit = 10000.0f};
-Speed_PID Speed_PID_L2 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 100.0f, .Pwm_Max_Out = 10000, .integral_sum = 0.0f, .integral_limit = 10000.0f};
-Speed_PID Speed_PID_R2 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 100.0f, .Pwm_Max_Out = 10000, .integral_sum = 0.0f, .integral_limit = 10000.0f};
+Speed_PID Speed_PID_L1 = {.Kp = 2.0f, .Ki = 0.2f, .Kd = 2.0f, .target_speed = 0.0f, .Pwm_Max_Out = 8000, .integral_sum = 0.0f, .integral_limit = 10000.0f, .output_dead_zone = 300.0f};
+Speed_PID Speed_PID_R1 = {.Kp = 1.8f, .Ki = 0.5f, .Kd = 0.6f, .target_speed = 0.0f, .Pwm_Max_Out = 8000, .integral_sum = 0.0f, .integral_limit = 10000.0f,  .output_dead_zone = 300.0f};
+Speed_PID Speed_PID_L2 = {.Kp = 2.5f, .Ki = 0.4f, .Kd = 1.0f, .target_speed = 0.0f, .Pwm_Max_Out = 8000, .integral_sum = 0.0f, .integral_limit = 10000.0f,  .output_dead_zone = 300.0f};
+Speed_PID Speed_PID_R2 = {.Kp = 1.8f, .Ki = 0.4f, .Kd = 1.0f, .target_speed = 0.0f, .Pwm_Max_Out = 8000, .integral_sum = 0.0f, .integral_limit = 10000.0f,  .output_dead_zone = 300.0f};
 
 /*********************************************************************************************************************
  * 函数名称：PID_parameter_calculate
  * 函数功能：从串口接收的 ASCII 数据中解析 PID 参数，并将解析结果存储到全局变量中
  *
  * 参数说明：
- *   无（函数使用全局变量 fifo2_rx_buffer 和 fifo2_rx_index）
+ *   无（函数使用全局变量 fifo4_rx_buffer 和 fifo4_rx_index）
  *
  * 返回值：
  *   无（解析结果存储到全局变量 Kp_temp、Ki_temp、Kd_temp）
@@ -41,8 +41,8 @@ Speed_PID Speed_PID_R2 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 10
  * 算法逻辑：
  *
  *   1. 数据来源：
- *      - fifo2_rx_buffer[]：存储从串口接收到的 ASCII 字符
- *      - fifo2_rx_index：当前缓冲区中有效数据的长度
+ *      - fifo4_rx_buffer[]：存储从串口接收到的 ASCII 字符
+ *      - fifo4_rx_index：当前缓冲区中有效数据的长度
  *
  *   2. ASCII 到数值转换算法：
  *      对于每个参数（Kp、Ki、Kd），执行以下步骤：
@@ -87,8 +87,8 @@ Speed_PID Speed_PID_R2 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 10
  *   5. 使用示例：
  *
  *      输入数据："2.5,3.0,1.5"
- *      fifo2_rx_buffer = {'2','.','5',',','3','.','0',',','1','.','5'}
- *      fifo2_rx_index = 11
+ *      fifo4_rx_buffer = {'2','.','5',',','3','.','0',',','1','.','5'}
+ *      fifo4_rx_index = 11
  *
  *      解析过程：
  *        Kp:  '2' → temp_value=2
@@ -107,7 +107,7 @@ Speed_PID Speed_PID_R2 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 10
  *             Kd_temp = 1 + 5/10 = 1.5
  *
  *   6. 注意事项：
- *      - 调用此函数前，需确保 fifo2_rx_buffer 中已包含有效数据
+ *      - 调用此函数前，需确保 fifo4_rx_buffer 中已包含有效数据
  *      - 数据格式必须严格遵循 "Kp,Ki,Kd" 格式，否则解析可能出错
  *      - 函数不检查数据有效性，非法字符将被忽略
  *      - 解析结果存储在全局变量 Kp_temp、Ki_temp、Kd_temp 中
@@ -116,7 +116,7 @@ Speed_PID Speed_PID_R2 = {.Kp = 1.0f, .Ki = 1.0f, .Kd = 1.0f, .target_speed = 10
  *   在主循环中调用：
  *   ```c
  *   while(1) {
- *       uart_echo_data();        // 从 FIFO 读取数据到 fifo2_rx_buffer
+ *       uart_echo_data();        // 从 FIFO 读取数据到 fifo4_rx_buffer
  *       PID_parameter_calculate(); // 解析 PID 参数
  *       Speed_PID_Init();        // 应用解析后的参数
  *   }
@@ -130,7 +130,7 @@ void PID_parameter_calculate()
 {
     // 方法：将ASCII数字字符转换为十进制数值
     // 发送格式：Kp,Ki,Kd (例如：25,30,15)
-    // fifo2_rx_buffer 内容：{'2','5',',','3','0',',','1','5'}
+    // fifo4_rx_buffer 内容：{'2','5',',','3','0',',','1','5'}
 
     uint32 i = 0;                 // 全局索引，用于记录当前解析位置
     uint32 j = 0;                 // 局部索引，用于 Kp 解析的循环
@@ -149,26 +149,26 @@ void PID_parameter_calculate()
     decimal_divisor = 1.0f; // 重置小数除数
 
     // 从缓冲区开头遍历，直到遇到逗号或缓冲区结束
-    for (j = 0; j < fifo2_rx_index && fifo2_rx_buffer[j] != ','; j++)
+    for (j = 0; j < fifo4_rx_index && fifo4_rx_buffer[j] != ','; j++)
     {
-        if (fifo2_rx_buffer[j] == '.') // 检测到小数点
+        if (fifo4_rx_buffer[j] == '.') // 检测到小数点
         {
             has_decimal = 1; // 标记进入小数部分
             continue;        // 跳过小数点字符
         }
 
-        if (fifo2_rx_buffer[j] >= '0' && fifo2_rx_buffer[j] <= '9') // 检测到数字字符
+        if (fifo4_rx_buffer[j] >= '0' && fifo4_rx_buffer[j] <= '9') // 检测到数字字符
         {
             if (has_decimal) // 如果已进入小数部分
             {
                 // 小数部分累加：decimal_part = decimal_part * 10 + 当前数字
-                decimal_part = decimal_part * 10 + (fifo2_rx_buffer[j] - '0');
+                decimal_part = decimal_part * 10 + (fifo4_rx_buffer[j] - '0');
                 decimal_divisor *= 10.0f; // 除数乘以10，定位小数点位置
             }
             else // 仍在整数部分
             {
                 // 整数部分累加：temp_value = temp_value * 10 + 当前数字
-                temp_value = temp_value * 10 + (fifo2_rx_buffer[j] - '0');
+                temp_value = temp_value * 10 + (fifo4_rx_buffer[j] - '0');
             }
         }
     }
@@ -186,26 +186,26 @@ void PID_parameter_calculate()
     decimal_divisor = 1.0f; // 重置小数除数
 
     // 从 Ki 起始位置遍历，直到遇到逗号或缓冲区结束
-    for (; i < fifo2_rx_index && fifo2_rx_buffer[i] != ','; i++)
+    for (; i < fifo4_rx_index && fifo4_rx_buffer[i] != ','; i++)
     {
-        if (fifo2_rx_buffer[i] == '.') // 检测到小数点
+        if (fifo4_rx_buffer[i] == '.') // 检测到小数点
         {
             has_decimal = 1; // 标记进入小数部分
             continue;        // 跳过小数点字符
         }
 
-        if (fifo2_rx_buffer[i] >= '0' && fifo2_rx_buffer[i] <= '9') // 检测到数字字符
+        if (fifo4_rx_buffer[i] >= '0' && fifo4_rx_buffer[i] <= '9') // 检测到数字字符
         {
             if (has_decimal) // 如果已进入小数部分
             {
                 // 小数部分累加
-                decimal_part = decimal_part * 10 + (fifo2_rx_buffer[i] - '0');
+                decimal_part = decimal_part * 10 + (fifo4_rx_buffer[i] - '0');
                 decimal_divisor *= 10.0f; // 除数乘以10
             }
             else // 仍在整数部分
             {
                 // 整数部分累加
-                temp_value = temp_value * 10 + (fifo2_rx_buffer[i] - '0');
+                temp_value = temp_value * 10 + (fifo4_rx_buffer[i] - '0');
             }
         }
     }
@@ -223,26 +223,26 @@ void PID_parameter_calculate()
     decimal_divisor = 1.0f; // 重置小数除数
 
     // 从 Kd 起始位置遍历，直到遇到换行符或缓冲区结束
-    for (; i < fifo2_rx_index && fifo2_rx_buffer[i] != ','; i++)
+    for (; i < fifo4_rx_index && fifo4_rx_buffer[i] != ','; i++)
     {
-        if (fifo2_rx_buffer[i] == '.') // 检测到小数点
+        if (fifo4_rx_buffer[i] == '.') // 检测到小数点
         {
             has_decimal = 1; // 标记进入小数部分
             continue;        // 跳过小数点字符
         }
 
-        if (fifo2_rx_buffer[i] >= '0' && fifo2_rx_buffer[i] <= '9') // 检测到数字字符
+        if (fifo4_rx_buffer[i] >= '0' && fifo4_rx_buffer[i] <= '9') // 检测到数字字符
         {
             if (has_decimal) // 如果已进入小数部分
             {
                 // 小数部分累加
-                decimal_part = decimal_part * 10 + (fifo2_rx_buffer[i] - '0');
+                decimal_part = decimal_part * 10 + (fifo4_rx_buffer[i] - '0');
                 decimal_divisor *= 10.0f; // 除数乘以10
             }
             else // 仍在整数部分
             {
                 // 整数部分累加
-                temp_value = temp_value * 10 + (fifo2_rx_buffer[i] - '0'); // 转换成十进制数值
+                temp_value = temp_value * 10 + (fifo4_rx_buffer[i] - '0'); // 转换成十进制数值
             }
         }
     }
@@ -259,29 +259,29 @@ void PID_parameter_calculate()
     decimal_divisor = 1.0f; // 重置小数除数
 
     // 从 target 起始位置遍历，直到遇到换行符或缓冲区结束
-    for (; i < fifo2_rx_index; i++)
+    for (; i < fifo4_rx_index; i++)
     {
-        if (fifo2_rx_buffer[i] == '.') // 检测到小数点
+        if (fifo4_rx_buffer[i] == '.') // 检测到小数点
         {
             has_decimal = 1; // 标记进入小数部分
             continue;        // 跳过小数点字符
         }
 
-        if (fifo2_rx_buffer[i] >= '0' && fifo2_rx_buffer[i] <= '9') // 检测到数字字符
+        if (fifo4_rx_buffer[i] >= '0' && fifo4_rx_buffer[i] <= '9') // 检测到数字字符
         {
             if (has_decimal) // 如果已进入小数部分
             {
                 // 小数部分累加
-                decimal_part = decimal_part * 10 + (fifo2_rx_buffer[i] - '0');
+                decimal_part = decimal_part * 10 + (fifo4_rx_buffer[i] - '0');
                 decimal_divisor *= 10.0f; // 除数乘以10
             }
             else // 仍在整数部分
             {
                 // 整数部分累加
-                temp_value = temp_value * 10 + (fifo2_rx_buffer[i] - '0'); // 转换成十进制数值
+                temp_value = temp_value * 10 + (fifo4_rx_buffer[i] - '0'); // 转换成十进制数值
             }
         }
-        else if (fifo2_rx_buffer[i] == '\r' || fifo2_rx_buffer[i] == '\n')
+        else if (fifo4_rx_buffer[i] == '\r' || fifo4_rx_buffer[i] == '\n')
         {
             break; // 遇到回车或换行符，结束解析
         }
@@ -299,12 +299,12 @@ void Set_Speed_PID(Speed_PID *pid, float Kp, float Ki, float Kd, float target, f
     pid->Pwm_Max_Out = PWM_MAX_OUt;
 }
 
-// 调试用，实际使用时请放在while函数中
-void Speed_PID_Init() // 初始化PID参数(注：放在while函数中)
+
+void Speed_PID_Init() // 初始化PID参数
 {
     PID_parameter_calculate();
-    Set_Speed_PID(&Speed_PID_L1, Kp_temp, Ki_temp, Kd_temp, target_temp, 10000);
-    Set_Speed_PID(&Speed_PID_R1, Kp_temp, Ki_temp, Kd_temp, 100, 10000);
+    // Set_Speed_PID(&Speed_PID_L1, Kp_temp, Ki_temp, Kd_temp, target_temp, 10000);
+    // Set_Speed_PID(&Speed_PID_R1, Kp_temp, Ki_temp, Kd_temp, 100, 10000);
 }
 
 void Speed_PID_Calculate(Speed_PID *pid, float current_speed)
@@ -317,15 +317,20 @@ void Speed_PID_Calculate(Speed_PID *pid, float current_speed)
 
     // 计算当前误差 e(k)
     float error_current = pid->target_speed - pid->Actual_speed;
-    // 滤波误差（与原代码保持一致）
-    float filtered_error = error_current * 0.3f + pid->error_last * 0.7f;
+    // 滤波误差（降低滤波强度以减少相位滞后，0.5/0.5 平衡噪声抑制与响应速度）
+    float filtered_error = error_current * 0.5f + pid->error_last * 0.5f;
     // 保存滤波后的误差e(k)
     pid->error_current = filtered_error;
 
     // 增量式PID计算
     // u(k) = u(k-1) + Kp*(e(k)-e(k-1)) + Ki*e(k) + Kd*(e(k)-2*e(k-1)+e(k-2))
-    // 使用限幅后的积分累积值计算积分项
     float increment = pid->Kp * (filtered_error - pid->error_last) + pid->Ki * pid->error_current  + pid->Kd * (filtered_error - 2.0f * pid->error_last + pid->error_prev2);
+
+    // 积分限幅：限制单步增量中的积分贡献，防止累积过大
+    float i_contribution = pid->Ki * pid->error_current;
+    if (i_contribution >  pid->integral_limit) i_contribution =  pid->integral_limit;
+    if (i_contribution < -pid->integral_limit) i_contribution = -pid->integral_limit;
+    increment = pid->Kp * (filtered_error - pid->error_last) + i_contribution + pid->Kd * (filtered_error - 2.0f * pid->error_last + pid->error_prev2);
 
     // 计算当前输出
     float output = pid->output + increment;
@@ -336,17 +341,15 @@ void Speed_PID_Calculate(Speed_PID *pid, float current_speed)
     else if (output < -pid->Pwm_Max_Out)
         output = -pid->Pwm_Max_Out;
 
+    // 输出死区：绝对值低于阈值时强制清零，同时清除误差状态防止残留
+    if (output > -pid->output_dead_zone && output < pid->output_dead_zone)
+    {
+        output = 0.0f;
+        pid->error_current = 0.0f;
+        pid->error_last    = 0.0f;
+        pid->error_prev2   = 0.0f;
+    }
+
     pid->output = output;
 }
 
-void Speed_Car() // 调用PID计算函数并输出PWM值(注：放在Timer中断)
-{
-    Speed_PID_Calculate(&Speed_PID_L1, 80); // 假设当前速度为80
-    Speed_PID_Calculate(&Speed_PID_R1, 80); // 假设当前速度为80
-
-    // 输出PWM值
-    printf("Left PWM: %f\n", Speed_PID_L1.output);
-    printf("Right PWM: %f\n", Speed_PID_R1.output);
-
-    // 这里添加代码将PWM值发送到电机控制器
-}

@@ -1175,6 +1175,12 @@
             <name>$PROJ_DIR$\..\..\code\Motor.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\code\PID.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\code\PID.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\code\PWM.c</name>
         </file>
         <file>
@@ -1197,6 +1203,12 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\code\UART.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\code\wifi.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\code\wifi.h</name>
         </file>
     </group>
     <group>

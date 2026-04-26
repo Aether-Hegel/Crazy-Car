@@ -8,6 +8,7 @@
 #include "timers.h"
 #include "PWM.h"
 #include "Speed_PID.h"
+#include "Fuzzy_Pid.h"
 
 void APP_FreeRTOS_Start(void);
 

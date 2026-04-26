@@ -43,11 +43,13 @@ int main(void)
 {
     clock_init(SYSTEM_CLOCK_600M);
     Timer2_Init();
-    MyUART_2_Init();
+    MyUART_4_Init();
     MyPWM_Init();
     Encoder_Init();
     Motor_Init();
     debug_init();
+    /* Motor_Init() 只需调用一次，第二次是冗余的已移除 */
+    Cascade_PID_Init();
     gpio_init(B9, GPO, 1, GPO_PUSH_PULL);
     gpio_set_level(B9, 1);
 
@@ -55,6 +57,5 @@ int main(void)
 
     while (1)
     {
-
     }
 }

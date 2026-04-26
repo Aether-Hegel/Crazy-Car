@@ -1,89 +1,89 @@
-"D:\RT1604project\Crazy-Car-hardware\code\Speed_PID.c"
+"D:\RT1604project\Crazy-Car-hardware - 副本\code\Speed_PID.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
 -fsigned-char
 -MD
 -MF
-D:\RT1604project\Crazy-Car-hardware\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\Speed_PID.pbi.dep
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\Speed_PID.pbi.dep
 -o
-D:\RT1604project\Crazy-Car-hardware\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\Speed_PID.pbi
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\BrowseInfo\code_17896468042025673432.dir\Speed_PID.pbi
 -I
-D:\RT1604project\Crazy-Car-hardware\code
+D:\RT1604project\Crazy-Car-hardware - 副本\code
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\user\inc
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\user\inc\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\application
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\application\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\code
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\code\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\startup\iar
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\startup\iar\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\deceive
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\deceive\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\drives
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\drives\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\xip
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\xip\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\utilities
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\utilities\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\utilities\debug_console
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\utilities\debug_console\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\utilities\str
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\utilities\str\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\cmsis_drivers
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\cmsis_drivers\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Include
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Include\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\CMSIS\Driver\Include
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\CMSIS\Driver\Include\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\components\lists
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\components\lists\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\components\osa
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\components\osa\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\components\serial_manager
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\components\serial_manager\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\components\uart
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\components\uart\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\sdk\board
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\sdk\board\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\fatfs\source
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\fatfs\source\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\fatfs\source\fsl_sd_disk
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\fatfs\source\fsl_sd_disk\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\sdmmc
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\sdmmc\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\sdmmc\common
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\sdmmc\common\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\sdmmc\host\usdhc
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\sdmmc\host\usdhc\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\sdmmc\osa
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\sdmmc\osa\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\sdmmc\sd
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\sdmmc\sd\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\usb\device
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\usb\device\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\usb\include
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\usb\include\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\usb\phy
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\usb\phy\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\components\usb\usb_cdc_adapter
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\components\usb\usb_cdc_adapter\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_common
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\zf_common\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_driver
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\zf_driver\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_device
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\zf_device\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\..\libraries\zf_components
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\..\libraries\zf_components\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\libraries\freertos
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\libraries\freertos\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\libraries\freertos\include
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\libraries\freertos\include\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\libraries\freertos\portable\IAR\ARM_CM4F
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\libraries\freertos\portable\IAR\ARM_CM4F\
 -I
-D:\RT1604project\Crazy-Car-hardware\iar\program\..\..\Algorithm_Processor
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\..\..\Algorithm_Processor\
 -I
 D:\IAR\arm\inc\c\aarch32
 -I
@@ -91,11 +91,11 @@ D:\IAR\arm\inc
 -I
 D:\IAR\arm\inc\c
 -I
-D:\RT1604project\Crazy-Car-hardware\user\inc
+D:\RT1604project\Crazy-Car-hardware - 副本\user\inc
 -I
-D:\RT1604project\Crazy-Car-hardware\application
+D:\RT1604project\Crazy-Car-hardware - 副本\application
 -I
-D:\RT1604project\Crazy-Car-hardware\code
+D:\RT1604project\Crazy-Car-hardware - 副本\code
 -I
 D:\RT1604project\libraries\sdk\startup\iar
 -I
@@ -157,13 +157,13 @@ D:\RT1604project\libraries\zf_device
 -I
 D:\RT1604project\libraries\zf_components
 -I
-D:\RT1604project\Crazy-Car-hardware\libraries\freertos
+D:\RT1604project\Crazy-Car-hardware - 副本\libraries\freertos
 -I
-D:\RT1604project\Crazy-Car-hardware\libraries\freertos\include
+D:\RT1604project\Crazy-Car-hardware - 副本\libraries\freertos\include
 -I
-D:\RT1604project\Crazy-Car-hardware\libraries\freertos\portable\IAR\ARM_CM4F
+D:\RT1604project\Crazy-Car-hardware - 副本\libraries\freertos\portable\IAR\ARM_CM4F
 -I
-D:\RT1604project\Crazy-Car-hardware\Algorithm_Processor
+D:\RT1604project\Crazy-Car-hardware - 副本\Algorithm_Processor
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=127
 -D__CHAR_MIN__=(-__CHAR_MAX__-1)

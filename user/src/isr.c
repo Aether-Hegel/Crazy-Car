@@ -94,9 +94,7 @@ void LPUART2_IRQHandler(void)
 {
     if(kLPUART_RxDataRegFullFlag & LPUART_GetStatusFlags(LPUART2))
     {
-        // �����ж�
-        extern void uart2_rx_interrupt_handler(void);
-        uart2_rx_interrupt_handler();
+
     }
 
     LPUART_ClearStatusFlags(LPUART2, kLPUART_RxOverrunFlag);    // ������ɾ��
@@ -118,7 +116,11 @@ void LPUART4_IRQHandler(void)
     if(kLPUART_RxDataRegFullFlag & LPUART_GetStatusFlags(LPUART4))
     {
         // �����ж� 
-        flexio_camera_uart_handler();
+        // flexio_camera_uart_handler();
+
+        // �����ж�
+        extern void uart4_rx_interrupt_handler(void);
+        uart4_rx_interrupt_handler();
         
         gnss_uart_callback();
     }

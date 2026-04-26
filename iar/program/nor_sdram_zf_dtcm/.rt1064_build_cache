@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<BuildDb />
+<BuildDb>
+    <Tool>
+        <Name>linker</Name>
+        <Parent>
+            <Path>D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Exe\RT106X.out</Path>
+            <Output>
+                <Path>D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\List\RT106X.map</Path>
+            </Output>
+        </Parent>
+    </Tool>
+</BuildDb>

@@ -4,40 +4,40 @@
 #include "zf_common_interrupt.h"
 
 // 数据不对时，注意定义的数据类型uint8是不是太小了
-uint8 uart2_rx_buffer[UART2_RX_BUF_SIZE]; // 串口2接收缓冲区
-uint8 fifo2_rx_buffer[UART2_RX_BUF_SIZE]; // FIFO输出读出缓冲区
+uint8 uart4_rx_buffer[UART4_RX_BUF_SIZE]; // 串口4接收缓冲区
+uint8 fifo4_rx_buffer[UART4_RX_BUF_SIZE]; // FIFO输出读出缓冲区
 
-uint16 uart2_rx_index = 0;
-uint32 fifo2_rx_index = 0;
+uint16 uart4_rx_index = 0;
+uint32 fifo4_rx_index = 0;
 
-fifo_struct uart2_fifo;
+fifo_struct uart4_fifo;
 
 /**
- * @brief 初始化UART2
- * @note  该函数用于初始化UART2串口
+ * @brief 初始化UART4
+ * @note  该函数用于初始化UART4串口
  */
-void MyUART_2_Init()
+void MyUART_4_Init()
 {
-    fifo_init(&uart2_fifo, FIFO_DATA_8BIT, uart2_rx_buffer, UART2_RX_BUF_SIZE); // 初始化 FIFO 挂载缓冲区
-    uart_init(UART_2, 9600, UART2_TX_B18, UART2_RX_B19);
-    uart_rx_interrupt(UART_2, 1);            // 开启 UART2 接收中断
-    interrupt_set_priority(LPUART2_IRQn, 2); // 设置中断优先级
+    fifo_init(&uart4_fifo, FIFO_DATA_8BIT, uart4_rx_buffer, UART4_RX_BUF_SIZE); // 初始化 FIFO 挂载缓冲区
+    uart_init(UART_4, 9600, UART4_TX_C16, UART4_RX_C17);
+    uart_rx_interrupt(UART_4, 1);            // 开启 UART4 接收中断
+    interrupt_set_priority(LPUART4_IRQn, 2); // 设置中断优先级
 }
 
 /**
  * @brief 串口接收中断处理函数
  * @note  该函数需要在对应串口的中断服务函数中调用
- *        示例：在isr.c的LPUART1_IRQHandler中调用此函数
+ *        示例：在isr.c的LPUART4_IRQHandler中调用此函数
  */
-void uart2_rx_interrupt_handler(void)
+void uart4_rx_interrupt_handler(void)
 {
     uint8 data;
 
     // 读取接收到的数据
-    if(uart_query_byte(UART_2, &data))
+    if(uart_query_byte(UART_4, &data))
     {
         // 将数据写入 FIFO 中
-        fifo_write_buffer(&uart2_fifo, &data, 1); // 写入一个字节的数据到 FIFO 中
+        fifo_write_buffer(&uart4_fifo, &data, 1); // 写入一个字节的数据到 FIFO 中
     }   
 
     // 如果接收到回车换行符，可以在这里处理完整的数据包
@@ -57,15 +57,15 @@ void uart2_rx_interrupt_handler(void)
 uint16 uart_rx_get_data(uint8 *buffer, uint16 len)
 {
     uint16 i;
-    fifo2_rx_index = fifo_used(&uart2_fifo); // 获取 FIFO 中的数据长度
-    if (len > fifo2_rx_index)
+    fifo4_rx_index = fifo_used(&uart4_fifo); // 获取 FIFO 中的数据长度
+    if (len > fifo4_rx_index)
     {
-        len = fifo2_rx_index;
+        len = fifo4_rx_index;
     }
 
     for (i = 0; i < len; i++)
     {
-        buffer[i] = fifo2_rx_buffer[i];
+        buffer[i] = fifo4_rx_buffer[i];
     }
 
     return len;
@@ -78,10 +78,10 @@ uint16 uart_rx_get_data(uint8 *buffer, uint16 len)
 void uart_echo_data(void)
 {
 
-    fifo2_rx_index = fifo_used(&uart2_fifo); // 获取 FIFO 中的数据长度
-    if (fifo2_rx_index > 0)
+    fifo4_rx_index = fifo_used(&uart4_fifo); // 获取 FIFO 中的数据长度
+    if (fifo4_rx_index > 0)
     {
-        fifo_read_buffer(&uart2_fifo, fifo2_rx_buffer, &fifo2_rx_index, FIFO_READ_AND_CLEAN); // 从 FIFO 中读取数据并清空 FIFO
-        uart_write_buffer(UART_2, fifo2_rx_buffer, fifo2_rx_index);                           // 将数据回传
+        fifo_read_buffer(&uart4_fifo, fifo4_rx_buffer, &fifo4_rx_index, FIFO_READ_AND_CLEAN); // 从 FIFO 中读取数据并清空 FIFO
+        uart_write_buffer(UART_4, fifo4_rx_buffer, fifo4_rx_index);                           // 将数据回传
     }
 }
