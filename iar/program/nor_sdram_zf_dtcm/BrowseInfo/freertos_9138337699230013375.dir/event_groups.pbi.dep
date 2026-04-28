@@ -1,0 +1,23 @@
+D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\nor_sdram_zf_dtcm\BrowseInfo\freertos_9138337699230013375.dir\event_groups.pbi: \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\libraries\freertos\event_groups.c \
+  D:\IAR\arm\inc\c\stdlib.h D:\IAR\arm\inc\c\ycheck.h \
+  D:\IAR\arm\inc\c\yvals.h D:\IAR\arm\inc\c\DLib_Defaults.h \
+  D:\IAR\arm\inc\c\DLib_Config_Full.h D:\IAR\arm\inc\c\DLib_Product.h \
+  D:\IAR\arm\inc\c\ysizet.h D:\IAR\arm\inc\c\DLib_Product_stdlib.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\FreeRTOS.h \
+  D:\IAR\arm\inc\c\stddef.h D:\IAR\arm\inc\c\stdint.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\libraries\freertos\FreeRTOSConfig.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\projdefs.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\portable.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\deprecated_definitions.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\portable\IAR\ARM_CM4F\portmacro.h \
+  D:\IAR\arm\inc\c\aarch32\intrinsics.h \
+  D:\IAR\arm\inc\c\aarch32\iccarm_builtin.h \
+  D:\IAR\arm\inc\c\aarch32\iar_intrinsics_common.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\mpu_wrappers.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\task.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\list.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\timers.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\task.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\event_groups.h \
+  D:\RT1604project\crazy_car_RTOS\ -\ 副本\iar\program\..\..\libraries\freertos\include\timers.h

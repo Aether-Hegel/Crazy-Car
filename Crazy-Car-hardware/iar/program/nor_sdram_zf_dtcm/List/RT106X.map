@@ -1,0 +1,2211 @@
+###############################################################################
+#
+# IAR ELF Linker V9.40.1.364/W64 for ARM                  26/Apr/2026  19:39:47
+# Copyright 2007-2023 IAR Systems AB.
+#
+#    Output file  =
+#        D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Exe\RT106X.out
+#    Map file     =
+#        D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\List\RT106X.map
+#    Command line =
+#        -f "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Exe\RT106X.out.rsp"
+#        ("D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\application_7220717732061272824.dir\App_FreeRTOS.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\board.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\clock_config.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\croutine.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir\diskio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\Encoder.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\event_groups.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\evkmimxrt1064_flexspi_nor_config.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\evkmimxrt1064_sdram_ini_dcd.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir\ff.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir\ffsystem.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir\ffunicode.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\fsl_adapter_lpuart.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_adc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_adc_etc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_aipstz.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_aoi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\fsl_assert.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_bee.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_cache.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_clock.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_cmp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_common.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_common_arm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\fsl_component_generic_list.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_csi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_dcdc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_dcp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\fsl_debug_console.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_dmamux.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_elcdif.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_enc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_enet.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_ewm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexcan.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexcan_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_camera.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_camera_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_i2c_master.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_i2s.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_i2s_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_mculcd.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_mculcd_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_spi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_spi_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_uart.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexio_uart_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexram.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexram_allocate.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexspi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_flexspi_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\fsl_flexspi_nor_boot.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_gpc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_gpio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_gpt.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_kpp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_lpi2c.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_lpi2c_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_lpspi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_lpspi_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_lpuart.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_lpuart_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_ocotp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\fsl_os_abstraction_bm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_pit.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_pmu.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_pwm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_pxp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_qtmr.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_romapi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_rtwdog.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_sai.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_sai_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir\fsl_sd.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir\fsl_sd_disk.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir\fsl_sdmmc_common.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir\fsl_sdmmc_host.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir\fsl_sdmmc_osa.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_semc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_snvs_hp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_snvs_lp.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_spdif.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_spdif_edma.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_src.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_tempmon.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_trng.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_tsc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_usdhc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_wdog.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_xbara.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir\fsl_xbarb.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\Fuzzy_Pid.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\heap_4.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\user_c_11930989646151335152.dir\isr.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\list.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\user_c_11930989646151335152.dir\main.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\Motor.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\PID.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\port.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\portasm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\PWM.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\queue.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\Algorithm_Processor_17032776928287402054.dir\SBF.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir\sdmmc_config.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_components_14936052685886095442.dir\seekfree_assistant.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_components_14936052685886095442.dir\seekfree_assistant_interface.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\Speed_PID.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\startup_MIMXRT1064.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\stream_buffer.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir\system_MIMXRT1064.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\tasks.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\Timer.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir\timers.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\UART.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_device_cdc_acm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_device_ch9.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_device_class.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_device_dci.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_device_descriptor.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_device_ehci.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir\usb_phy.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir\wifi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_clock.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_debug.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_fifo.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_font.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_function.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_interrupt.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir\zf_common_vector.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_absolute_encoder.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_ble6a20.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_bluetooth_ch9141.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_camera.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_dl1a.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_dl1b.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_gnss.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_icm20602.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_imu660ra.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_imu660rb.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_imu963ra.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_ips114.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_ips200.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_ips200pro.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_key.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_mpu6050.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_mt9v03x.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_mt9v03x_flexio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_oled.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_ov7725.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_scc8660.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_scc8660_flexio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_tft180.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_tsl1401.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_type.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_virtual_oscilloscope.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_wifi_spi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_wifi_uart.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir\zf_device_wireless_uart.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_adc.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_csi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_delay.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_encoder.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_exti.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_flash.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_flexio_csi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_gpio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_iic.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_pit.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_pwm.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_romapi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_sdio.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_soft_iic.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_soft_spi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_spi.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_timer.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_uart.o"
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir\zf_driver_usb_cdc.o"
+#        --no_out_extension -o "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\Exe\RT106X.out" --map
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\nor_sdram_zf_dtcm\List\RT106X.map" --config
+#        "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\..\..\IAR\icf\MIMXRT1064xxxxx_flexspi_nor.icf"
+#        --semihosting "D:\RT1604project\Crazy-Car-hardware -
+#        副本\iar\program\..\..\..\libraries\zf_device\zf_device_config.a"
+#        --entry __iar_program_start --vfe --text_out locale --cpu=Cortex-M7
+#        --fpu=VFPv5_d16) --dependencies=n "D:\RT1604project\Crazy-Car-hardware
+#        - 副本\iar\program\nor_sdram_zf_dtcm\Exe\RT106X.out.iar_deps"
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__CPP_Runtime   = 1
+__Heap_Handler  = Basic
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x7000'2000 { ro section .intvec };
+"A2":  place at address 0x7000'0000 { section .boot_hdr.conf };
+"A3":  place at address 0x7000'1000 { section .boot_hdr.ivt };
+"A4":  place at address 0x7000'1020 { ro section .boot_hdr.boot_data };
+"A5":  place at address 0x7000'1030 { ro section .boot_hdr.dcd_data };
+"P1":  place in [from 0x7000'2000 to 0x7000'23ff] |
+                [from 0x7000'2400 to 0x703f'ffff] { ro };
+define block RW { first rw, section m_usb_dma_init_data };
+"P2":  place in [from 0x8000'0000 to 0x8000'03ff] |
+                [from 0x8000'0400 to 0x81df'ffff] { block RW };
+define block SDRAM_VAR
+   with alignment = 8 { section SDRAM_CACHE, section SDRAM_CACHE.init };
+"P11": place in [from 0x8000'0000 to 0x8000'03ff] |
+                [from 0x8000'0400 to 0x81df'ffff] { block SDRAM_VAR };
+define block ZI
+   with alignment = 32 { first zi, section m_usb_dma_noninit_data };
+"P3":  place in [from 0x2000'0000 to 0x2006'efff] { block ZI };
+"P4":  place in [from 0x2000'0000 to 0x2006'efff] { section .data };
+"P5":  place in [from 0x2000'0000 to 0x2006'efff] { section .textrw };
+define block DTCM_VAR
+   with alignment = 8 { section NonCacheable, section NonCacheable.init };
+"P9":  place in [from 0x2000'0000 to 0x2006'efff] { block DTCM_VAR };
+define block CSTACK with size = 4K, alignment = 8 { };
+"P7":  place in [from 0x2006'f000 to 0x2006'ffff] { block CSTACK };
+initialize by copy { rw, section .textrw };
+initialize by copy { ro }
+   except {
+      ro section .intvec, ro object system_MIMXRT1064.o,
+      ro object startup_MIMXRT1064.o, section .boot_hdr.conf,
+      section .boot_hdr.ivt, section .boot_hdr.boot_data,
+      section .boot_hdr.dcd_data };
+keep {
+   section .boot_hdr.conf, section .boot_hdr.ivt, section .boot_hdr.boot_data,
+   section .boot_hdr.dcd_data };
+
+No sections matched the following patterns:
+
+  section .intvec_RAM              in "A1"
+  section .textrw                  in "P3-P5|P9"
+  section ITCM_NonCacheable        in block ITCM_VAR
+  section ITCM_NonCacheable.init   in block ITCM_VAR
+  section NonCacheable             in block DTCM_VAR
+  section NonCacheable.init        in block DTCM_VAR
+  section OCRAM_CACHE              in block OCRAM_VAR
+  section OCRAM_CACHE.init         in block OCRAM_VAR
+  section SDRAM_CACHE              in block SDRAM_VAR
+  section SDRAM_CACHE.init         in block SDRAM_VAR
+  section SDRAM_NonCacheable       in block SDRAM_NCACHE_VAR
+  section SDRAM_NonCacheable.init  in block SDRAM_NCACHE_VAR
+  section m_usb_dma_init_data      in block RW
+  section m_usb_dma_noninit_data   in block ZI
+
+
+  Section              Kind         Address    Size  Object
+  -------              ----         -------    ----  ------
+"P3-P5|P9", part 1 of 2:                      0x1ed
+  P3-P5|P9 s0                   0x2000'0000   0x1ed  <Init block>
+    .data              inited   0x2000'0000    0x48  xfiles.o [15]
+    .data              inited   0x2000'0048    0x38  xlocale_c.o [15]
+    .data              inited   0x2000'0080    0x34  PID.o [3]
+    .data              inited   0x2000'00b4    0x34  PID.o [3]
+    .data              inited   0x2000'00e8    0x34  PID.o [3]
+    .data              inited   0x2000'011c    0x34  PID.o [3]
+    .data              inited   0x2000'0150    0x2c  zf_driver_gpio.o [14]
+    .data              inited   0x2000'017c    0x24  zf_driver_uart.o [14]
+    .data              inited   0x2000'01a0    0x14  zf_driver_encoder.o [14]
+    .data              inited   0x2000'01b4    0x14  zf_driver_pwm.o [14]
+    .data              inited   0x2000'01c8     0x4  port.o [7]
+    .data              inited   0x2000'01cc     0x4  system_MIMXRT1064.o [8]
+    .data              inited   0x2000'01d0     0x4  tasks.o [7]
+    .data              inited   0x2000'01d4     0x4  zf_common_clock.o [11]
+    .data              inited   0x2000'01d8     0x4  zf_device_type.o [13]
+    .data              inited   0x2000'01dc     0x4  zf_device_type.o [13]
+    .data              inited   0x2000'01e0     0x4  zf_device_type.o [13]
+    .data              inited   0x2000'01e4     0x4  zf_device_type.o [13]
+    .data              inited   0x2000'01e8     0x4  zf_device_type.o [13]
+    .data              inited   0x2000'01ec     0x1  zf_common_debug.o [11]
+                              - 0x2000'01ed   0x1ed
+
+"P3-P5|P9", part 2 of 2:                     0x80bc
+  ZI                            0x2000'0200  0x80bc  <Block>
+    .bss               zero     0x2000'0200     0x4  App_FreeRTOS.o [2]
+    .bss               zero     0x2000'0204     0x4  App_FreeRTOS.o [2]
+    .bss               zero     0x2000'0208     0x4  App_FreeRTOS.o [2]
+    .bss               zero     0x2000'020c     0x4  App_FreeRTOS.o [2]
+    .bss               zero     0x2000'0210     0x4  Encoder.o [3]
+    .bss               zero     0x2000'0214     0x4  Encoder.o [3]
+    .bss               zero     0x2000'0218     0x4  Encoder.o [3]
+    .bss               zero     0x2000'021c     0x4  Encoder.o [3]
+    .bss               zero     0x2000'0220     0x4  fsl_clock.o [9]
+    .bss               zero     0x2000'0224     0x4  fsl_clock.o [9]
+    .bss               zero     0x2000'0228     0x4  fsl_csi.o [9]
+    .bss               zero     0x2000'022c     0x4  fsl_csi.o [9]
+    .bss               zero     0x2000'0230    0x14  fsl_debug_console.o [8]
+    .bss               zero     0x2000'0244    0x80  fsl_edma.o [9]
+    .bss               zero     0x2000'02c4     0x8  fsl_enet.o [9]
+    .bss               zero     0x2000'02cc     0x8  fsl_enet.o [9]
+    .bss               zero     0x2000'02d4     0x8  fsl_enet.o [9]
+    .bss               zero     0x2000'02dc     0x8  fsl_enet.o [9]
+    .bss               zero     0x2000'02e4     0x8  fsl_enet.o [9]
+    .bss               zero     0x2000'02ec     0x8  fsl_enet.o [9]
+    .bss               zero     0x2000'02f4    0x10  fsl_flexcan.o [9]
+    .bss               zero     0x2000'0304     0x4  fsl_flexcan.o [9]
+    .bss               zero     0x2000'0308     0x8  fsl_flexio.o [9]
+    .bss               zero     0x2000'0310     0x8  fsl_flexio.o [9]
+    .bss               zero     0x2000'0318     0x8  fsl_flexio.o [9]
+    .bss               zero     0x2000'0320     0x4  fsl_lpi2c.o [9]
+    .bss               zero     0x2000'0324    0x14  fsl_lpi2c.o [9]
+    .bss               zero     0x2000'0338     0x4  fsl_lpi2c.o [9]
+    .bss               zero     0x2000'033c    0x14  fsl_lpi2c.o [9]
+    .bss               zero     0x2000'0350    0x14  fsl_lpspi.o [9]
+    .bss               zero     0x2000'0364     0x4  fsl_lpspi.o [9]
+    .bss               zero     0x2000'0368     0x4  fsl_lpspi.o [9]
+    .bss               zero     0x2000'036c    0x24  fsl_lpuart.o [9]
+    .bss               zero     0x2000'0390     0x4  fsl_lpuart.o [9]
+    .bss               zero     0x2000'0394    0x20  fsl_sai.o [9]
+    .bss               zero     0x2000'03b4     0x4  fsl_sai.o [9]
+    .bss               zero     0x2000'03b8     0x4  fsl_sai.o [9]
+    .bss               zero     0x2000'03bc     0x8  fsl_spdif.o [9]
+    .bss               zero     0x2000'03c4     0x4  fsl_spdif.o [9]
+    .bss               zero     0x2000'03c8     0x4  fsl_spdif.o [9]
+    .bss               zero     0x2000'03cc     0xc  fsl_usdhc.o [9]
+    .bss               zero     0x2000'03d8     0x4  fsl_usdhc.o [9]
+    .bss               zero     0x2000'03dc    0x28  Fuzzy_Pid.o [3]
+    .bss               zero     0x2000'0404    0x28  Fuzzy_Pid.o [3]
+    .bss               zero     0x2000'042c    0x28  Fuzzy_Pid.o [3]
+    .bss               zero     0x2000'0454    0x28  Fuzzy_Pid.o [3]
+    .bss               zero     0x2000'047c  0x7800  heap_4.o [7]
+    .bss               zero     0x2000'7c7c     0x8  heap_4.o [7]
+    .bss               zero     0x2000'7c84     0x4  heap_4.o [7]
+    .bss               zero     0x2000'7c88     0x4  heap_4.o [7]
+    .bss               zero     0x2000'7c8c     0x4  heap_4.o [7]
+    .bss               zero     0x2000'7c90     0x4  heap_4.o [7]
+    .bss               zero     0x2000'7c94     0x4  heap_4.o [7]
+    .bss               zero     0x2000'7c98     0x4  port.o [7]
+    .bss               zero     0x2000'7c9c    0x40  queue.o [7]
+    .bss               zero     0x2000'7cdc     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ce0   0x168  tasks.o [7]
+    .bss               zero     0x2000'7e48    0x14  tasks.o [7]
+    .bss               zero     0x2000'7e5c    0x14  tasks.o [7]
+    .bss               zero     0x2000'7e70     0x4  tasks.o [7]
+    .bss               zero     0x2000'7e74     0x4  tasks.o [7]
+    .bss               zero     0x2000'7e78    0x14  tasks.o [7]
+    .bss               zero     0x2000'7e8c    0x14  tasks.o [7]
+    .bss               zero     0x2000'7ea0     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ea4    0x14  tasks.o [7]
+    .bss               zero     0x2000'7eb8     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ebc     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ec0     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ec4     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ec8     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ecc     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ed0     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ed4     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ed8     0x4  tasks.o [7]
+    .bss               zero     0x2000'7edc     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ee0     0x4  tasks.o [7]
+    .bss               zero     0x2000'7ee4    0x14  timers.o [7]
+    .bss               zero     0x2000'7ef8    0x14  timers.o [7]
+    .bss               zero     0x2000'7f0c     0x4  timers.o [7]
+    .bss               zero     0x2000'7f10     0x4  timers.o [7]
+    .bss               zero     0x2000'7f14     0x4  timers.o [7]
+    .bss               zero     0x2000'7f18     0x4  timers.o [7]
+    .bss               zero     0x2000'7f1c     0x4  timers.o [7]
+    .bss               zero     0x2000'7f20    0x80  UART.o [3]
+    .bss               zero     0x2000'7fa0    0x80  UART.o [3]
+    .bss               zero     0x2000'8020     0x4  UART.o [3]
+    .bss               zero     0x2000'8024    0x18  UART.o [3]
+    .bss               zero     0x2000'803c    0x40  zf_common_debug.o [11]
+    .bss               zero     0x2000'807c    0x18  zf_common_debug.o [11]
+    .bss               zero     0x2000'8094    0x14  zf_common_debug.o [11]
+    .bss               zero     0x2000'80a8     0x4  zf_common_interrupt.o [11]
+    .bss               zero     0x2000'80ac    0x18  zf_device_gnss.o [13]
+    .bss               zero     0x2000'80c4    0x80  zf_device_gnss.o [13]
+    .bss               zero     0x2000'8144    0x80  zf_device_gnss.o [13]
+    .bss               zero     0x2000'81c4    0x80  zf_device_gnss.o [13]
+    .bss               zero     0x2000'8244    0x10  zf_driver_usb_cdc.o [14]
+    .bss               zero     0x2000'8254    0x50  xfiles.o [15]
+    .bss               zero     0x2000'82a4     0x4  xfail_s.o [15]
+    .bss               zero     0x2000'82a8     0x2  Encoder.o [3]
+    .bss               zero     0x2000'82aa     0x2  Encoder.o [3]
+    .bss               zero     0x2000'82ac     0x2  Encoder.o [3]
+    .bss               zero     0x2000'82ae     0x2  Encoder.o [3]
+    .bss               zero     0x2000'82b0     0x1  port.o [7]
+    .bss               zero     0x2000'82b1     0x1  zf_common_debug.o [11]
+    .bss               zero     0x2000'82b2     0x1  zf_common_debug.o [11]
+    .bss               zero     0x2000'82b3     0x1  zf_common_debug.o [11]
+    .bss               zero     0x2000'82b4     0x1  zf_device_gnss.o [13]
+    .bss               zero     0x2000'82b5     0x1  zf_device_gnss.o [13]
+    .bss               zero     0x2000'82b6     0x1  zf_device_gnss.o [13]
+    .bss               zero     0x2000'82b7     0x1  zf_device_gnss.o [13]
+    .bss               zero     0x2000'82b8     0x1  zf_device_gnss.o [13]
+    .bss               zero     0x2000'82b9     0x1  zf_driver_pit.o [14]
+                              - 0x2000'82bc  0x80bc
+
+"P7":                                        0x1000
+  CSTACK                        0x2006'f000  0x1000  <Block>
+    CSTACK             uninit   0x2006'f000  0x1000  <Block tail>
+                              - 0x2007'0000  0x1000
+
+"A2":                                         0x200
+  .boot_hdr.conf       const    0x7000'0000   0x200  evkmimxrt1064_flexspi_nor_config.o [8]
+                              - 0x7000'0200   0x200
+
+"A3":                                          0x20
+  .boot_hdr.ivt        const    0x7000'1000    0x20  fsl_flexspi_nor_boot.o [8]
+                              - 0x7000'1020    0x20
+
+"A4":                                          0x10
+  .boot_hdr.boot_data  const    0x7000'1020    0x10  fsl_flexspi_nor_boot.o [8]
+                              - 0x7000'1030    0x10
+
+"A5":                                         0x410
+  .boot_hdr.dcd_data   const    0x7000'1030   0x410  evkmimxrt1064_sdram_ini_dcd.o [8]
+                              - 0x7000'1440   0x410
+
+"A0":                                         0x440
+  .intvec              const    0x7000'2000   0x400  zf_common_vector.o [11]
+  .intvec              ro code  0x7000'2400    0x40  vector_table_M.o [17]
+                              - 0x7000'2440   0x440
+
+"P1":                                        0x9167
+  .text                ro code  0x7000'2440   0x1f8  lz77_init.o [17]
+  .text                ro code  0x7000'2638     0x6  abort.o [15]
+  .text                ro code  0x7000'2640    0x14  exit.o [18]
+  .text                ro code  0x7000'2654   0x124  system_MIMXRT1064.o [8]
+  .text                ro code  0x7000'2778     0x2  system_MIMXRT1064.o [8]
+  .text                ro code  0x7000'277c    0x6c  startup_MIMXRT1064.o [8]
+  .text                ro code  0x7000'27e8    0x38  zero_init3.o [17]
+  .text                ro code  0x7000'2820    0x28  data_init.o [17]
+  .text                ro code  0x7000'2848    0x22  fpinit_M.o [16]
+  .iar.init_table      const    0x7000'286c    0x48  - Linker created -
+  Veneer               ro code  0x7000'28b4     0x8  - Linker created -
+  Veneer               ro code  0x7000'28bc     0x8  - Linker created -
+  .text                ro code  0x7000'28c4    0x1e  cmain.o [17]
+  .text                ro code  0x7000'28e2     0x4  low_level_init.o [15]
+  .text                ro code  0x7000'28e8    0x1c  cstartup_M.o [17]
+  .rodata              const    0x7000'2904     0x0  zero_init3.o [17]
+  .rodata              const    0x7000'2904     0x0  lz77_init.o [17]
+  Initializer bytes    const    0x7000'2904  0x8be5  <for rw-1>
+  Initializer bytes    const    0x7000'b4e9    0xbe  <for P3-P5|P9 s0>
+                              - 0x7000'b5a7  0x9167
+
+"P2|P11":                                    0xcc39
+  RW                            0x8000'0400  0xcc39  <Block>
+    rw-1                        0x8000'0400  0xcc39  <Init block>
+      .rodata          inited   0x8000'0400   0x420  pow64.o [16]
+      .rodata          inited   0x8000'0820     0xc  App_FreeRTOS.o [2]
+      .rodata          inited   0x8000'082c     0xc  App_FreeRTOS.o [2]
+      .rodata          inited   0x8000'0838     0xc  App_FreeRTOS.o [2]
+      .rodata          inited   0x8000'0844     0xc  App_FreeRTOS.o [2]
+      .rodata          inited   0x8000'0850     0xc  App_FreeRTOS.o [2]
+      .rodata          inited   0x8000'085c    0x18  clock_config.o [8]
+      .rodata          inited   0x8000'0874    0x34  clock_config.o [8]
+      .rodata          inited   0x8000'08a8    0x10  clock_config.o [8]
+      .rodata          inited   0x8000'08b8     0x8  clock_config.o [8]
+      .rodata          inited   0x8000'08c0    0x2c  fsl_assert.o [8]
+      .rodata          inited   0x8000'08ec    0x10  fsl_clock.o [9]
+      .rodata          inited   0x8000'08fc    0x34  fsl_clock.o [9]
+      .rodata          inited   0x8000'0930    0x10  fsl_clock.o [9]
+      .rodata          inited   0x8000'0940    0x34  fsl_edma.o [9]
+      .rodata          inited   0x8000'0974    0x1c  fsl_edma.o [9]
+      .rodata          inited   0x8000'0990     0xc  fsl_edma.o [9]
+      .rodata          inited   0x8000'099c    0x3c  fsl_enet.o [9]
+      .rodata          inited   0x8000'09d8    0x34  fsl_enet.o [9]
+      .rodata          inited   0x8000'0a0c     0x8  fsl_enet.o [9]
+      .rodata          inited   0x8000'0a14    0x34  fsl_flexcan.o [9]
+      .rodata          inited   0x8000'0a48    0x18  fsl_flexcan.o [9]
+      .rodata          inited   0x8000'0a60    0x18  fsl_flexcan.o [9]
+      .rodata          inited   0x8000'0a78    0x18  fsl_flexcan.o [9]
+      .rodata          inited   0x8000'0a90    0x10  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0aa0    0x34  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0ad4    0x3c  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0b10    0x34  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0b44     0xc  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0b50    0x2c  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0b7c     0xc  fsl_gpio.o [9]
+      .rodata          inited   0x8000'0b88    0x10  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0b98    0x34  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0bcc    0x1c  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0be8    0x30  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0c18    0x3c  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0c54    0x30  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0c84    0x10  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0c94     0xc  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0ca0     0xc  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0cac     0x8  fsl_gpt.o [9]
+      .rodata          inited   0x8000'0cb4    0x34  fsl_lpspi.o [9]
+      .rodata          inited   0x8000'0ce8    0x18  fsl_lpspi.o [9]
+      .rodata          inited   0x8000'0d00    0x18  fsl_lpspi.o [9]
+      .rodata          inited   0x8000'0d18    0x18  fsl_lpspi.o [9]
+      .rodata          inited   0x8000'0d30    0x18  fsl_lpspi.o [9]
+      .rodata          inited   0x8000'0d48    0x10  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0d58    0x34  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0d8c    0x40  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0dcc    0x34  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0e00     0xc  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0e0c     0xc  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0e18    0x1c  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0e34    0x28  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0e5c    0x28  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0e84    0x24  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0ea8    0x14  fsl_lpuart.o [9]
+      .rodata          inited   0x8000'0ebc    0x10  fsl_pit.o [9]
+      .rodata          inited   0x8000'0ecc    0x34  fsl_pit.o [9]
+      .rodata          inited   0x8000'0f00    0x3c  fsl_pit.o [9]
+      .rodata          inited   0x8000'0f3c    0x30  fsl_pit.o [9]
+      .rodata          inited   0x8000'0f6c     0xc  fsl_pit.o [9]
+      .rodata          inited   0x8000'0f78     0x4  fsl_pit.o [9]
+      .rodata          inited   0x8000'0f7c    0x10  fsl_pwm.o [9]
+      .rodata          inited   0x8000'0f8c    0x34  fsl_pwm.o [9]
+      .rodata          inited   0x8000'0fc0    0x3c  fsl_pwm.o [9]
+      .rodata          inited   0x8000'0ffc    0x30  fsl_pwm.o [9]
+      .rodata          inited   0x8000'102c     0x8  fsl_pwm.o [9]
+      .rodata          inited   0x8000'1034     0xc  fsl_pwm.o [9]
+      .rodata          inited   0x8000'1040     0xc  fsl_pwm.o [9]
+      .rodata          inited   0x8000'104c     0xc  fsl_pwm.o [9]
+      .rodata          inited   0x8000'1058     0xc  fsl_pwm.o [9]
+      .rodata          inited   0x8000'1064    0x1c  fsl_pwm.o [9]
+      .rodata          inited   0x8000'1080    0x14  fsl_pwm.o [9]
+      .rodata          inited   0x8000'1094    0x28  fsl_pwm.o [9]
+      .rodata          inited   0x8000'10bc    0x10  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'10cc    0x34  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'1100    0x3c  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'113c    0x34  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'1170     0xc  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'117c    0x14  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'1190     0xc  fsl_qtmr.o [9]
+      .rodata          inited   0x8000'119c    0x30  fsl_sai.o [9]
+      .rodata          inited   0x8000'11cc    0x18  fsl_sai.o [9]
+      .rodata          inited   0x8000'11e4    0x18  fsl_sai.o [9]
+      .rodata          inited   0x8000'11fc     0xc  fsl_usdhc.o [9]
+      .rodata          inited   0x8000'1208    0x34  Fuzzy_Pid.o [3]
+      .rodata          inited   0x8000'123c    0x34  Fuzzy_Pid.o [3]
+      .rodata          inited   0x8000'1270     0x8  Fuzzy_Pid.o [3]
+      .rodata          inited   0x8000'1278     0x4  heap_4.o [7]
+      .rodata          inited   0x8000'127c     0x8  tasks.o [7]
+      .rodata          inited   0x8000'1284     0x8  timers.o [7]
+      .rodata          inited   0x8000'128c     0x8  timers.o [7]
+      .rodata          inited   0x8000'1294     0xc  zf_common_debug.o [11]
+      .rodata          inited   0x8000'12a0    0x10  zf_common_debug.o [11]
+      .rodata          inited   0x8000'12b0     0xc  zf_common_debug.o [11]
+      .rodata          inited   0x8000'12bc    0x1c  zf_common_debug.o [11]
+      .rodata          inited   0x8000'12d8    0x18  zf_common_debug.o [11]
+      .rodata          inited   0x8000'12f0    0x10  zf_common_debug.o [11]
+      .rodata          inited   0x8000'1300    0x38  zf_common_fifo.o [11]
+      .rodata          inited   0x8000'1338    0x3c  zf_driver_encoder.o [14]
+      .rodata          inited   0x8000'1374     0xc  zf_driver_pit.o [14]
+      .rodata          inited   0x8000'1380    0x30  zf_driver_pit.o [14]
+      .rodata          inited   0x8000'13b0     0xc  zf_driver_pit.o [14]
+      .rodata          inited   0x8000'13bc    0x38  zf_driver_pwm.o [14]
+      .rodata          inited   0x8000'13f4    0x38  zf_driver_uart.o [14]
+      .text            inited   0x8000'142c   0x114  App_FreeRTOS.o [2]
+      .text            inited   0x8000'1540   0x2ac  board.o [8]
+      .text            inited   0x8000'17ec   0x6f8  clock_config.o [8]
+      .text            inited   0x8000'1ee4    0xc8  Encoder.o [3]
+      .text            inited   0x8000'1fac    0x1c  fsl_assert.o [8]
+      .text            inited   0x8000'1fc8   0x820  fsl_clock.o [9]
+      .text            inited   0x8000'27e8    0x24  fsl_csi.o [9]
+      .text            inited   0x8000'280c   0xb2c  fsl_debug_console.o [8]
+      .text            inited   0x8000'3338   0x4d0  fsl_edma.o [9]
+      .text            inited   0x8000'3808   0x150  fsl_enet.o [9]
+      .text            inited   0x8000'3958    0xa4  fsl_flexcan.o [9]
+      .text            inited   0x8000'39fc    0x68  fsl_flexio.o [9]
+      .text            inited   0x8000'3a64   0x216  fsl_gpio.o [9]
+      .text            inited   0x8000'3c7c   0x24c  fsl_gpt.o [9]
+      .text            inited   0x8000'3ec8    0x94  fsl_lpi2c.o [9]
+      .text            inited   0x8000'3f5c    0xf4  fsl_lpspi.o [9]
+      .text            inited   0x8000'4050   0x55c  fsl_lpuart.o [9]
+      .text            inited   0x8000'45ac   0x164  fsl_pit.o [9]
+      .text            inited   0x8000'4710   0xb28  fsl_pwm.o [9]
+      .text            inited   0x8000'5238   0x1e4  fsl_qtmr.o [9]
+      .text            inited   0x8000'541c   0x148  fsl_sai.o [9]
+      .text            inited   0x8000'5564    0x48  fsl_spdif.o [9]
+      .text            inited   0x8000'55ac    0x38  fsl_usdhc.o [9]
+      .text            inited   0x8000'55e4   0x670  Fuzzy_Pid.o [3]
+      .text            inited   0x8000'5c54   0x37c  heap_4.o [7]
+      .text            inited   0x8000'5fd0   0x248  isr.o [10]
+      .text            inited   0x8000'6218    0x44  main.o [10]
+      .text            inited   0x8000'625c   0x1c6  Motor.o [3]
+      .text            inited   0x8000'6424   0x278  PID.o [3]
+      .text            inited   0x8000'669c   0x24c  port.o [7]
+      .text            inited   0x8000'68e8    0x34  port.o [7]
+      .text            inited   0x8000'691c   0x444  queue.o [7]
+      .text            inited   0x8000'6d60   0x154  Speed_PID.o [3]
+      .text            inited   0x8000'6eb4   0xc34  tasks.o [7]
+      .text            inited   0x8000'7ae8   0x398  timers.o [7]
+      .text            inited   0x8000'7e80    0x94  UART.o [3]
+      .text            inited   0x8000'7f14   0x176  usb_device_dci.o [6]
+      .text            inited   0x8000'808c   0x5d0  usb_device_ehci.o [6]
+      .text            inited   0x8000'865c    0x20  zf_common_clock.o [11]
+      .text            inited   0x8000'867c   0x538  zf_common_debug.o [11]
+      .text            inited   0x8000'8bb4   0x58c  zf_common_fifo.o [11]
+      .text            inited   0x8000'9140    0xec  zf_common_interrupt.o [11]
+      .text            inited   0x8000'922c   0x118  zf_device_gnss.o [13]
+      .text            inited   0x8000'9344     0x2  zf_device_type.o [13]
+      .text            inited   0x8000'9348    0x30  zf_driver_delay.o [14]
+      .text            inited   0x8000'9378   0x5a4  zf_driver_encoder.o [14]
+      .text            inited   0x8000'991c   0x248  zf_driver_gpio.o [14]
+      .text            inited   0x8000'9b64   0x190  zf_driver_pit.o [14]
+      .text            inited   0x8000'9cf4   0x90c  zf_driver_pwm.o [14]
+      .text            inited   0x8000'a600   0x5cc  zf_driver_uart.o [14]
+      .text            inited   0x8000'abcc    0x20  zf_driver_usb_cdc.o [14]
+      .text            inited   0x8000'abec    0x28  printf.o [15]
+      .text            inited   0x8000'ac14    0xa6  ABImemcpy.o [17]
+      .text            inited   0x8000'acbc    0x66  ABImemset.o [17]
+      .text            inited   0x8000'ad24    0x16  strchr.o [17]
+      .text            inited   0x8000'ad3c   0x274  I64DivMod.o [17]
+      .text            inited   0x8000'afb0    0x66  DblToS64.o [16]
+      .text            inited   0x8000'b018    0x54  S64ToDbl.o [16]
+      .text            inited   0x8000'b06c    0x9e  modf.o [16]
+      .text            inited   0x8000'b10c   0x510  pow64.o [16]
+      .text            inited   0x8000'b61c    0x36  strlen.o [17]
+      .text            inited   0x8000'b654     0x6  ABImemclr4.o [17]
+      .text            inited   0x8000'b65c    0x3c  floorf.o [16]
+      .text            inited   0x8000'b698    0x40  sprintf.o [15]
+      .text            inited   0x8000'b6d8     0x2  I64DivZer.o [17]
+      .text            inited   0x8000'b6dc   0x2c0  iar_Exp64.o [16]
+      .text            inited   0x8000'b99c    0x88  frexp.o [16]
+      .text            inited   0x8000'ba24   0x104  ldexp.o [16]
+      .text            inited   0x8000'bb28    0x32  ABImemset48.o [17]
+      .text            inited   0x8000'bb5c    0x44  putchar.o [15]
+      .text            inited   0x8000'bba0     0x8  xlocale_c.o [15]
+      .text            inited   0x8000'bba8    0x58  memchr.o [17]
+      Veneer           inited   0x8000'bc00     0x8  - Linker created -
+      .text            inited   0x8000'bc08     0xa  cexit.o [17]
+      .text            inited   0x8000'bc14   0xeca  xprintffull_nomb.o [15]
+      .text            inited   0x8000'cae0    0x34  DblCmpLe.o [16]
+      .text            inited   0x8000'cb14    0x34  DblCmpGe.o [16]
+      Veneer           inited   0x8000'cb48     0x8  - Linker created -
+      .text            inited   0x8000'cb50    0x40  xfail_s.o [15]
+      CODE             inited   0x8000'cb90    0xb0  portasm.o [7]
+      .rodata          inited   0x8000'cc40     0x2  fsl_pit.o [9]
+      .rodata          inited   0x8000'cc42     0x2  xlocale_c.o [15]
+      .text            inited   0x8000'cc44    0x9a  list.o [7]
+      .text            inited   0x8000'ccde    0x30  PWM.o [3]
+      .text            inited   0x8000'cd0e    0x32  Timer.o [3]
+      .text            inited   0x8000'cd40     0xc  zf_common_vector.o [11]
+      .text            inited   0x8000'cd4c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd54     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd5c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd64     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd6c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd74     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd7c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd84     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd8c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd94     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cd9c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cda4     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdac     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdb4     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdbc     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdc4     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdcc     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdd4     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cdd6     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cdd8     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cdda     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cde2     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdea     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdf2     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cdfa     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce02     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce0a     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce12     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce1a     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce22     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce2a     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce32     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce34     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce36     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce38     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce3a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce3c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce3e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce40     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce42     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce44     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce46     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce48     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce4a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce4c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce4e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce50     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce52     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce54     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce5c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce64     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce6c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce74     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ce7c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce7e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce80     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce82     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce84     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce86     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce88     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce8a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce8c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce8e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce90     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce92     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce94     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce96     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce98     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce9a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce9c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ce9e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cea0     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cea2     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cea4     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cea6     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cea8     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ceaa     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ceac     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ceb4     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cebc     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cebe     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cec0     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cec2     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cec4     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cec6     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cec8     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ceca     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cecc     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cece     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ced0     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ced2     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ced4     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ced6     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ced8     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ceda     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cee2     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'ceea     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'ceec     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cef4     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cefc     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cf04     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cf0c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf0e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf10     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf12     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf14     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf16     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf18     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf1a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf1c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf1e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf20     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf22     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf24     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf26     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf28     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf2a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf2c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf2e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf30     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf32     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf34     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf36     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf38     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf3a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf3c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf3e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf40     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf42     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf44     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf46     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf48     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf4a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf4c     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf4e     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf50     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf52     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cf5a     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cf62     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cf6a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf6c     0x8  zf_common_vector.o [11]
+      .text            inited   0x8000'cf74     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf76     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf78     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf7a     0x2  zf_common_vector.o [11]
+      .text            inited   0x8000'cf7c    0x2a  strncmp.o [15]
+      .text            inited   0x8000'cfa6    0x16  xprout.o [15]
+      .text            inited   0x8000'cfbc     0xa  xsprout.o [15]
+      .text            inited   0x8000'cfc6     0x4  exit.o [15]
+      .text            inited   0x8000'cfca     0xe  DblToS32.o [16]
+      .text            inited   0x8000'cfd8     0xe  DblToU32.o [16]
+      .text            inited   0x8000'cfe6    0x12  DblDiv.o [16]
+      .text            inited   0x8000'cff8    0x12  DblMul.o [16]
+      .text            inited   0x8000'd00a    0x12  DblSub.o [16]
+      .text            inited   0x8000'd01c     0xe  S32ToDbl.o [16]
+      .text            inited   0x8000'd02a     0xe  U32ToDbl.o [16]
+      .rodata          inited   0x8000'd038     0x1  xlocale_c.o [15]
+                              - 0x8000'd039  0xcc39
+
+Unused ranges:
+
+         From           To        Size
+         ----           --        ----
+  0x2000'01ed  0x2000'01ff        0x13
+  0x2000'82bc  0x2006'efff    0x6'6d44
+  0x7000'b5a7  0x703f'ffff   0x3f'4a59
+  0x8000'0000  0x8000'03ff       0x400
+  0x8000'd039  0x81df'ffff  0x1df'2fc7
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x80ba:
+          0x2000'0200  0x80ba
+
+Copy/lz77 (__iar_lz77_init3)
+    1 source range, total size 0x8be5 (68% of destination):
+          0x7000'2904  0x8be5
+    1 destination range, total size 0xcc39:
+          0x8000'0400  0xcc39
+
+Copy/lz77 (__iar_lz77_init3)
+    1 source range, total size 0xbe (38% of destination):
+          0x7000'b4e9    0xbe
+    1 destination range, total size 0x1ed:
+          0x2000'0000   0x1ed
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                              ro code  rw code  ro data  rw data
+    ------                              -------  -------  -------  -------
+command line/config:
+    ----------------------------------------------------------------------
+    Total:
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\Algorithm_Processor_17032776928287402054.dir: [1]
+    ----------------------------------------------------------------------
+    Total:
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\application_7220717732061272824.dir: [2]
+    App_FreeRTOS.o                                   276      231       76
+    ----------------------------------------------------------------------
+    Total:                                           276      231       76
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir: [3]
+    Encoder.o                                        200      137       24
+    Fuzzy_Pid.o                                    1'648    1'206      272
+    Motor.o                                          454      311
+    PID.o                                            632      514      208
+    PWM.o                                             48       33
+    Speed_PID.o                                      340      233
+    Timer.o                                           50       34
+    UART.o                                           148      102      284
+    ----------------------------------------------------------------------
+    Total:                                         3'520    2'570      788
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir: [4]
+    ----------------------------------------------------------------------
+    Total:
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir: [5]
+    ----------------------------------------------------------------------
+    Total:
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir: [6]
+    usb_device_dci.o                                 374      256
+    usb_device_ehci.o                              1'488    1'021
+    ----------------------------------------------------------------------
+    Total:                                         1'862    1'277
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir: [7]
+    heap_4.o                                         892      614   30'752
+    list.o                                           154      105
+    port.o                                           640      440        9
+    portasm.o                                        176      121
+    queue.o                                        1'092      748       64
+    tasks.o                                        3'124    2'147      532
+    timers.o                                         920      641       76
+    ----------------------------------------------------------------------
+    Total:                                         6'998    4'816   31'433
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir: [8]
+    board.o                                          684      468
+    clock_config.o                                 1'784    1'290      100
+    evkmimxrt1064_flexspi_nor_config.o                        512
+    evkmimxrt1064_sdram_ini_dcd.o                           1'040
+    fsl_assert.o                                      28       50       44
+    fsl_debug_console.o                            2'860    1'959       20
+    fsl_flexspi_nor_boot.o                                     48
+    startup_MIMXRT1064.o                    108
+    system_MIMXRT1064.o                     294                 1        4
+    ----------------------------------------------------------------------
+    Total:                                  402    5'356    5'368      168
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir: [9]
+    fsl_clock.o                                    2'080    1'482       92
+    fsl_csi.o                                         36       25        8
+    fsl_edma.o                                     1'232      907      220
+    fsl_enet.o                                       336      312      168
+    fsl_flexcan.o                                    164      197      144
+    fsl_flexio.o                                     104       72       24
+    fsl_gpio.o                                       534      535      248
+    fsl_gpt.o                                        588      611      300
+    fsl_lpi2c.o                                      148      101       48
+    fsl_lpspi.o                                      244      268      176
+    fsl_lpuart.o                                   1'372    1'195      412
+    fsl_pit.o                                        356      376      194
+    fsl_pwm.o                                      2'856    2'176      320
+    fsl_qtmr.o                                       484      485      224
+    fsl_sai.o                                        328      290      136
+    fsl_spdif.o                                       72       50       16
+    fsl_usdhc.o                                       56       46       28
+    ----------------------------------------------------------------------
+    Total:                                        10'990    9'128    2'758
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\user_c_11930989646151335152.dir: [10]
+    isr.o                                            584      400
+    main.o                                            68       47
+    ----------------------------------------------------------------------
+    Total:                                           652      447
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir: [11]
+    zf_common_clock.o                                 32       23        4
+    zf_common_debug.o                              1'336      990      220
+    zf_common_fifo.o                               1'420    1'010       56
+    zf_common_interrupt.o                            236      162        4
+    zf_common_vector.o                               572    1'416
+    ----------------------------------------------------------------------
+    Total:                                         3'596    3'601      284
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_components_14936052685886095442.dir: [12]
+    ----------------------------------------------------------------------
+    Total:
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir: [13]
+    zf_device_gnss.o                                 280      192      413
+    zf_device_type.o                                   2        9       20
+    ----------------------------------------------------------------------
+    Total:                                           282      201      433
+
+D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir: [14]
+    zf_driver_delay.o                                 48       35
+    zf_driver_encoder.o                            1'444    1'038       80
+    zf_driver_gpio.o                                 584      417       44
+    zf_driver_pit.o                                  400      324       73
+    zf_driver_pwm.o                                2'316    1'631       76
+    zf_driver_uart.o                               1'484    1'069       92
+    zf_driver_usb_cdc.o                               32       22       16
+    ----------------------------------------------------------------------
+    Total:                                         6'308    4'536      381
+
+dl7M_tlf.a: [15]
+    abort.o                                   6
+    exit.o                                             4        2
+    low_level_init.o                          4
+    printf.o                                          40       27
+    putchar.o                                         68       48
+    sprintf.o                                         64       44
+    strncmp.o                                         42       29
+    xfail_s.o                                         64       44        4
+    xfiles.o                                                   27      152
+    xlocale_c.o                                        8       31       59
+    xprintffull_nomb.o                             3'786    2'594
+    xprout.o                                          22       15
+    xsprout.o                                         10        7
+    ----------------------------------------------------------------------
+    Total:                                   10    4'108    2'868      215
+
+m7M_tlv.a: [16]
+    DblCmpGe.o                                        52       36
+    DblCmpLe.o                                        52       37
+    DblDiv.o                                          18       12
+    DblMul.o                                          18       12
+    DblSub.o                                          18       13
+    DblToS32.o                                        14       10
+    DblToS64.o                                       102       70
+    DblToU32.o                                        14       10
+    S32ToDbl.o                                        14        9
+    S64ToDbl.o                                        84       59
+    U32ToDbl.o                                        14       10
+    floorf.o                                          60       42
+    fpinit_M.o                               34
+    frexp.o                                          136       93
+    iar_Exp64.o                                      704      484
+    ldexp.o                                          260      178
+    modf.o                                           158      108
+    pow64.o                                        1'296    1'612    1'056
+    ----------------------------------------------------------------------
+    Total:                                   34    3'014    2'795    1'056
+
+rt7M_tl.a: [17]
+    ABImemclr4.o                                       6        6
+    ABImemcpy.o                                      166      114
+    ABImemset.o                                      102       71
+    ABImemset48.o                                     50       34
+    I64DivMod.o                                      628      432
+    I64DivZer.o                                        2        1
+    cexit.o                                           10        7
+    cmain.o                                  30
+    cstartup_M.o                             28
+    data_init.o                              40
+    lz77_init.o                             504
+    memchr.o                                          88       60
+    strchr.o                                          22       16
+    strlen.o                                          54       37
+    vector_table_M.o                         64
+    zero_init3.o                             56
+    ----------------------------------------------------------------------
+    Total:                                  722    1'128      778
+
+shb_l.a: [18]
+    exit.o                                   20
+    ----------------------------------------------------------------------
+    Total:                                   20
+
+    Gaps                                      6       30        2
+    Linker created                           16       16       83    4'096
+--------------------------------------------------------------------------
+    Grand Total:                          1'210   48'136   38'701   41'688
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address    Size  Type      Object
+-----                       -------    ----  ----      ------
+.iar.init_table$$Base   0x7000'286c           --   Gb  - Linker created -
+.iar.init_table$$Limit  0x7000'28b4           --   Gb  - Linker created -
+?main                   0x7000'28c5          Code  Gb  cmain.o [17]
+ACMP1_IRQHandler        0x8000'cf19     0x2  Code  Wk  zf_common_vector.o [11]
+ACMP2_IRQHandler        0x8000'cf1b     0x2  Code  Wk  zf_common_vector.o [11]
+ACMP3_IRQHandler        0x8000'cf1d     0x2  Code  Wk  zf_common_vector.o [11]
+ACMP4_IRQHandler        0x8000'cf1f     0x2  Code  Wk  zf_common_vector.o [11]
+ADC1_IRQHandler         0x8000'ce89     0x2  Code  Wk  zf_common_vector.o [11]
+ADC2_IRQHandler         0x8000'ce8b     0x2  Code  Wk  zf_common_vector.o [11]
+ADC_ETC_ERROR_IRQ_IRQHandler
+                        0x8000'cf17     0x2  Code  Wk  zf_common_vector.o [11]
+ADC_ETC_IRQ0_IRQHandler
+                        0x8000'cf11     0x2  Code  Wk  zf_common_vector.o [11]
+ADC_ETC_IRQ1_IRQHandler
+                        0x8000'cf13     0x2  Code  Wk  zf_common_vector.o [11]
+ADC_ETC_IRQ2_IRQHandler
+                        0x8000'cf15     0x2  Code  Wk  zf_common_vector.o [11]
+APP_FreeRTOS_Start      0x8000'142d    0x1e  Code  Gb  App_FreeRTOS.o [2]
+ARM_MPU_Disable         0x8000'155d    0x1a  Code  Lc  board.o [8]
+ARM_MPU_Enable          0x8000'1541    0x1c  Code  Lc  board.o [8]
+BEE_IRQHandler          0x8000'ce53     0x2  Code  Wk  zf_common_vector.o [11]
+BOARD_BootClockRUN      0x8000'197d   0x43a  Code  Gb  clock_config.o [8]
+BOARD_ConfigMPU         0x8000'1617   0x154  Code  Gb  board.o [8]
+BOARD_DebugConsoleSrcFreq
+                        0x8000'15dd    0x3a  Code  Gb  board.o [8]
+BOARD_InitBootClocks    0x8000'1975     0x8  Code  Gb  clock_config.o [8]
+BusFault_Handler        0x8000'cd47     0x2  Code  Gb  zf_common_vector.o [11]
+CAN1_DriverIRQHandler   0x8000'3959    0x2a  Code  Gb  fsl_flexcan.o [9]
+CAN1_IRQHandler         0x8000'ce23     0x8  Code  Wk  zf_common_vector.o [11]
+CAN2_DriverIRQHandler   0x8000'3983    0x2a  Code  Gb  fsl_flexcan.o [9]
+CAN2_IRQHandler         0x8000'ce2b     0x8  Code  Wk  zf_common_vector.o [11]
+CAN3_DriverIRQHandler   0x8000'39ad    0x2a  Code  Gb  fsl_flexcan.o [9]
+CAN3_IRQHandler         0x8000'cf63     0x8  Code  Wk  zf_common_vector.o [11]
+CCM_1_IRQHandler        0x8000'cec3     0x2  Code  Wk  zf_common_vector.o [11]
+CCM_2_IRQHandler        0x8000'cec5     0x2  Code  Wk  zf_common_vector.o [11]
+CLOCK_ControlGate       0x8000'18d9    0x50  Code  Lc  clock_config.o [8]
+CLOCK_ControlGate       0x8000'3a7d    0x4a  Code  Lc  fsl_gpio.o [9]
+CLOCK_ControlGate       0x8000'3c95    0x4a  Code  Lc  fsl_gpt.o [9]
+CLOCK_ControlGate       0x8000'4069    0x50  Code  Lc  fsl_lpuart.o [9]
+CLOCK_ControlGate       0x8000'45c5    0x4a  Code  Lc  fsl_pit.o [9]
+CLOCK_ControlGate       0x8000'4729    0x50  Code  Lc  fsl_pwm.o [9]
+CLOCK_ControlGate       0x8000'5251    0x4a  Code  Lc  fsl_qtmr.o [9]
+CLOCK_DeinitAudioPll    0x8000'238b     0xc  Code  Gb  fsl_clock.o [9]
+CLOCK_DeinitEnetPll     0x8000'23a3     0xc  Code  Gb  fsl_clock.o [9]
+CLOCK_DeinitUsb2Pll     0x8000'2381     0xa  Code  Gb  fsl_clock.o [9]
+CLOCK_DeinitVideoPll    0x8000'2397     0xc  Code  Gb  fsl_clock.o [9]
+CLOCK_DisableClock      0x8000'1929    0x10  Code  Lc  clock_config.o [8]
+CLOCK_DisableClock      0x8000'3cef    0x10  Code  Lc  fsl_gpt.o [9]
+CLOCK_DisableClock      0x8000'40c9    0x10  Code  Lc  fsl_lpuart.o [9]
+CLOCK_DisableClock      0x8000'461f    0x10  Code  Lc  fsl_pit.o [9]
+CLOCK_DisableClock      0x8000'4789    0x10  Code  Lc  fsl_pwm.o [9]
+CLOCK_DisableClock      0x8000'52ab    0x10  Code  Lc  fsl_qtmr.o [9]
+CLOCK_EnableClock       0x8000'3ac7    0x10  Code  Lc  fsl_gpio.o [9]
+CLOCK_EnableClock       0x8000'3cdf    0x10  Code  Lc  fsl_gpt.o [9]
+CLOCK_EnableClock       0x8000'40b9    0x10  Code  Lc  fsl_lpuart.o [9]
+CLOCK_EnableClock       0x8000'460f    0x10  Code  Lc  fsl_pit.o [9]
+CLOCK_EnableClock       0x8000'4779    0x10  Code  Lc  fsl_pwm.o [9]
+CLOCK_EnableClock       0x8000'529b    0x10  Code  Lc  fsl_qtmr.o [9]
+CLOCK_GetAhbFreq        0x8000'2177    0x18  Code  Gb  fsl_clock.o [9]
+CLOCK_GetDiv            0x8000'15a1    0x2a  Code  Lc  board.o [8]
+CLOCK_GetFreq           0x8000'21ff   0x142  Code  Gb  fsl_clock.o [9]
+CLOCK_GetIpgFreq        0x8000'21c3    0x18  Code  Gb  fsl_clock.o [9]
+CLOCK_GetMux            0x8000'1577    0x2a  Code  Lc  board.o [8]
+CLOCK_GetOscFreq        0x8000'15cb    0x12  Code  Lc  board.o [8]
+CLOCK_GetOscFreq        0x8000'1fc9    0x18  Code  Lc  fsl_clock.o [9]
+CLOCK_GetPerClkFreq     0x8000'21db    0x24  Code  Gb  fsl_clock.o [9]
+CLOCK_GetPeriphClkFreq  0x8000'202f    0xaa  Code  Lc  fsl_clock.o [9]
+CLOCK_GetPllBypassRefClk
+                        0x8000'200d    0x22  Code  Lc  fsl_clock.o [9]
+CLOCK_GetPllFreq        0x8000'23c9   0x2b0  Code  Gb  fsl_clock.o [9]
+CLOCK_GetPllFreq::enetRefClkFreq
+                        0x8000'0930    0x10  Data  Lc  fsl_clock.o [9]
+CLOCK_GetPllUsb1SWFreq  0x8000'20d9    0x2a  Code  Lc  fsl_clock.o [9]
+CLOCK_GetRtcFreq        0x8000'1fe1     0x6  Code  Lc  fsl_clock.o [9]
+CLOCK_GetSemcFreq       0x8000'218f    0x34  Code  Gb  fsl_clock.o [9]
+CLOCK_GetSysPfdFreq     0x8000'2695    0x6a  Code  Gb  fsl_clock.o [9]
+CLOCK_GetUsb1PfdFreq    0x8000'2709    0x64  Code  Gb  fsl_clock.o [9]
+CLOCK_InitArmPll        0x8000'2341    0x40  Code  Gb  fsl_clock.o [9]
+CLOCK_InitExternalClk   0x8000'2103    0x4a  Code  Gb  fsl_clock.o [9]
+CLOCK_InitRcOsc24M      0x8000'2169     0xe  Code  Gb  fsl_clock.o [9]
+CLOCK_IsPllBypassed     0x8000'1fe7    0x10  Code  Lc  fsl_clock.o [9]
+CLOCK_IsPllEnabled      0x8000'1ff7    0x16  Code  Lc  fsl_clock.o [9]
+CLOCK_SetDiv            0x8000'186f    0x6a  Code  Lc  clock_config.o [8]
+CLOCK_SetMux            0x8000'1805    0x6a  Code  Lc  clock_config.o [8]
+CLOCK_SetPllBypass      0x8000'1949    0x2c  Code  Lc  clock_config.o [8]
+CLOCK_SetRtcXtalFreq    0x8000'1941     0x8  Code  Lc  clock_config.o [8]
+CLOCK_SetXtalFreq       0x8000'1939     0x8  Code  Lc  clock_config.o [8]
+CLOCK_SwitchOsc         0x8000'214d    0x1c  Code  Gb  fsl_clock.o [9]
+CORE_IRQHandler         0x8000'cdd9     0x2  Code  Wk  zf_common_vector.o [11]
+CSI_DriverIRQHandler    0x8000'27e9    0x14  Code  Gb  fsl_csi.o [9]
+CSI_IRQHandler          0x8000'6013     0xc  Code  Gb  isr.o [10]
+CSTACK$$Base            0x2006'f000           --   Gb  - Linker created -
+CSTACK$$Limit           0x2007'0000           --   Gb  - Linker created -
+CSU_IRQHandler          0x8000'ce47     0x2  Code  Wk  zf_common_vector.o [11]
+CTI0_ERROR_IRQHandler   0x8000'cdd5     0x2  Code  Wk  zf_common_vector.o [11]
+CTI1_ERROR_IRQHandler   0x8000'cdd7     0x2  Code  Wk  zf_common_vector.o [11]
+Cascade_PID_Calculate   0x8000'656d    0x7e  Code  Gb  PID.o [3]
+Cascade_PID_Clear_Position
+                        0x8000'6507    0x66  Code  Gb  PID.o [3]
+Cascade_PID_Drive_Motor
+                        0x8000'662d    0x70  Code  Gb  PID.o [3]
+Cascade_PID_Get_Inner_Output
+                        0x8000'65ed    0x1c  Code  Gb  PID.o [3]
+Cascade_PID_Init        0x8000'64c1    0x20  Code  Gb  PID.o [3]
+Cascade_PID_Set_Target  0x8000'64e1    0x26  Code  Gb  PID.o [3]
+Clear_Motor_Position    0x8000'5b4d    0xd2  Code  Gb  Fuzzy_Pid.o [3]
+DCDC_IRQHandler         0x8000'ce8d     0x2  Code  Wk  zf_common_vector.o [11]
+DCP_IRQHandler          0x8000'ce49     0x2  Code  Wk  zf_common_vector.o [11]
+DCP_VMI_IRQHandler      0x8000'ce4b     0x2  Code  Wk  zf_common_vector.o [11]
+DMA0_DMA16_DriverIRQHandler
+                        0x8000'34cf    0x34  Code  Gb  fsl_edma.o [9]
+DMA0_DMA16_IRQHandler   0x8000'cd4d     0x8  Code  Wk  zf_common_vector.o [11]
+DMA10_DMA26_DriverIRQHandler
+                        0x8000'36c5    0x32  Code  Gb  fsl_edma.o [9]
+DMA10_DMA26_IRQHandler  0x8000'cd9d     0x8  Code  Wk  zf_common_vector.o [11]
+DMA11_DMA27_DriverIRQHandler
+                        0x8000'36f7    0x32  Code  Gb  fsl_edma.o [9]
+DMA11_DMA27_IRQHandler  0x8000'cda5     0x8  Code  Wk  zf_common_vector.o [11]
+DMA12_DMA28_DriverIRQHandler
+                        0x8000'3729    0x32  Code  Gb  fsl_edma.o [9]
+DMA12_DMA28_IRQHandler  0x8000'cdad     0x8  Code  Wk  zf_common_vector.o [11]
+DMA13_DMA29_DriverIRQHandler
+                        0x8000'375b    0x32  Code  Gb  fsl_edma.o [9]
+DMA13_DMA29_IRQHandler  0x8000'cdb5     0x8  Code  Wk  zf_common_vector.o [11]
+DMA14_DMA30_DriverIRQHandler
+                        0x8000'378d    0x32  Code  Gb  fsl_edma.o [9]
+DMA14_DMA30_IRQHandler  0x8000'cdbd     0x8  Code  Wk  zf_common_vector.o [11]
+DMA15_DMA31_DriverIRQHandler
+                        0x8000'37c5    0x32  Code  Gb  fsl_edma.o [9]
+DMA15_DMA31_IRQHandler  0x8000'cdc5     0x8  Code  Wk  zf_common_vector.o [11]
+DMA1_DMA17_DriverIRQHandler
+                        0x8000'3503    0x32  Code  Gb  fsl_edma.o [9]
+DMA1_DMA17_IRQHandler   0x8000'cd55     0x8  Code  Wk  zf_common_vector.o [11]
+DMA2_DMA18_DriverIRQHandler
+                        0x8000'3535    0x32  Code  Gb  fsl_edma.o [9]
+DMA2_DMA18_IRQHandler   0x8000'cd5d     0x8  Code  Wk  zf_common_vector.o [11]
+DMA3_DMA19_DriverIRQHandler
+                        0x8000'3567    0x32  Code  Gb  fsl_edma.o [9]
+DMA3_DMA19_IRQHandler   0x8000'cd65     0x8  Code  Wk  zf_common_vector.o [11]
+DMA4_DMA20_DriverIRQHandler
+                        0x8000'3599    0x32  Code  Gb  fsl_edma.o [9]
+DMA4_DMA20_IRQHandler   0x8000'cd6d     0x8  Code  Wk  zf_common_vector.o [11]
+DMA5_DMA21_DriverIRQHandler
+                        0x8000'35cb    0x32  Code  Gb  fsl_edma.o [9]
+DMA5_DMA21_IRQHandler   0x8000'cd75     0x8  Code  Wk  zf_common_vector.o [11]
+DMA6_DMA22_DriverIRQHandler
+                        0x8000'35fd    0x32  Code  Gb  fsl_edma.o [9]
+DMA6_DMA22_IRQHandler   0x8000'cd7d     0x8  Code  Wk  zf_common_vector.o [11]
+DMA7_DMA23_DriverIRQHandler
+                        0x8000'362f    0x32  Code  Gb  fsl_edma.o [9]
+DMA7_DMA23_IRQHandler   0x8000'cd85     0x8  Code  Wk  zf_common_vector.o [11]
+DMA8_DMA24_DriverIRQHandler
+                        0x8000'3661    0x32  Code  Gb  fsl_edma.o [9]
+DMA8_DMA24_IRQHandler   0x8000'cd8d     0x8  Code  Wk  zf_common_vector.o [11]
+DMA9_DMA25_DriverIRQHandler
+                        0x8000'3693    0x32  Code  Gb  fsl_edma.o [9]
+DMA9_DMA25_IRQHandler   0x8000'cd95     0x8  Code  Wk  zf_common_vector.o [11]
+DMA_ERROR_DriverIRQHandler
+                        0x8000'cf77     0x2  Code  Wk  zf_common_vector.o [11]
+DMA_ERROR_IRQHandler    0x8000'cdcd     0x8  Code  Wk  zf_common_vector.o [11]
+DbgConsole_ConvertFloatRadixNumToString
+                        0x8000'2a25   0x1a8  Code  Lc  fsl_debug_console.o [8]
+DbgConsole_ConvertRadixNumToString
+                        0x8000'2899   0x18a  Code  Lc  fsl_debug_console.o [8]
+DbgConsole_Printf       0x8000'280d    0x18  Code  Gb  fsl_debug_console.o [8]
+DbgConsole_PrintfFormattedData
+                        0x8000'2bd9   0x760  Code  Lc  fsl_debug_console.o [8]
+DbgConsole_PrintfPaddingCharacter
+                        0x8000'286d    0x2c  Code  Lc  fsl_debug_console.o [8]
+DbgConsole_Putchar      0x8000'284d    0x20  Code  Gb  fsl_debug_console.o [8]
+DbgConsole_Vprintf      0x8000'2825    0x28  Code  Gb  fsl_debug_console.o [8]
+DebugMon_Handler        0x8000'cd4b     0x2  Code  Gb  zf_common_vector.o [11]
+DefaultISR              0x7000'27e5          Code  Wk  startup_MIMXRT1064.o [8]
+DisableGlobalIRQ        0x8000'91cd     0x8  Code  Lc  zf_common_interrupt.o [11]
+EDMA_GetChannelStatusFlags
+                        0x8000'3339    0x46  Code  Gb  fsl_edma.o [9]
+EDMA_HandleIRQ          0x8000'3389   0x146  Code  Gb  fsl_edma.o [9]
+ENC1_IRQHandler         0x8000'cf25     0x2  Code  Wk  zf_common_vector.o [11]
+ENC2_IRQHandler         0x8000'cf27     0x2  Code  Wk  zf_common_vector.o [11]
+ENC3_IRQHandler         0x8000'cf29     0x2  Code  Wk  zf_common_vector.o [11]
+ENC4_IRQHandler         0x8000'cf2b     0x2  Code  Wk  zf_common_vector.o [11]
+ENET2_1588_Timer_DriverIRQHandler
+                        0x8000'3925     0xe  Code  Gb  fsl_enet.o [9]
+ENET2_1588_Timer_IRQHandler
+                        0x8000'cf5b     0x8  Code  Wk  zf_common_vector.o [11]
+ENET2_DriverIRQHandler  0x8000'3917     0xe  Code  Gb  fsl_enet.o [9]
+ENET2_IRQHandler        0x8000'cf53     0x8  Code  Wk  zf_common_vector.o [11]
+ENET_1588_Timer_DriverIRQHandler
+                        0x8000'3909     0xe  Code  Gb  fsl_enet.o [9]
+ENET_1588_Timer_IRQHandler
+                        0x8000'cf05     0x8  Code  Wk  zf_common_vector.o [11]
+ENET_CommonFrame0IRQHandler
+                        0x8000'3849    0x8c  Code  Gb  fsl_enet.o [9]
+ENET_DriverIRQHandler   0x8000'38fb     0xe  Code  Gb  fsl_enet.o [9]
+ENET_GetInstance        0x8000'3809    0x34  Code  Gb  fsl_enet.o [9]
+ENET_IRQHandler         0x8000'cefd     0x8  Code  Wk  zf_common_vector.o [11]
+ENET_Ptp1588IRQHandler  0x8000'38d5    0x26  Code  Gb  fsl_enet.o [9]
+EWM_IRQHandler          0x8000'cec1     0x2  Code  Wk  zf_common_vector.o [11]
+Ecoder_Total_L1         0x2000'0210     0x4  Data  Gb  Encoder.o [3]
+Ecoder_Total_L2         0x2000'0214     0x4  Data  Gb  Encoder.o [3]
+Ecoder_Total_R1         0x2000'0218     0x4  Data  Gb  Encoder.o [3]
+Ecoder_Total_R2         0x2000'021c     0x4  Data  Gb  Encoder.o [3]
+EnableIRQ               0x8000'91a9    0x24  Code  Lc  zf_common_interrupt.o [11]
+EnableIRQ               0x8000'9b83    0x24  Code  Lc  zf_driver_pit.o [14]
+Encoder_Current_L1      0x2000'82a8     0x2  Data  Gb  Encoder.o [3]
+Encoder_Current_L2      0x2000'82aa     0x2  Data  Gb  Encoder.o [3]
+Encoder_Current_R1      0x2000'82ac     0x2  Data  Gb  Encoder.o [3]
+Encoder_Current_R2      0x2000'82ae     0x2  Data  Gb  Encoder.o [3]
+Encoder_Init            0x8000'1ee5    0x2c  Code  Gb  Encoder.o [3]
+Encoder_Speed_PID_Update
+                        0x8000'1f11    0x7c  Code  Gb  Encoder.o [3]
+FLEXIO1_DriverIRQHandler
+                        0x8000'3a4d     0x8  Code  Gb  fsl_flexio.o [9]
+FLEXIO1_IRQHandler      0x8000'cead     0x8  Code  Wk  zf_common_vector.o [11]
+FLEXIO2_DriverIRQHandler
+                        0x8000'3a55     0x8  Code  Gb  fsl_flexio.o [9]
+FLEXIO2_IRQHandler      0x8000'ceb5     0x8  Code  Wk  zf_common_vector.o [11]
+FLEXIO3_DriverIRQHandler
+                        0x8000'3a5d     0x8  Code  Gb  fsl_flexio.o [9]
+FLEXIO3_IRQHandler      0x8000'cf6d     0x8  Code  Wk  zf_common_vector.o [11]
+FLEXIO_CommonIRQHandler
+                        0x8000'39fd    0x42  Code  Lc  fsl_flexio.o [9]
+FLEXRAM_IRQHandler      0x8000'ce33     0x2  Code  Wk  zf_common_vector.o [11]
+FLEXSPI2_DriverIRQHandler
+                        0x8000'cf79     0x2  Code  Wk  zf_common_vector.o [11]
+FLEXSPI2_IRQHandler     0x8000'cedb     0x8  Code  Wk  zf_common_vector.o [11]
+FLEXSPI_DriverIRQHandler
+                        0x8000'cf7b     0x2  Code  Wk  zf_common_vector.o [11]
+FLEXSPI_IRQHandler      0x8000'cee3     0x8  Code  Wk  zf_common_vector.o [11]
+Fuzzy_PID_Calculate     0x8000'5a79    0x76  Code  Gb  Fuzzy_Pid.o [3]
+Fuzzy_PID_Get_Output    0x8000'5aef    0x5e  Code  Gb  Fuzzy_Pid.o [3]
+Fuzzy_PID_Init          0x8000'59b5    0x34  Code  Gb  Fuzzy_Pid.o [3]
+Fuzzy_PID_Set_Target    0x8000'59f9    0x5c  Code  Gb  Fuzzy_Pid.o [3]
+GPC_IRQHandler          0x8000'cec7     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_Combined_0_15_IRQHandler
+                        0x8000'6147    0x18  Code  Gb  isr.o [10]
+GPIO1_Combined_16_31_IRQHandler
+                        0x8000'615f    0x24  Code  Gb  isr.o [10]
+GPIO1_INT0_IRQHandler   0x8000'ce93     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT1_IRQHandler   0x8000'ce95     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT2_IRQHandler   0x8000'ce97     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT3_IRQHandler   0x8000'ce99     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT4_IRQHandler   0x8000'ce9b     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT5_IRQHandler   0x8000'ce9d     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT6_IRQHandler   0x8000'ce9f     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO1_INT7_IRQHandler   0x8000'cea1     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO2_Combined_0_15_IRQHandler
+                        0x8000'6183    0x1e  Code  Gb  isr.o [10]
+GPIO2_Combined_16_31_IRQHandler
+                        0x8000'61a1    0x24  Code  Gb  isr.o [10]
+GPIO3_Combined_0_15_IRQHandler
+                        0x8000'61c5    0x1c  Code  Gb  isr.o [10]
+GPIO3_Combined_16_31_IRQHandler
+                        0x8000'cea3     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO4_Combined_0_15_IRQHandler
+                        0x8000'cea5     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO4_Combined_16_31_IRQHandler
+                        0x8000'cea7     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO5_Combined_0_15_IRQHandler
+                        0x8000'cea9     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO5_Combined_16_31_IRQHandler
+                        0x8000'ceab     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO6_7_8_9_IRQHandler  0x8000'cf75     0x2  Code  Wk  zf_common_vector.o [11]
+GPIO_ClearPinsInterruptFlags
+                        0x8000'5fe5    0x10  Code  Lc  isr.o [10]
+GPIO_ClearPinsOutput    0x8000'9965    0x10  Code  Lc  zf_driver_gpio.o [14]
+GPIO_GetInstance        0x8000'3aed    0x2e  Code  Lc  fsl_gpio.o [9]
+GPIO_GetPinsInterruptFlags
+                        0x8000'5fd5     0xc  Code  Lc  isr.o [10]
+GPIO_PinInit            0x8000'3b1b    0x78  Code  Gb  fsl_gpio.o [9]
+GPIO_PinSetInterruptConfig
+                        0x8000'3be9    0x92  Code  Gb  fsl_gpio.o [9]
+GPIO_PinWrite           0x8000'3b93    0x36  Code  Gb  fsl_gpio.o [9]
+GPIO_PortClear          0x8000'995f     0x6  Code  Lc  zf_driver_gpio.o [14]
+GPIO_PortClearInterruptFlags
+                        0x8000'5fe1     0x4  Code  Lc  isr.o [10]
+GPIO_PortGetInterruptFlags
+                        0x8000'5fd1     0x4  Code  Lc  isr.o [10]
+GPIO_PortSet            0x8000'9949     0x6  Code  Lc  zf_driver_gpio.o [14]
+GPIO_PortToggle         0x8000'9975     0x6  Code  Lc  zf_driver_gpio.o [14]
+GPIO_SetPinInterruptConfig
+                        0x8000'3ad7    0x16  Code  Lc  fsl_gpio.o [9]
+GPIO_SetPinsOutput      0x8000'994f    0x10  Code  Lc  zf_driver_gpio.o [14]
+GPR_IRQ_IRQHandler      0x8000'ce39     0x2  Code  Wk  zf_common_vector.o [11]
+GPT1_IRQHandler         0x8000'cecd     0x2  Code  Wk  zf_common_vector.o [11]
+GPT2_IRQHandler         0x8000'cecf     0x2  Code  Wk  zf_common_vector.o [11]
+GPT_Deinit              0x8000'3e39    0x1a  Code  Gb  fsl_gpt.o [9]
+GPT_GetDefaultConfig    0x8000'3e53    0x48  Code  Gb  fsl_gpt.o [9]
+GPT_GetInstance         0x8000'3d6f    0x2e  Code  Lc  fsl_gpt.o [9]
+GPT_Init                0x8000'3d9d    0x9c  Code  Gb  fsl_gpt.o [9]
+GPT_SetClockDivider     0x8000'3d47    0x28  Code  Lc  fsl_gpt.o [9]
+GPT_SetClockSource      0x8000'3d0f    0x38  Code  Lc  fsl_gpt.o [9]
+GPT_SoftwareReset       0x8000'3cff    0x10  Code  Lc  fsl_gpt.o [9]
+HardFault_Handler       0x8000'cd43     0x2  Code  Gb  zf_common_vector.o [11]
+IOMUXC_SetPinConfig     0x8000'9939    0x10  Code  Lc  zf_driver_gpio.o [14]
+IOMUXC_SetPinMux        0x8000'991d    0x1c  Code  Lc  zf_driver_gpio.o [14]
+InStream_Read           0x7000'2455    0x20  Code  Lc  lz77_init.o [17]
+InStream_StepRegion     0x7000'2441    0x14  Code  Lc  lz77_init.o [17]
+KPP_IRQHandler          0x8000'ce35     0x2  Code  Wk  zf_common_vector.o [11]
+Kd_Rule                 0x8000'123c    0x34  Data  Lc  Fuzzy_Pid.o [3]
+Kp_Rule                 0x8000'1208    0x34  Data  Lc  Fuzzy_Pid.o [3]
+LCDIF_IRQHandler        0x8000'ce3b     0x2  Code  Wk  zf_common_vector.o [11]
+LPI2C1_DriverIRQHandler
+                        0x8000'3f0b     0xc  Code  Gb  fsl_lpi2c.o [9]
+LPI2C1_IRQHandler       0x8000'cde3     0x8  Code  Wk  zf_common_vector.o [11]
+LPI2C2_DriverIRQHandler
+                        0x8000'3f17     0xc  Code  Gb  fsl_lpi2c.o [9]
+LPI2C2_IRQHandler       0x8000'cdeb     0x8  Code  Wk  zf_common_vector.o [11]
+LPI2C3_DriverIRQHandler
+                        0x8000'3f29     0xc  Code  Gb  fsl_lpi2c.o [9]
+LPI2C3_IRQHandler       0x8000'cdf3     0x8  Code  Wk  zf_common_vector.o [11]
+LPI2C4_DriverIRQHandler
+                        0x8000'3f39     0xc  Code  Gb  fsl_lpi2c.o [9]
+LPI2C4_IRQHandler       0x8000'cdfb     0x8  Code  Wk  zf_common_vector.o [11]
+LPI2C_CommonIRQHandler  0x8000'3ec9    0x42  Code  Lc  fsl_lpi2c.o [9]
+LPSPI1_DriverIRQHandler
+                        0x8000'3f91    0x24  Code  Gb  fsl_lpspi.o [9]
+LPSPI1_IRQHandler       0x8000'ce03     0x8  Code  Wk  zf_common_vector.o [11]
+LPSPI2_DriverIRQHandler
+                        0x8000'3fb5    0x24  Code  Gb  fsl_lpspi.o [9]
+LPSPI2_IRQHandler       0x8000'ce0b     0x8  Code  Wk  zf_common_vector.o [11]
+LPSPI3_DriverIRQHandler
+                        0x8000'3fd9    0x24  Code  Gb  fsl_lpspi.o [9]
+LPSPI3_IRQHandler       0x8000'ce13     0x8  Code  Wk  zf_common_vector.o [11]
+LPSPI4_DriverIRQHandler
+                        0x8000'3ffd    0x24  Code  Gb  fsl_lpspi.o [9]
+LPSPI4_IRQHandler       0x8000'ce1b     0x8  Code  Wk  zf_common_vector.o [11]
+LPSPI_CommonIRQHandler  0x8000'3f65    0x2c  Code  Lc  fsl_lpspi.o [9]
+LPSPI_IsMaster          0x8000'3f5d     0x8  Code  Lc  fsl_lpspi.o [9]
+LPUART1_IRQHandler      0x8000'6085    0x1e  Code  Gb  isr.o [10]
+LPUART2_IRQHandler      0x8000'60a3    0x16  Code  Gb  isr.o [10]
+LPUART3_IRQHandler      0x8000'60b9    0x16  Code  Gb  isr.o [10]
+LPUART4_IRQHandler      0x8000'60cf    0x22  Code  Gb  isr.o [10]
+LPUART5_IRQHandler      0x8000'60f1    0x20  Code  Gb  isr.o [10]
+LPUART6_IRQHandler      0x8000'6111    0x16  Code  Gb  isr.o [10]
+LPUART7_DriverIRQHandler
+                        0x8000'4581    0x14  Code  Gb  fsl_lpuart.o [9]
+LPUART7_IRQHandler      0x8000'cddb     0x8  Code  Wk  zf_common_vector.o [11]
+LPUART8_IRQHandler      0x8000'6127    0x20  Code  Gb  isr.o [10]
+LPUART_ClearStatusFlags
+                        0x8000'44c3    0x42  Code  Gb  fsl_lpuart.o [9]
+LPUART_Deinit           0x8000'4383    0x3e  Code  Gb  fsl_lpuart.o [9]
+LPUART_DisableInterrupts
+                        0x8000'446d    0x40  Code  Gb  fsl_lpuart.o [9]
+LPUART_EnableInterrupts
+                        0x8000'442d    0x40  Code  Gb  fsl_lpuart.o [9]
+LPUART_GetDefaultConfig
+                        0x8000'43c1    0x6c  Code  Gb  fsl_lpuart.o [9]
+LPUART_GetInstance      0x8000'40eb    0x34  Code  Gb  fsl_lpuart.o [9]
+LPUART_GetStatusFlags   0x8000'44ad    0x16  Code  Gb  fsl_lpuart.o [9]
+LPUART_Init             0x8000'411f   0x264  Code  Gb  fsl_lpuart.o [9]
+LPUART_ReadByte         0x8000'a609    0x2e  Code  Lc  zf_driver_uart.o [14]
+LPUART_SoftwareReset    0x8000'40d9    0x12  Code  Lc  fsl_lpuart.o [9]
+LPUART_WriteBlocking    0x8000'4505    0x42  Code  Gb  fsl_lpuart.o [9]
+LPUART_WriteByte        0x8000'a601     0x8  Code  Lc  zf_driver_uart.o [14]
+Mecanum_Move            0x8000'62fd   0x114  Code  Gb  Motor.o [3]
+MemManage_Handler       0x8000'cd45     0x2  Code  Gb  zf_common_vector.o [11]
+Motor_Clamp             0x8000'6291    0x16  Code  Lc  Motor.o [3]
+Motor_Init              0x8000'625d    0x34  Code  Gb  Motor.o [3]
+Motor_Set               0x8000'62a7    0x56  Code  Gb  Motor.o [3]
+Motor_Stop              0x8000'6415     0xe  Code  Gb  Motor.o [3]
+Motor_Task              0x8000'14a9    0x58  Code  Gb  App_FreeRTOS.o [2]
+Motor_Task_Handle       0x2000'0204     0x4  Data  Gb  App_FreeRTOS.o [2]
+MyPWM_Init              0x8000'ccdf    0x30  Code  Gb  PWM.o [3]
+MyUART_4_Init           0x8000'7e81    0x2e  Code  Gb  UART.o [3]
+NMI_Handler             0x8000'cd41     0x2  Code  Gb  zf_common_vector.o [11]
+OutStream_Write         0x7000'2475    0x46  Code  Lc  lz77_init.o [17]
+PIT_ClearStatusFlags    0x8000'6005     0xe  Code  Lc  isr.o [10]
+PIT_Deinit              0x8000'46d1    0x1e  Code  Gb  fsl_pit.o [9]
+PIT_EnableInterrupts    0x8000'9c0b    0x20  Code  Lc  zf_driver_pit.o [14]
+PIT_GetDefaultConfig    0x8000'9ba7    0x1c  Code  Lc  zf_driver_pit.o [14]
+PIT_GetInstance         0x8000'462f    0x2e  Code  Lc  fsl_pit.o [9]
+PIT_GetStatusFlags      0x8000'5ff5    0x10  Code  Lc  isr.o [10]
+PIT_IRQHandler          0x8000'601f    0x66  Code  Gb  isr.o [10]
+PIT_Init                0x8000'465d    0x74  Code  Gb  fsl_pit.o [9]
+PIT_SetTimerChainMode   0x8000'9bc3    0x48  Code  Lc  zf_driver_pit.o [14]
+PIT_SetTimerPeriod      0x8000'9c2b    0x2a  Code  Lc  zf_driver_pit.o [14]
+PIT_StartTimer          0x8000'9c55    0x1e  Code  Lc  zf_driver_pit.o [14]
+PMU_EVENT_IRQHandler    0x8000'ce7d     0x2  Code  Wk  zf_common_vector.o [11]
+PORTPTR                 0x2000'0150    0x2c  Data  Gb  zf_driver_gpio.o [14]
+PWM1_0_IRQHandler       0x8000'ced1     0x2  Code  Wk  zf_common_vector.o [11]
+PWM1_1_IRQHandler       0x8000'ced3     0x2  Code  Wk  zf_common_vector.o [11]
+PWM1_2_IRQHandler       0x8000'ced5     0x2  Code  Wk  zf_common_vector.o [11]
+PWM1_3_IRQHandler       0x8000'ced7     0x2  Code  Wk  zf_common_vector.o [11]
+PWM1_FAULT_IRQHandler   0x8000'ced9     0x2  Code  Wk  zf_common_vector.o [11]
+PWM2_0_IRQHandler       0x8000'cf35     0x2  Code  Wk  zf_common_vector.o [11]
+PWM2_1_IRQHandler       0x8000'cf37     0x2  Code  Wk  zf_common_vector.o [11]
+PWM2_2_IRQHandler       0x8000'cf39     0x2  Code  Wk  zf_common_vector.o [11]
+PWM2_3_IRQHandler       0x8000'cf3b     0x2  Code  Wk  zf_common_vector.o [11]
+PWM2_FAULT_IRQHandler   0x8000'cf3d     0x2  Code  Wk  zf_common_vector.o [11]
+PWM3_0_IRQHandler       0x8000'cf3f     0x2  Code  Wk  zf_common_vector.o [11]
+PWM3_1_IRQHandler       0x8000'cf41     0x2  Code  Wk  zf_common_vector.o [11]
+PWM3_2_IRQHandler       0x8000'cf43     0x2  Code  Wk  zf_common_vector.o [11]
+PWM3_3_IRQHandler       0x8000'cf45     0x2  Code  Wk  zf_common_vector.o [11]
+PWM3_FAULT_IRQHandler   0x8000'cf47     0x2  Code  Wk  zf_common_vector.o [11]
+PWM4_0_IRQHandler       0x8000'cf49     0x2  Code  Wk  zf_common_vector.o [11]
+PWM4_1_IRQHandler       0x8000'cf4b     0x2  Code  Wk  zf_common_vector.o [11]
+PWM4_2_IRQHandler       0x8000'cf4d     0x2  Code  Wk  zf_common_vector.o [11]
+PWM4_3_IRQHandler       0x8000'cf4f     0x2  Code  Wk  zf_common_vector.o [11]
+PWM4_FAULT_IRQHandler   0x8000'cf51     0x2  Code  Wk  zf_common_vector.o [11]
+PWMPTR                  0x2000'01b4    0x14  Data  Lc  zf_driver_pwm.o [14]
+PWM_Deinit              0x8000'49ab    0x34  Code  Gb  fsl_pwm.o [9]
+PWM_GetComplementU16    0x8000'4799     0xa  Code  Lc  fsl_pwm.o [9]
+PWM_GetDefaultConfig    0x8000'49df    0x54  Code  Gb  fsl_pwm.o [9]
+PWM_GetInstance         0x8000'47a3    0x34  Code  Lc  fsl_pwm.o [9]
+PWM_Init                0x8000'47d7   0x1d4  Code  Gb  fsl_pwm.o [9]
+PWM_SetPwmLdok          0x8000'9d0b    0x36  Code  Lc  zf_driver_pwm.o [14]
+PWM_SetupPwm            0x8000'4a39   0x52a  Code  Gb  fsl_pwm.o [9]
+PWM_StartTimer          0x8000'9cf5    0x16  Code  Lc  zf_driver_pwm.o [14]
+PWM_UpdatePwmDutycycleHighAccuracy
+                        0x8000'4f69   0x296  Code  Gb  fsl_pwm.o [9]
+PXP_IRQHandler          0x8000'ce3d     0x2  Code  Wk  zf_common_vector.o [11]
+PendSV_Handler          0x8000'cb91          Code  Gb  portasm.o [7]
+QTMR_Deinit             0x8000'5387    0x30  Code  Gb  fsl_qtmr.o [9]
+QTMR_GetCurrentTimerCount
+                        0x8000'9379     0xa  Code  Lc  zf_driver_encoder.o [14]
+QTMR_GetDefaultConfig   0x8000'53b7    0x44  Code  Gb  fsl_qtmr.o [9]
+QTMR_GetInstance        0x8000'52bb    0x2e  Code  Lc  fsl_qtmr.o [9]
+QTMR_Init               0x8000'52e9    0x9e  Code  Gb  fsl_qtmr.o [9]
+QTMR_StartTimer         0x8000'9383    0x26  Code  Lc  zf_driver_encoder.o [14]
+RTWDOG_IRQHandler       0x8000'cebf     0x2  Code  Wk  zf_common_vector.o [11]
+RW$$Base                0x8000'0400           --   Gb  - Linker created -
+RW$$Limit               0x8000'd039           --   Gb  - Linker created -
+Region$$Table$$Base     0x7000'286c           --   Gb  - Linker created -
+Region$$Table$$Limit    0x7000'28b4           --   Gb  - Linker created -
+Reserved115_IRQHandler  0x8000'cecb     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved143_IRQHandler  0x8000'cf21     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved144_IRQHandler  0x8000'cf23     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved171_IRQHandler  0x8000'cf6b     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved68_IRQHandler   0x8000'ce4d     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved78_IRQHandler   0x8000'ce7f     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved86_IRQHandler   0x8000'ce8f     0x2  Code  Wk  zf_common_vector.o [11]
+Reserved87_IRQHandler   0x8000'ce91     0x2  Code  Wk  zf_common_vector.o [11]
+Reset_Handler           0x7000'277d          Code  Gb  startup_MIMXRT1064.o [8]
+SAI1_DriverIRQHandler   0x8000'5447    0x52  Code  Gb  fsl_sai.o [9]
+SAI1_IRQHandler         0x8000'ce55     0x8  Code  Wk  zf_common_vector.o [11]
+SAI2_DriverIRQHandler   0x8000'5499    0x52  Code  Gb  fsl_sai.o [9]
+SAI2_IRQHandler         0x8000'ce5d     0x8  Code  Wk  zf_common_vector.o [11]
+SAI3_RX_DriverIRQHandler
+                        0x8000'5515    0x2a  Code  Gb  fsl_sai.o [9]
+SAI3_RX_IRQHandler      0x8000'ce65     0x8  Code  Wk  zf_common_vector.o [11]
+SAI3_TX_DriverIRQHandler
+                        0x8000'54eb    0x2a  Code  Gb  fsl_sai.o [9]
+SAI3_TX_IRQHandler      0x8000'ce6d     0x8  Code  Wk  zf_common_vector.o [11]
+SAI_RxGetEnabledInterruptStatus
+                        0x8000'541d    0x16  Code  Lc  fsl_sai.o [9]
+SAI_TxGetEnabledInterruptStatus
+                        0x8000'5433    0x14  Code  Lc  fsl_sai.o [9]
+SEMC_IRQHandler         0x8000'ceeb     0x2  Code  Wk  zf_common_vector.o [11]
+SJC_IRQHandler          0x8000'ce51     0x2  Code  Wk  zf_common_vector.o [11]
+SNVS_HP_WRAPPER_IRQHandler
+                        0x8000'ce41     0x2  Code  Wk  zf_common_vector.o [11]
+SNVS_HP_WRAPPER_TZ_IRQHandler
+                        0x8000'ce43     0x2  Code  Wk  zf_common_vector.o [11]
+SNVS_LP_WRAPPER_IRQHandler
+                        0x8000'ce45     0x2  Code  Wk  zf_common_vector.o [11]
+SPDIF_DriverIRQHandler  0x8000'5565    0x36  Code  Gb  fsl_spdif.o [9]
+SPDIF_IRQHandler        0x8000'ce75     0x8  Code  Wk  zf_common_vector.o [11]
+SRC_IRQHandler          0x8000'cec9     0x2  Code  Wk  zf_common_vector.o [11]
+SVC_Handler             0x8000'cbe9          Code  Gb  portasm.o [7]
+Speed_PID_Calculate     0x8000'6d61   0x150  Code  Gb  Speed_PID.o [3]
+Speed_Task              0x8000'1529     0xc  Code  Gb  App_FreeRTOS.o [2]
+Speed_Task_Handle       0x2000'0208     0x4  Data  Gb  App_FreeRTOS.o [2]
+Start_Task              0x8000'144d    0x5c  Code  Gb  App_FreeRTOS.o [2]
+Start_Task_Handle       0x2000'0200     0x4  Data  Gb  App_FreeRTOS.o [2]
+SysTick_Handler         0x8000'6889    0x28  Code  Gb  port.o [7]
+SystemCoreClock         0x2000'01cc     0x4  Data  Gb  system_MIMXRT1064.o [8]
+SystemInit              0x7000'2655    0xe4  Code  Gb  system_MIMXRT1064.o [8]
+SystemInitHook          0x7000'2779     0x2  Code  Wk  system_MIMXRT1064.o [8]
+TEMP_LOW_HIGH_IRQHandler
+                        0x8000'ce81     0x2  Code  Wk  zf_common_vector.o [11]
+TEMP_PANIC_IRQHandler   0x8000'ce83     0x2  Code  Wk  zf_common_vector.o [11]
+TMR1_IRQHandler         0x8000'cf2d     0x2  Code  Wk  zf_common_vector.o [11]
+TMR2_IRQHandler         0x8000'cf2f     0x2  Code  Wk  zf_common_vector.o [11]
+TMR3_IRQHandler         0x8000'cf31     0x2  Code  Wk  zf_common_vector.o [11]
+TMR4_IRQHandler         0x8000'cf33     0x2  Code  Wk  zf_common_vector.o [11]
+TRNG_IRQHandler         0x8000'ce4f     0x2  Code  Wk  zf_common_vector.o [11]
+TSC_DIG_IRQHandler      0x8000'ce37     0x2  Code  Wk  zf_common_vector.o [11]
+Timer2_IRQHandler       0x8000'cd39     0x8  Code  Gb  Timer.o [3]
+Timer2_Init             0x8000'cd0f    0x2a  Code  Gb  Timer.o [3]
+USB_DeviceControl       0x8000'7f15    0x2e  Code  Lc  usb_device_dci.o [6]
+USB_DeviceEhciCancelControlPipe
+                        0x8000'8109   0x112  Code  Lc  usb_device_ehci.o [6]
+USB_DeviceEhciFillSetupBuffer
+                        0x8000'808d    0x7c  Code  Lc  usb_device_ehci.o [6]
+USB_DeviceEhciInterruptPortChange
+                        0x8000'8559    0x52  Code  Lc  usb_device_ehci.o [6]
+USB_DeviceEhciInterruptReset
+                        0x8000'85ab    0x66  Code  Lc  usb_device_ehci.o [6]
+USB_DeviceEhciInterruptSof
+                        0x8000'8611     0x2  Code  Lc  usb_device_ehci.o [6]
+USB_DeviceEhciInterruptTokenDone
+                        0x8000'821b   0x33e  Code  Lc  usb_device_ehci.o [6]
+USB_DeviceEhciIsrFunction
+                        0x8000'8613    0x4a  Code  Gb  usb_device_ehci.o [6]
+USB_DeviceNotification  0x8000'7fa3    0xbe  Code  Lc  usb_device_dci.o [6]
+USB_DeviceNotificationTrigger
+                        0x8000'8061    0x2a  Code  Gb  usb_device_dci.o [6]
+USB_DeviceResetNotification
+                        0x8000'7f43    0x60  Code  Lc  usb_device_dci.o [6]
+USB_OTG1_IRQHandler     0x8000'abcd     0xe  Code  Gb  zf_driver_usb_cdc.o [14]
+USB_OTG2_IRQHandler     0x8000'abdb     0xe  Code  Gb  zf_driver_usb_cdc.o [14]
+USB_PHY1_IRQHandler     0x8000'ce85     0x2  Code  Wk  zf_common_vector.o [11]
+USB_PHY2_IRQHandler     0x8000'ce87     0x2  Code  Wk  zf_common_vector.o [11]
+USDHC1_DriverIRQHandler
+                        0x8000'55ad    0x16  Code  Gb  fsl_usdhc.o [9]
+USDHC1_IRQHandler       0x8000'ceed     0x8  Code  Wk  zf_common_vector.o [11]
+USDHC2_DriverIRQHandler
+                        0x8000'55c3    0x16  Code  Gb  fsl_usdhc.o [9]
+USDHC2_IRQHandler       0x8000'cef5     0x8  Code  Wk  zf_common_vector.o [11]
+UsageFault_Handler      0x8000'cd49     0x2  Code  Gb  zf_common_vector.o [11]
+WDOG1_IRQHandler        0x8000'cebd     0x2  Code  Wk  zf_common_vector.o [11]
+WDOG2_IRQHandler        0x8000'ce3f     0x2  Code  Wk  zf_common_vector.o [11]
+Wifi_Task               0x8000'1535     0xc  Code  Gb  App_FreeRTOS.o [2]
+Wifi_Task_Handle        0x2000'020c     0x4  Data  Gb  App_FreeRTOS.o [2]
+XBAR1_IRQ_0_1_IRQHandler
+                        0x8000'cf0d     0x2  Code  Wk  zf_common_vector.o [11]
+XBAR1_IRQ_2_3_IRQHandler
+                        0x8000'cf0f     0x2  Code  Wk  zf_common_vector.o [11]
+ZI$$Base                0x2000'0200           --   Gb  - Linker created -
+ZI$$Limit               0x2000'82bc           --   Gb  - Linker created -
+_LC                     0x8000'bc15     0x6  Code  Lc  xprintffull_nomb.o [15]
+_LitobFullNoMb          0x8000'c8fd   0x114  Code  Lc  xprintffull_nomb.o [15]
+_Locale_lconv           0x2000'0048    0x38  Data  Lc  xlocale_c.o [15]
+_PrintfFullNoMb         0x8000'bc1b   0xcb2  Code  Gb  xprintffull_nomb.o [15]
+_Prout                  0x8000'cfa7    0x16  Code  Gb  xprout.o [15]
+_PutcharsFullNoMb       0x8000'ca69    0x2e  Code  Lc  xprintffull_nomb.o [15]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'17ed    0x18  Code  Lc  clock_config.o [8]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'3a65    0x18  Code  Lc  fsl_gpio.o [9]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'3c7d    0x18  Code  Lc  fsl_gpt.o [9]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'4051    0x18  Code  Lc  fsl_lpuart.o [9]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'45ad    0x18  Code  Lc  fsl_pit.o [9]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'4711    0x18  Code  Lc  fsl_pwm.o [9]
+_SDK_AtomicLocalClearAndSet4Byte
+                        0x8000'5239    0x18  Code  Lc  fsl_qtmr.o [9]
+_SProut                 0x8000'cfbd     0xa  Code  Gb  xsprout.o [15]
+__CSTACK_ADDRESS {Abs}  0x2007'0000          Data  Gb  <internal module>
+__NVIC_EnableIRQ        0x8000'915f    0x1e  Code  Lc  zf_common_interrupt.o [11]
+__NVIC_EnableIRQ        0x8000'9b65    0x1e  Code  Lc  zf_driver_pit.o [14]
+__NVIC_SetPriority      0x8000'917d    0x2c  Code  Lc  zf_common_interrupt.o [11]
+__NVIC_SetPriorityGrouping
+                        0x8000'9141    0x1e  Code  Lc  zf_common_interrupt.o [11]
+__RAM_VECTOR_TABLE_SIZE {Abs}
+                              0x400          Data  Gb  <internal module>
+__VECTOR_RAM {Abs}      0x8000'0000          Data  Gb  <internal module>
+__VECTOR_TABLE {Abs}    0x7000'2000          Data  Gb  <internal module>
+__aeabi_assert          0x8000'1fad    0x1c  Code  Gb  fsl_assert.o [8]
+__aeabi_cdcmple         0x8000'cae1          Code  Gb  DblCmpLe.o [16]
+__aeabi_cdrcmple        0x8000'cb15          Code  Gb  DblCmpGe.o [16]
+__aeabi_d2iz            0x8000'cfcb     0xe  Code  Gb  DblToS32.o [16]
+__aeabi_d2lz            0x8000'afb1          Code  Gb  DblToS64.o [16]
+__aeabi_d2uiz           0x8000'cfd9     0xe  Code  Gb  DblToU32.o [16]
+__aeabi_ddiv            0x8000'cfe7    0x12  Code  Gb  DblDiv.o [16]
+__aeabi_dmul            0x8000'cff9    0x12  Code  Gb  DblMul.o [16]
+__aeabi_dsub            0x8000'd00b    0x12  Code  Gb  DblSub.o [16]
+__aeabi_i2d             0x8000'd01d     0xe  Code  Gb  S32ToDbl.o [16]
+__aeabi_l2d             0x8000'b019          Code  Gb  S64ToDbl.o [16]
+__aeabi_ldiv0           0x8000'b6d9          Code  Gb  I64DivZer.o [17]
+__aeabi_ldivmod         0x8000'ad3d          Code  Gb  I64DivMod.o [17]
+__aeabi_memclr4         0x8000'b655          Code  Gb  ABImemclr4.o [17]
+__aeabi_memcpy          0x8000'ac15          Code  Gb  ABImemcpy.o [17]
+__aeabi_memcpy4         0x8000'ac35          Code  Gb  ABImemcpy.o [17]
+__aeabi_memcpy8         0x8000'ac35          Code  Gb  ABImemcpy.o [17]
+__aeabi_memset          0x8000'acbd          Code  Gb  ABImemset.o [17]
+__aeabi_ui2d            0x8000'd02b     0xe  Code  Gb  U32ToDbl.o [16]
+__aeabi_uldivmod        0x8000'ad81          Code  Gb  I64DivMod.o [17]
+__cmain                 0x7000'28c5          Code  Gb  cmain.o [17]
+__exit                  0x7000'2641    0x14  Code  Gb  exit.o [18]
+__iar_Exp64             0x8000'b6dd   0x250  Code  Gb  iar_Exp64.o [16]
+__iar_Fail_s            0x8000'cb51    0x1c  Code  Gb  xfail_s.o [15]
+__iar_Memchr            0x8000'bba9          Code  Gb  memchr.o [17]
+__iar_Memset            0x8000'acbd          Code  Gb  ABImemset.o [17]
+__iar_Memset4_word      0x8000'bb29          Code  Gb  ABImemset48.o [17]
+__iar_Memset8_word      0x8000'bb29          Code  Gb  ABImemset48.o [17]
+__iar_Memset_word       0x8000'acc5          Code  Gb  ABImemset.o [17]
+__iar_Stdout            0x2000'0000    0x48  Data  Gb  xfiles.o [15]
+__iar_Strchr            0x8000'ad25          Code  Gb  strchr.o [17]
+__iar_data_init3        0x7000'2821    0x28  Code  Gb  data_init.o [17]
+__iar_floor32           0x8000'b66d          Code  Gb  floorf.o [16]
+__iar_frexp             0x8000'b9c1          Code  Gb  frexp.o [16]
+__iar_frexp64           0x8000'b99d          Code  Gb  frexp.o [16]
+__iar_frexpl            0x8000'b9c1          Code  Gb  frexp.o [16]
+__iar_init_vfp          0x7000'2849          Code  Gb  fpinit_M.o [16]
+__iar_ldexp64           0x8000'ba39          Code  Gb  ldexp.o [16]
+__iar_lz77_init3        0x7000'24bb   0x17e  Code  Gb  lz77_init.o [17]
+__iar_modf              0x8000'b07d          Code  Gb  modf.o [16]
+__iar_modf64            0x8000'b06d          Code  Gb  modf.o [16]
+__iar_modfl             0x8000'b07d          Code  Gb  modf.o [16]
+__iar_pow64             0x8000'b10d   0x4c0  Code  Gb  pow64.o [16]
+__iar_pow_medium        0x8000'b10d   0x4c0  Code  Gb  pow64.o [16]
+__iar_pow_medium64      0x8000'b10d   0x4c0  Code  Gb  pow64.o [16]
+__iar_pow_mediuml       0x8000'b10d   0x4c0  Code  Gb  pow64.o [16]
+__iar_program_start     0x7000'28e9          Code  Gb  cstartup_M.o [17]
+__iar_scalbln64         0x8000'ba39          Code  Gb  ldexp.o [16]
+__iar_scalbn64          0x8000'ba39          Code  Gb  ldexp.o [16]
+__iar_softfp___iar_frexp64
+                        0x8000'b9b5          Code  Gb  frexp.o [16]
+__iar_softfp___iar_ldexp64
+                        0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp___iar_scalbln64
+                        0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp___iar_scalbn64
+                        0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp_frexp      0x8000'b9b5          Code  Gb  frexp.o [16]
+__iar_softfp_frexpl     0x8000'b9b5          Code  Gb  frexp.o [16]
+__iar_softfp_ldexp      0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp_ldexpl     0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp_scalbln    0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp_scalblnl   0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp_scalbn     0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_softfp_scalbnl    0x8000'ba25          Code  Gb  ldexp.o [16]
+__iar_vfp___iar_floor32
+                        0x8000'b65d          Code  Gb  floorf.o [16]
+__iar_vfp_floorf        0x8000'b65d          Code  Gb  floorf.o [16]
+__iar_zero_init3        0x7000'27e9    0x38  Code  Gb  zero_init3.o [17]
+__low_level_init        0x7000'28e3     0x4  Code  Gb  low_level_init.o [15]
+__vector_table          0x7000'2400          Data  Gb  vector_table_M.o [17]
+__write                 0x8000'8a97    0x18  Code  Gb  zf_common_debug.o [11]
+__zf_vector_table       0x7000'2000   0x400  Data  Gb  zf_common_vector.o [11]
+_call_main              0x7000'28d1          Code  Gb  cmain.o [17]
+_exit                   0x8000'bc09          Code  Gb  cexit.o [17]
+abort                   0x7000'2639     0x6  Code  Gb  abort.o [15]
+afio_init               0x8000'997b    0x3c  Code  Gb  zf_driver_gpio.o [14]
+armPllConfig_BOARD_BootClockRUN
+                        0x8000'08b8     0x8  Data  Gb  clock_config.o [8]
+camera_uart_handler     0x2000'01d8     0x4  Data  Gb  zf_device_type.o [13]
+cas_spid_L1             0x2000'0080    0x34  Data  Lc  PID.o [3]
+cas_spid_L2             0x2000'00b4    0x34  Data  Lc  PID.o [3]
+cas_spid_R1             0x2000'00e8    0x34  Data  Lc  PID.o [3]
+cas_spid_R2             0x2000'011c    0x34  Data  Lc  PID.o [3]
+cascade_step            0x8000'6479    0x48  Code  Lc  PID.o [3]
+clock_init              0x8000'865d    0x20  Code  Gb  zf_common_clock.o [11]
+dcd_data                0x7000'1030   0x410  Data  Gb  evkmimxrt1064_sdram_ini_dcd.o [8]
+debug_assert_handler    0x8000'8aaf    0x46  Code  Gb  zf_common_debug.o [11]
+debug_assert_handler{1}{2}::assert_nest_index
+                        0x2000'82b3     0x1  Data  Lc  zf_common_debug.o [11]
+debug_delay             0x8000'867d    0x38  Code  Lc  zf_common_debug.o [11]
+debug_init              0x8000'8b3f    0x3a  Code  Gb  zf_common_debug.o [11]
+debug_interrupr_handler
+                        0x8000'8a6f    0x28  Code  Gb  zf_common_debug.o [11]
+debug_output            0x8000'8767   0x308  Code  Lc  zf_common_debug.o [11]
+debug_output_info       0x2000'8094    0x14  Data  Lc  zf_common_debug.o [11]
+debug_output_init       0x8000'8b15    0x2a  Code  Gb  zf_common_debug.o [11]
+debug_output_struct_init
+                        0x8000'8af5    0x20  Code  Gb  zf_common_debug.o [11]
+debug_protective_handler
+                        0x8000'86b5    0xa4  Code  Lc  zf_common_debug.o [11]
+debug_uart_buffer       0x2000'803c    0x40  Data  Gb  zf_common_debug.o [11]
+debug_uart_data         0x2000'82b1     0x1  Data  Gb  zf_common_debug.o [11]
+debug_uart_fifo         0x2000'807c    0x18  Data  Gb  zf_common_debug.o [11]
+debug_uart_str_output   0x8000'8759     0xe  Code  Lc  zf_common_debug.o [11]
+encoder_clear_count     0x8000'972d    0x2e  Code  Gb  zf_driver_encoder.o [14]
+encoder_get_count       0x8000'96fd    0x30  Code  Gb  zf_driver_encoder.o [14]
+encoder_quad_init       0x8000'975b    0xfa  Code  Gb  zf_driver_encoder.o [14]
+exit                    0x8000'cfc7     0x4  Code  Gb  exit.o [15]
+fifo4_rx_buffer         0x2000'7fa0    0x80  Data  Gb  UART.o [3]
+fifo4_rx_index          0x2000'8020     0x4  Data  Gb  UART.o [3]
+fifo_clear              0x8000'8c05    0x9e  Code  Gb  zf_common_fifo.o [11]
+fifo_end_offset         0x8000'8bdd    0x28  Code  Lc  zf_common_fifo.o [11]
+fifo_head_offset        0x8000'8bb5    0x28  Code  Lc  zf_common_fifo.o [11]
+fifo_init               0x8000'90f7    0x42  Code  Gb  zf_common_fifo.o [11]
+fifo_read_buffer        0x8000'8ecf   0x228  Code  Gb  zf_common_fifo.o [11]
+fifo_used               0x8000'8ca3    0x26  Code  Gb  zf_common_fifo.o [11]
+fifo_write_buffer       0x8000'8cc9   0x206  Code  Gb  zf_common_fifo.o [11]
+flexio_camera_vsync_handler
+                        0x2000'01dc     0x4  Data  Gb  zf_device_type.o [13]
+floorf                  0x8000'b66d          Code  Gb  floorf.o [16]
+frexp                   0x8000'b99d          Code  Gb  frexp.o [16]
+frexpl                  0x8000'b99d          Code  Gb  frexp.o [16]
+fuzzify                 0x8000'55e5    0x6e  Code  Lc  Fuzzy_Pid.o [3]
+fuzzy_adjust_gains      0x8000'5655    0xa2  Code  Lc  Fuzzy_Pid.o [3]
+g_boot_data             0x7000'1020    0x10  Data  Gb  fsl_flexspi_nor_boot.o [8]
+g_rtcXtalFreq           0x2000'0224     0x4  Data  Gb  fsl_clock.o [9]
+g_xtalFreq              0x2000'0220     0x4  Data  Gb  fsl_clock.o [9]
+get_inner_pid           0x8000'6425    0x36  Code  Lc  PID.o [3]
+gnss_flag               0x2000'82b4     0x1  Data  Gb  zf_device_gnss.o [13]
+gnss_gga_state          0x2000'82b6     0x1  Data  Lc  zf_device_gnss.o [13]
+gnss_receiver_fifo      0x2000'80ac    0x18  Data  Lc  zf_device_gnss.o [13]
+gnss_rmc_state          0x2000'82b7     0x1  Data  Lc  zf_device_gnss.o [13]
+gnss_state              0x2000'82b5     0x1  Data  Lc  zf_device_gnss.o [13]
+gnss_ths_state          0x2000'82b8     0x1  Data  Lc  zf_device_gnss.o [13]
+gnss_uart_callback      0x8000'922d    0xe8  Code  Gb  zf_device_gnss.o [13]
+gpio_init               0x8000'9ad5    0x6a  Code  Gb  zf_driver_gpio.o [14]
+gpio_iomuxc             0x8000'99b7    0xbe  Code  Gb  zf_driver_gpio.o [14]
+gpio_set_level          0x8000'9a75    0x42  Code  Gb  zf_driver_gpio.o [14]
+gpio_toggle_level       0x8000'9ab7    0x1e  Code  Gb  zf_driver_gpio.o [14]
+gps_gga_buffer          0x2000'80c4    0x80  Data  Lc  zf_device_gnss.o [13]
+gps_rmc_buffer          0x2000'8144    0x80  Data  Lc  zf_device_gnss.o [13]
+gps_ths_buffer          0x2000'81c4    0x80  Data  Lc  zf_device_gnss.o [13]
+image_vector_table      0x7000'1000    0x20  Data  Gb  fsl_flexspi_nor_boot.o [8]
+interrupt_enable        0x8000'9201     0xe  Code  Gb  zf_common_interrupt.o [11]
+interrupt_global_disable
+                        0x8000'91d5    0x10  Code  Gb  zf_common_interrupt.o [11]
+interrupt_init          0x8000'9223     0xa  Code  Gb  zf_common_interrupt.o [11]
+interrupt_nest_count    0x2000'80a8     0x4  Data  Lc  zf_common_interrupt.o [11]
+interrupt_set_priority  0x8000'920f    0x14  Code  Gb  zf_common_interrupt.o [11]
+ldexp                   0x8000'ba39          Code  Gb  ldexp.o [16]
+ldexpl                  0x8000'ba39          Code  Gb  ldexp.o [16]
+lnbias                  0x8000'0400   0x420  Data  Lc  pow64.o [16]
+localeconv              0x8000'bba1     0x4  Code  Gb  xlocale_c.o [15]
+m_boot_hdr_conf_start {Abs}
+                        0x7000'0000          Data  Gb  <internal module>
+main                    0x8000'6219    0x44  Code  Gb  main.o [10]
+memchr                  0x8000'bba9          Code  Gb  memchr.o [17]
+modf                    0x8000'b06d          Code  Gb  modf.o [16]
+modfl                   0x8000'b06d          Code  Gb  modf.o [16]
+obuf                    0x2000'8254    0x50  Data  Lc  xfiles.o [15]
+pd_L1                   0x2000'03dc    0x28  Data  Gb  Fuzzy_Pid.o [3]
+pd_L2                   0x2000'0404    0x28  Data  Gb  Fuzzy_Pid.o [3]
+pd_R1                   0x2000'042c    0x28  Data  Gb  Fuzzy_Pid.o [3]
+pd_R2                   0x2000'0454    0x28  Data  Gb  Fuzzy_Pid.o [3]
+pd_ctrl_init            0x8000'596d    0x40  Code  Lc  Fuzzy_Pid.o [3]
+pd_step                 0x8000'5705   0x268  Code  Lc  Fuzzy_Pid.o [3]
+pit_init                0x8000'9c73    0x68  Code  Gb  zf_driver_pit.o [14]
+pit_init::init_flag     0x2000'82b9     0x1  Data  Lc  zf_driver_pit.o [14]
+pow                     0x8000'b10d   0x4c0  Code  Gb  pow64.o [16]
+powl                    0x8000'b10d   0x4c0  Code  Gb  pow64.o [16]
+printf                  0x8000'abed    0x28  Code  Gb  printf.o [15]
+prvAddCurrentTaskToDelayedList
+                        0x8000'7a19    0xae  Code  Lc  tasks.o [7]
+prvAddNewTaskToReadyList
+                        0x8000'7041    0xc0  Code  Lc  tasks.o [7]
+prvCheckForValidListAndQueue
+                        0x8000'7e13    0x46  Code  Lc  timers.o [7]
+prvCheckTasksWaitingTermination
+                        0x8000'7927    0x3e  Code  Lc  tasks.o [7]
+prvCopyDataFromQueue    0x8000'6bf5    0x36  Code  Lc  queue.o [7]
+prvCreateIdleTasks      0x8000'7223    0x58  Code  Lc  tasks.o [7]
+prvCreateTask           0x8000'6eb5    0x72  Code  Lc  tasks.o [7]
+prvDeleteTCB            0x8000'7975    0x12  Code  Lc  tasks.o [7]
+prvGetNextExpireTime    0x8000'7c27    0x28  Code  Lc  timers.o [7]
+prvHeapInit             0x8000'5ec3    0x5c  Code  Lc  heap_4.o [7]
+prvIdleTask             0x8000'78a9    0x24  Code  Lc  tasks.o [7]
+prvInitialiseNewQueue   0x8000'6a4f    0x36  Code  Lc  queue.o [7]
+prvInitialiseNewTask    0x8000'6f61    0xe0  Code  Lc  tasks.o [7]
+prvInitialiseTaskLists  0x8000'78d1    0x56  Code  Lc  tasks.o [7]
+prvInsertBlockIntoFreeList
+                        0x8000'5f1f    0x90  Code  Lc  heap_4.o [7]
+prvInsertTimerInActiveList
+                        0x8000'7c75    0x50  Code  Lc  timers.o [7]
+prvIsQueueEmpty         0x8000'6c99    0x1c  Code  Lc  queue.o [7]
+prvProcessExpiredTimer  0x8000'7b57    0x3e  Code  Lc  timers.o [7]
+prvProcessReceivedCommands
+                        0x8000'7cc5   0x122  Code  Lc  timers.o [7]
+prvProcessTimerOrBlockTask
+                        0x8000'7bb3    0x74  Code  Lc  timers.o [7]
+prvReloadTimer          0x8000'7b2f    0x28  Code  Lc  timers.o [7]
+prvResetNextTaskUnblockTime
+                        0x8000'7987    0x26  Code  Lc  tasks.o [7]
+prvSampleTimeNow        0x8000'7c4f    0x26  Code  Lc  timers.o [7]
+prvSampleTimeNow::xLastTime
+                        0x2000'7f1c     0x4  Data  Lc  timers.o [7]
+prvSwitchTimerLists     0x8000'7de7    0x2c  Code  Lc  timers.o [7]
+prvTaskExitError        0x8000'66c5    0x2a  Code  Lc  port.o [7]
+prvTimerTask            0x8000'7b99    0x1a  Code  Lc  timers.o [7]
+prvUnlockQueue          0x8000'6c2b    0x6e  Code  Lc  queue.o [7]
+putchar                 0x8000'bb5d    0x44  Code  Gb  putchar.o [15]
+pvPortMalloc            0x8000'5c55   0x1cc  Code  Gb  heap_4.o [7]
+pwm_init                0x8000'a29d   0x222  Code  Gb  zf_driver_pwm.o [14]
+pwm_iomuxc              0x8000'9d41   0x49a  Code  Gb  zf_driver_pwm.o [14]
+pwm_set_duty            0x8000'a1db    0xc2  Code  Gb  zf_driver_pwm.o [14]
+pxCurrentTCB            0x2000'7cdc     0x4  Data  Gb  tasks.o [7]
+pxCurrentTimerList      0x2000'7f0c     0x4  Data  Lc  timers.o [7]
+pxDelayedTaskList       0x2000'7e70     0x4  Data  Lc  tasks.o [7]
+pxEnd                   0x2000'7c84     0x4  Data  Lc  heap_4.o [7]
+pxOverflowDelayedTaskList
+                        0x2000'7e74     0x4  Data  Lc  tasks.o [7]
+pxOverflowTimerList     0x2000'7f10     0x4  Data  Lc  timers.o [7]
+pxPortInitialiseStack   0x8000'669d    0x28  Code  Gb  port.o [7]
+pxReadyTasksLists       0x2000'7ce0   0x168  Data  Lc  tasks.o [7]
+qspiflash_config        0x7000'0000   0x200  Data  Gb  evkmimxrt1064_flexspi_nor_config.o [8]
+qtimer_index            0x2000'01a0    0x14  Data  Gb  zf_driver_encoder.o [14]
+qtimer_iomuxc           0x8000'93a9   0x354  Code  Gb  zf_driver_encoder.o [14]
+reset_inner_pid         0x8000'645b    0x1e  Code  Lc  PID.o [3]
+s_EDMAHandle            0x2000'0244    0x80  Data  Lc  fsl_edma.o [9]
+s_ENETHandle            0x2000'02c4     0x8  Data  Lc  fsl_enet.o [9]
+s_cdcVcom               0x2000'8244    0x10  Data  Gb  zf_driver_usb_cdc.o [14]
+s_csiHandle             0x2000'0228     0x4  Data  Lc  fsl_csi.o [9]
+s_csiIsr                0x2000'022c     0x4  Data  Lc  fsl_csi.o [9]
+s_debugConsole          0x2000'0230    0x14  Data  Lc  fsl_debug_console.o [8]
+s_enet1588TimerIsr      0x2000'02ec     0x8  Data  Lc  fsl_enet.o [9]
+s_enetBases             0x8000'0a0c     0x8  Data  Lc  fsl_enet.o [9]
+s_enetErrIsr            0x2000'02dc     0x8  Data  Lc  fsl_enet.o [9]
+s_enetRxIsr             0x2000'02d4     0x8  Data  Lc  fsl_enet.o [9]
+s_enetTsIsr             0x2000'02e4     0x8  Data  Lc  fsl_enet.o [9]
+s_enetTxIsr             0x2000'02cc     0x8  Data  Lc  fsl_enet.o [9]
+s_flexcanHandle         0x2000'02f4    0x10  Data  Lc  fsl_flexcan.o [9]
+s_flexcanIsr            0x2000'0304     0x4  Data  Lc  fsl_flexcan.o [9]
+s_flexioHandle          0x2000'0308     0x8  Data  Lc  fsl_flexio.o [9]
+s_flexioIsr             0x2000'0318     0x8  Data  Lc  fsl_flexio.o [9]
+s_flexioType            0x2000'0310     0x8  Data  Lc  fsl_flexio.o [9]
+s_gpioBases             0x8000'0b50    0x2c  Data  Lc  fsl_gpio.o [9]
+s_gpioClock             0x8000'0b7c     0xc  Data  Lc  fsl_gpio.o [9]
+s_gptBases              0x8000'0ca0     0xc  Data  Lc  fsl_gpt.o [9]
+s_gptClocks             0x8000'0cac     0x8  Data  Lc  fsl_gpt.o [9]
+s_lpi2cMasterHandle     0x2000'0324    0x14  Data  Gb  fsl_lpi2c.o [9]
+s_lpi2cMasterIsr        0x2000'0320     0x4  Data  Gb  fsl_lpi2c.o [9]
+s_lpi2cSlaveHandle      0x2000'033c    0x14  Data  Lc  fsl_lpi2c.o [9]
+s_lpi2cSlaveIsr         0x2000'0338     0x4  Data  Lc  fsl_lpi2c.o [9]
+s_lpspiHandle           0x2000'0350    0x14  Data  Lc  fsl_lpspi.o [9]
+s_lpspiMasterIsr        0x2000'0364     0x4  Data  Lc  fsl_lpspi.o [9]
+s_lpspiSlaveIsr         0x2000'0368     0x4  Data  Lc  fsl_lpspi.o [9]
+s_lpuartBases           0x8000'0e84    0x24  Data  Lc  fsl_lpuart.o [9]
+s_lpuartClock           0x8000'0ea8    0x14  Data  Lc  fsl_lpuart.o [9]
+s_lpuartHandle          0x2000'036c    0x24  Data  Gb  fsl_lpuart.o [9]
+s_lpuartIsr             0x2000'0390     0x4  Data  Gb  fsl_lpuart.o [9]
+s_pitBases              0x8000'0f78     0x4  Data  Lc  fsl_pit.o [9]
+s_pitClocks             0x8000'cc40     0x2  Data  Lc  fsl_pit.o [9]
+s_pwmBases              0x8000'1080    0x14  Data  Lc  fsl_pwm.o [9]
+s_pwmClocks             0x8000'1094    0x28  Data  Lc  fsl_pwm.o [9]
+s_qtmrBases             0x8000'117c    0x14  Data  Lc  fsl_qtmr.o [9]
+s_qtmrClocks            0x8000'1190     0xc  Data  Lc  fsl_qtmr.o [9]
+s_saiHandle             0x2000'0394    0x20  Data  Lc  fsl_sai.o [9]
+s_saiRxIsr              0x2000'03b8     0x4  Data  Lc  fsl_sai.o [9]
+s_saiTxIsr              0x2000'03b4     0x4  Data  Lc  fsl_sai.o [9]
+s_spdifHandle           0x2000'03bc     0x8  Data  Lc  fsl_spdif.o [9]
+s_spdifRxIsr            0x2000'03c8     0x4  Data  Lc  fsl_spdif.o [9]
+s_spdifTxIsr            0x2000'03c4     0x4  Data  Lc  fsl_spdif.o [9]
+s_usdhcBase             0x8000'11fc     0xc  Data  Lc  fsl_usdhc.o [9]
+s_usdhcHandle           0x2000'03cc     0xc  Data  Lc  fsl_usdhc.o [9]
+s_usdhcIsr              0x2000'03d8     0x4  Data  Lc  fsl_usdhc.o [9]
+scalbln                 0x8000'ba39          Code  Gb  ldexp.o [16]
+scalblnl                0x8000'ba39          Code  Gb  ldexp.o [16]
+scalbn                  0x8000'ba39          Code  Gb  ldexp.o [16]
+scalbnl                 0x8000'ba39          Code  Gb  ldexp.o [16]
+scale                   0x8000'ca11    0x46  Code  Lc  xprintffull_nomb.o [15]
+sec_hand                0x2000'82a4     0x4  Data  Lc  xfail_s.o [15]
+sprintf                 0x8000'b699    0x40  Code  Gb  sprintf.o [15]
+strchr                  0x8000'ad25          Code  Gb  strchr.o [17]
+strlen                  0x8000'b61d          Code  Gb  strlen.o [17]
+strncmp                 0x8000'cf7d    0x2a  Code  Gb  strncmp.o [15]
+system_clock            0x2000'01d4     0x4  Data  Gb  zf_common_clock.o [11]
+system_delay_init       0x8000'9349    0x2c  Code  Gb  zf_driver_delay.o [14]
+tof_module_exti_handler
+                        0x2000'01e8     0x4  Data  Gb  zf_device_type.o [13]
+type_default_callback   0x8000'9345     0x2  Code  Gb  zf_device_type.o [13]
+uart4_fifo              0x2000'8024    0x18  Data  Gb  UART.o [3]
+uart4_rx_buffer         0x2000'7f20    0x80  Data  Gb  UART.o [3]
+uart4_rx_interrupt_handler
+                        0x8000'7eaf    0x26  Code  Gb  UART.o [3]
+uart_echo_data          0x8000'7ed5    0x2e  Code  Gb  UART.o [3]
+uart_index              0x2000'017c    0x24  Data  Lc  zf_driver_uart.o [14]
+uart_init               0x8000'aa67    0x8e  Code  Gb  zf_driver_uart.o [14]
+uart_iomuxc             0x8000'a637   0x34a  Code  Gb  zf_driver_uart.o [14]
+uart_query_byte         0x8000'a9f5    0x34  Code  Gb  zf_driver_uart.o [14]
+uart_rx_interrupt       0x8000'aa29    0x3e  Code  Gb  zf_driver_uart.o [14]
+uart_write_buffer       0x8000'a9a9    0x2a  Code  Gb  zf_driver_uart.o [14]
+uart_write_byte         0x8000'a981    0x28  Code  Gb  zf_driver_uart.o [14]
+uart_write_string       0x8000'a9d3    0x22  Code  Gb  zf_driver_uart.o [14]
+ucHeap                  0x2000'047c  0x7800  Data  Lc  heap_4.o [7]
+ucMaxSysCallPriority    0x2000'82b0     0x1  Data  Lc  port.o [7]
+ulMaxPRIGROUPValue      0x2000'7c98     0x4  Data  Lc  port.o [7]
+uxCriticalNesting       0x2000'01c8     0x4  Data  Lc  port.o [7]
+uxCurrentNumberOfTasks  0x2000'7eb8     0x4  Data  Lc  tasks.o [7]
+uxDeletedTasksWaitingCleanUp
+                        0x2000'7ea0     0x4  Data  Lc  tasks.o [7]
+uxListRemove            0x8000'ccb7    0x28  Code  Gb  list.o [7]
+uxSchedulerSuspended    0x2000'7ee0     0x4  Data  Lc  tasks.o [7]
+uxTaskNumber            0x2000'7ed4     0x4  Data  Lc  tasks.o [7]
+uxTopReadyPriority      0x2000'7ec0     0x4  Data  Lc  tasks.o [7]
+uxTopUsedPriority       0x2000'01d0     0x4  Data  Lc  tasks.o [7]
+vListInitialise         0x8000'cc45    0x1e  Code  Gb  list.o [7]
+vListInitialiseItem     0x8000'cc63     0x6  Code  Gb  list.o [7]
+vListInsert             0x8000'cc81    0x36  Code  Gb  list.o [7]
+vListInsertEnd          0x8000'cc69    0x18  Code  Gb  list.o [7]
+vPortEnableVFP          0x8000'cc25          Code  Gb  portasm.o [7]
+vPortEnterCritical      0x8000'6829    0x34  Code  Gb  port.o [7]
+vPortExitCritical       0x8000'685d    0x2c  Code  Gb  port.o [7]
+vPortFree               0x8000'5e21    0xa2  Code  Gb  heap_4.o [7]
+vPortSetupTimerInterrupt
+                        0x8000'68e9    0x34  Code  Wk  port.o [7]
+vPortStartFirstTask     0x8000'cc05          Code  Gb  portasm.o [7]
+vQueueAddToRegistry     0x8000'6cb5    0x5a  Code  Gb  queue.o [7]
+vQueueWaitForMessageRestricted
+                        0x8000'6d15    0x4c  Code  Gb  queue.o [7]
+vTaskDelay              0x8000'71d5    0x4e  Code  Gb  tasks.o [7]
+vTaskDelete             0x8000'7101    0xd4  Code  Gb  tasks.o [7]
+vTaskInternalSetTimeOutState
+                        0x8000'7801    0x10  Code  Gb  tasks.o [7]
+vTaskMissedYield        0x8000'78a1     0x8  Code  Gb  tasks.o [7]
+vTaskPlaceOnEventList   0x8000'766d    0x34  Code  Gb  tasks.o [7]
+vTaskPlaceOnEventListRestricted
+                        0x8000'76b1    0x58  Code  Gb  tasks.o [7]
+vTaskStartScheduler     0x8000'727b    0x64  Code  Gb  tasks.o [7]
+vTaskSuspendAll         0x8000'72df     0xa  Code  Gb  tasks.o [7]
+vTaskSwitchContext      0x8000'75f9    0x74  Code  Gb  tasks.o [7]
+wireless_module_spi_handler
+                        0x2000'01e4     0x4  Data  Gb  zf_device_type.o [13]
+wireless_module_uart_handler
+                        0x2000'01e0     0x4  Data  Gb  zf_device_type.o [13]
+xActiveTimerList1       0x2000'7ee4    0x14  Data  Lc  timers.o [7]
+xActiveTimerList2       0x2000'7ef8    0x14  Data  Lc  timers.o [7]
+xDelayedTaskList1       0x2000'7e48    0x14  Data  Lc  tasks.o [7]
+xDelayedTaskList2       0x2000'7e5c    0x14  Data  Lc  tasks.o [7]
+xFreeBytesRemaining     0x2000'7c88     0x4  Data  Lc  heap_4.o [7]
+xHeapStructSize         0x8000'1278     0x4  Data  Lc  heap_4.o [7]
+xIdleTaskHandles        0x2000'7edc     0x4  Data  Lc  tasks.o [7]
+xMinimumEverFreeBytesRemaining
+                        0x2000'7c8c     0x4  Data  Lc  heap_4.o [7]
+xNextTaskUnblockTime    0x2000'7ed8     0x4  Data  Lc  tasks.o [7]
+xNumOfOverflows         0x2000'7ed0     0x4  Data  Lc  tasks.o [7]
+xNumberOfSuccessfulAllocations
+                        0x2000'7c90     0x4  Data  Lc  heap_4.o [7]
+xNumberOfSuccessfulFrees
+                        0x2000'7c94     0x4  Data  Lc  heap_4.o [7]
+xPendedTicks            0x2000'7ec8     0x4  Data  Lc  tasks.o [7]
+xPendingReadyList       0x2000'7e78    0x14  Data  Lc  tasks.o [7]
+xPortStartScheduler     0x8000'66ef   0x13a  Code  Gb  port.o [7]
+xQueueGenericCreate     0x8000'69e7    0x68  Code  Gb  queue.o [7]
+xQueueGenericReset      0x8000'691d    0xca  Code  Gb  queue.o [7]
+xQueueReceive           0x8000'6a85   0x16a  Code  Gb  queue.o [7]
+xQueueRegistry          0x2000'7c9c    0x40  Data  Gb  queue.o [7]
+xSchedulerRunning       0x2000'7ec4     0x4  Data  Lc  tasks.o [7]
+xStart                  0x2000'7c7c     0x8  Data  Lc  heap_4.o [7]
+xSuspendedTaskList      0x2000'7ea4    0x14  Data  Lc  tasks.o [7]
+xTaskCheckForTimeOut    0x8000'7811    0x90  Code  Gb  tasks.o [7]
+xTaskCreate             0x8000'6f27    0x3a  Code  Gb  tasks.o [7]
+xTaskGetSchedulerState  0x8000'79b1    0x20  Code  Gb  tasks.o [7]
+xTaskGetTickCount       0x8000'743b     0x8  Code  Gb  tasks.o [7]
+xTaskIncrementTick      0x8000'7469   0x18a  Code  Gb  tasks.o [7]
+xTaskRemoveFromEventList
+                        0x8000'7709    0xf8  Code  Gb  tasks.o [7]
+xTaskResumeAll          0x8000'72e9   0x152  Code  Gb  tasks.o [7]
+xTasksWaitingTermination
+                        0x2000'7e8c    0x14  Data  Lc  tasks.o [7]
+xTickCount              0x2000'7ebc     0x4  Data  Lc  tasks.o [7]
+xTimerCreateTimerTask   0x8000'7ae9    0x46  Code  Gb  timers.o [7]
+xTimerQueue             0x2000'7f14     0x4  Data  Lc  timers.o [7]
+xTimerTaskHandle        0x2000'7f18     0x4  Data  Lc  timers.o [7]
+xYieldPendings          0x2000'7ecc     0x4  Data  Lc  tasks.o [7]
+zf_debug_assert_enable  0x2000'01ec     0x1  Data  Lc  zf_common_debug.o [11]
+zf_debug_init_flag      0x2000'82b2     0x1  Data  Lc  zf_common_debug.o [11]
+
+
+[1] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\Algorithm_Processor_17032776928287402054.dir
+[2] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\application_7220717732061272824.dir
+[3] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\code_17896468042025673432.dir
+[4] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\components_fatfs_6246014242642884545.dir
+[5] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\components_sdmmc_11335736203712880765.dir
+[6] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\components_usb_17375887477349322284.dir
+[7] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\freertos_9138337699230013375.dir
+[8] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_device_3373403627085545761.dir
+[9] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\sdk_drivers_13454894214809048885.dir
+[10] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\user_c_11930989646151335152.dir
+[11] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_common_1201165462030747823.dir
+[12] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_components_14936052685886095442.dir
+[13] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_device_6570275422786408770.dir
+[14] = D:\RT1604project\Crazy-Car-hardware - 副本\iar\program\nor_sdram_zf_dtcm\Obj\zf_driver_11922370083829174090.dir
+[15] = dl7M_tlf.a
+[16] = m7M_tlv.a
+[17] = rt7M_tl.a
+[18] = shb_l.a
+[19] = zf_device_config.a
+
+   1'210 bytes of readonly  code memory
+  48'136 bytes of readwrite code memory
+  38'701 bytes of readonly  data memory
+  41'688 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
