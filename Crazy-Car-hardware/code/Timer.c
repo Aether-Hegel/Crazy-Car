@@ -1,0 +1,27 @@
+#include "Timer.h"
+#include "Speed_PID.h"
+#include "Encoder.h"
+#include "PID.h"
+
+extern Speed_PID Speed_PID_L1;
+extern Speed_PID Speed_PID_R1;
+
+void Timer2_Init(void)
+{
+    pit_ms_init(PIT_CH0, 50); // 设置PIT通道0为50ms周期
+    interrupt_enable(PIT_IRQn);
+    interrupt_set_priority(PIT_IRQn, 2);
+}
+
+/**
+ * @brief Timer2中断处理函数(50ms周期)
+ * @details 在此函数中调用编码器计数值以实现周期性的PID控制和编码器数据更新
+ * @return void
+ */
+void Timer2_IRQHandler(void)
+{
+    
+    Encoder_Speed_PID_Update(); // 更新编码器计数值
+
+    
+}
